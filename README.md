@@ -9,32 +9,26 @@ Each generated recordset has column properties that belong to the resultset of a
 
 A recordset can retrieve and update a database via a built in Web API. It can also connect to a database directly.
 
-# Blazor WebAssembly
-
+## Blazor WebAssembly
 VenturaSQL is perfect for **Blazor WebAssembly**. The recordsets in the browser have built in change tracking and only modified data is transmitted back to the server via Web API. 
 
-# Web API
+For the Blazor WebAssembly developer, it feels just like you connect to the database directly.
 
-Only one single Web API controller with one POST method is needed.
+## Web API
+A single Web API controller with a POST method needs to be added to the ASP.NET Core project.
 
 ```csharp
     public class VenturaSqlController : ControllerBase
     {
         [Route("api/venturasql")]
         [HttpPost]
-        public async Task<IActionResult> Index([FromBody] byte[] requestData) // HttpRequestMessage request
+        public async Task<IActionResult> Index([FromBody] byte[] requestData)
         {
-
             var processor = new VenturaSqlServerEngine();
-
             processor.CallBacks.LookupAdoConnector = LookupAdoConnector;
-
             await processor.ExecAsync(requestData);
-
             Response.ContentType = "application/octet-stream";
-
             await Response.Body.WriteAsync(processor.ResponseBuffer, 0, processor.ResponseLength);
-
             return Ok();
         }
 
@@ -44,10 +38,7 @@ Only one single Web API controller with one POST method is needed.
         }
 ```
 
-For the Blazor WebAssembly developer, it feels just like you connect to the database directly.
-
-VenturaSQL is lightweight, does not use reflection and is very fast.
-
+## The VenturaSQL system
 VenturaSQL has three parts:
 
 + The small NuGet package [VenturaSQL.NETStandard](https://www.nuget.org/packages/VenturaSQL.NETStandard) for the runtime
@@ -56,10 +47,12 @@ VenturaSQL has three parts:
 
 The runtime DLL is 95KB, and the middle-tier DLL id 13KB.
 
-For each SQL statement (or script) your enter in VenturaSQL Studio a recordset class is generated.
+VenturaSQL is lightweight, does not use reflection and is very fast.
 
-Install VenturaSQL Studio by downloading the the installer. The installer comes with ready to run sample projects.
+## Installer
+Install VenturaSQL Studio by downloading the the installer. The installer comes with ready to run sample projects. The installer will be available early May.
 
+# Documentation
 Online documentation: https://docs.sysdev.nl
 
-The installer will be available early May. The online documentation is for version 3, and needs updating to version 4.
+The online documentation is for version 3, and needs updating to version 4. That will be done in May.
