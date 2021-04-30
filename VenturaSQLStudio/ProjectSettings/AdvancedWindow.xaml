@@ -1,0 +1,306 @@
+﻿<Window
+    x:Class="VenturaSQLStudio.Pages.AdvancedWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:VenturaSQLStudio.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ventura="clr-namespace:VenturaSQLStudio"
+    Title="Advanced Provider Settings"
+    MinWidth="250"
+    MinHeight="250"
+    d:DataContext="{d:DesignInstance local:AdvancedWindow}"
+    ventura:ExtraWindowStyles.CanMaximize="false"
+    ventura:ExtraWindowStyles.CanMinimize="false"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    ResizeMode="CanResizeWithGrip"
+    ShowInTaskbar="False"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
+
+    <Grid>
+        <DockPanel Margin="20,20,20,20" LastChildFill="True">
+            <WrapPanel
+                Name="panelWrap"
+                Margin="0,0,0,20"
+                DockPanel.Dock="Top">
+                <WrapPanel.Resources>
+                    <Style BasedOn="{StaticResource WrapPanelButton}" TargetType="{x:Type Button}" />
+                </WrapPanel.Resources>
+                <Button
+                    Name="btnWelcome"
+                    Click="btnWelcome_Click"
+                    Content="Welcome" />
+                <Button
+                    Name="btnQualify"
+                    Click="btnQualify_Click"
+                    Content="Qualify Table Name" />
+                <Button
+                    Name="btnTableList"
+                    Click="btnTableList_Click"
+                    Content="List All Tables" />
+            </WrapPanel>
+            <StackPanel
+                Height="28"
+                Margin="0,20,0,0"
+                DockPanel.Dock="Bottom"
+                Orientation="Horizontal">
+                <Button
+                    Width="100"
+                    Padding="5"
+                    IsCancel="True">
+                    Close
+                </Button>
+                <Button
+                    Name="btnDefault"
+                    Width="80"
+                    Margin="10,0,0,0"
+                    Padding="5"
+                    Click="btnDefault_Click">
+                    Default
+                </Button>
+            </StackPanel>
+            <Grid>
+                <Grid Name="sectionWelcome" Visibility="Collapsed">
+                    <StackPanel VerticalAlignment="Center">
+                        <Image
+                            Width="32"
+                            Height="32"
+                            Margin="0,0,0,20"
+                            Source="/VenturaSQLStudio;component/Assets/Settings_256x.png" />
+
+                        <TextBlock
+                            FontSize="16"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap">
+                            Advanced Provider Settings normally don't need to be modified.<LineBreak /><LineBreak />
+                            When the [Collect] button in the Recordset definition page fails,<LineBreak />
+                            or when the table list in [Auto Create Recordsets] remains empty,<LineBreak />
+                            changing these settings is likely to solve the problem.<LineBreak /><LineBreak />
+                            This happens with some third-party ADO.NET providers.<LineBreak />
+                            <LineBreak />
+                            Advanced settings are stored in the project file.</TextBlock>
+                    </StackPanel>
+                </Grid>
+                <Grid Name="sectionQualifyTableName" Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="160" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock TextWrapping="Wrap">
+                            VenturaSQL generates the SQL statements SELECT, UPDATE, INSERT and DELETE for manipulating a database.
+                            In these statements, a table source needs to be specified.
+                        </TextBlock>
+                        <TextBlock Margin="0,5,0,0" TextWrapping="Wrap">
+                            In its simplest form only the name of the table is specified. In the most extended form,
+                            the fully qualified table name includes server, catalog, schema and table name.
+                            For example:
+                        </TextBlock>
+                        <TextBlock Margin="0,8,0,0" TextWrapping="Wrap">
+                            SELECT * FROM [Server].[CataLog].[Schema].[Table]
+                        </TextBlock>
+                        <TextBlock
+                            Margin="0,15,0,8"
+                            FontSize="13"
+                            FontWeight="Bold"
+                            TextWrapping="Wrap">
+                            What to include in the table name?
+                        </TextBlock>
+                        <CheckBox FontSize="13" IsChecked="{Binding ViewModel.IncludeServerName}">Include server if available. Normally this left unchecked.</CheckBox>
+                        <CheckBox
+                            Margin="0,7,0,0"
+                            FontSize="13"
+                            IsChecked="{Binding ViewModel.IncludeCatalogName}">
+                            Include catalog if available. Normally this left unchecked.
+                        </CheckBox>
+                        <CheckBox
+                            Margin="0,7,0,0"
+                            FontSize="13"
+                            IsChecked="{Binding ViewModel.IncludeSchemaName}">
+                            Include schema if available. Normally this checked.
+                        </CheckBox>
+                        <!--<CheckBox Margin="0,20,0,0" FontSize="13" IsChecked="{Binding ViewModel.AlwaysSquareBrackets}">Always enclose names in square brackets. Normally left unchecked.</CheckBox>-->
+                        <!--<TextBlock FontSize="10" Margin="20,0,0,0">
+                        (When unchecked, square brackets will still be used if the identifier contains spaces)
+                        </TextBlock>-->
+                        <TextBlock
+                            Margin="20,20,0,0"
+                            FontSize="14"
+                            Foreground="#FF0173C7"
+                            TextWrapping="Wrap">
+                            SELECT * FROM<Run FontWeight="Bold" Text="{Binding ViewModel.SampleFullyQualifiedTableName, Mode=OneWay}" />
+                        </TextBlock>
+
+                    </StackPanel>
+                    <Grid Grid.Column="1" Background="#FF0173C7">
+                        <StackPanel Width="100" VerticalAlignment="Center">
+                            <TextBlock
+                                Foreground="White"
+                                TextAlignment="Center"
+                                TextWrapping="Wrap">
+                                Understanding catalog and schema:
+                            </TextBlock>
+                            <Border
+                                Margin="0,20,0,0"
+                                BorderBrush="Black"
+                                BorderThickness="1.2">
+                                <Image Source="/VenturaSQLStudio;component/Assets/catalog_explained.png" Stretch="Uniform" />
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+                <Grid Name="sectionListAllTables" Visibility="Visible">
+                    <DockPanel LastChildFill="True">
+                        <StackPanel Margin="0,0,0,0" DockPanel.Dock="Top">
+                            <TextBlock TextWrapping="Wrap">
+                                When &quot;Auto Create Recordsets&quot; retrieves a list of all tables present in a database
+                                it calls ADO.NET's DbConnection.GetSchema(&quot;Tables&quot;) method.
+                            </TextBlock>
+                            <TextBlock Margin="0,8,0,0" TextWrapping="Wrap">
+                                If table names cannot be found, you will be asked to change the
+                                mappings in this dialog. Also when you notice the catalog or schema name
+                                is missing in the generated Recordsets, you need to check the mappings.
+                            </TextBlock>
+                            <TextBlock Margin="0,8,0,0" TextWrapping="Wrap">
+                                Only map a column name when there is a match is in the raw data table, otherwise select &quot;(map automatically)&quot;.
+                            </TextBlock>
+                            <Grid Margin="0,20,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="9.167" />
+                                    <ColumnDefinition Width="122.167" />
+                                    <ColumnDefinition Width="200" />
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="200" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="28" />
+                                    <RowDefinition Height="28" />
+                                    <RowDefinition Height="28" />
+                                </Grid.RowDefinitions>
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3"
+                                    Margin="0,6,200.667,6"
+                                    VerticalAlignment="Center">
+                                    Table Name:
+                                </TextBlock>
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3"
+                                    Margin="0,6,200.667,6"
+                                    VerticalAlignment="Center">
+                                    Schema Name:
+                                </TextBlock>
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3"
+                                    Margin="0,6,200.667,6"
+                                    VerticalAlignment="Center">
+                                    Catalog Name:
+                                </TextBlock>
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="4"
+                                    Grid.ColumnSpan="2"
+                                    Margin="-0.001,6,200.667,6"
+                                    VerticalAlignment="Center">
+                                    Server Name:
+                                </TextBlock>
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="4"
+                                    Grid.ColumnSpan="2"
+                                    Margin="-0.001,6,200.667,6"
+                                    VerticalAlignment="Center">
+                                    Table Type:
+                                </TextBlock>
+                                <ComboBox
+                                    Name="cbTable"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="3"
+                                    Height="22"
+                                    Margin="121.833,3,21.001,3"
+                                    DisplayMemberPath="Display"
+                                    ItemsSource="{Binding ColumnList, Mode=OneWay}"
+                                    SelectedValue="{Binding ViewModel.ColumnTable}"
+                                    SelectedValuePath="Data" />
+                                <ComboBox
+                                    Name="cbSchema"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="3"
+                                    Height="22"
+                                    Margin="121.833,3,21.001,3"
+                                    DisplayMemberPath="Display"
+                                    ItemsSource="{Binding ColumnList, Mode=OneWay}"
+                                    SelectedValue="{Binding ViewModel.ColumnSchema}"
+                                    SelectedValuePath="Data" />
+                                <ComboBox
+                                    Name="cbCatalog"
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="3"
+                                    Height="22"
+                                    Margin="121.833,3,21.001,3"
+                                    DisplayMemberPath="Display"
+                                    ItemsSource="{Binding ColumnList, Mode=OneWay}"
+                                    SelectedValue="{Binding ViewModel.ColumnCatalog}"
+                                    SelectedValuePath="Data" />
+                                <ComboBox
+                                    Name="cbServer"
+                                    Grid.Row="0"
+                                    Grid.Column="4"
+                                    Grid.ColumnSpan="2"
+                                    Height="22"
+                                    Margin="150.999,3,-0.333,3"
+                                    DisplayMemberPath="Display"
+                                    ItemsSource="{Binding ColumnList, Mode=OneWay}"
+                                    SelectedValue="{Binding ViewModel.ColumnServer}"
+                                    SelectedValuePath="Data" />
+                                <ComboBox
+                                    Name="cbType"
+                                    Grid.Row="1"
+                                    Grid.Column="4"
+                                    Grid.ColumnSpan="2"
+                                    Height="22"
+                                    Margin="150.999,3,-0.333,3"
+                                    DisplayMemberPath="Display"
+                                    ItemsSource="{Binding ColumnList, Mode=OneWay}"
+                                    SelectedValue="{Binding ViewModel.ColumnType}"
+                                    SelectedValuePath="Data" />
+                            </Grid>
+                            <TextBlock Margin="0,20,0,0">The raw data as returned by DbConnection.GetSchema(&quot;Tables&quot;). The header displays the column names available for mapping:</TextBlock>
+                        </StackPanel>
+                        <DataGrid
+                            Name="lvTables"
+                            HorizontalContentAlignment="Stretch"
+                            AutoGenerateColumns="True"
+                            AutoGeneratingColumn="lvTables_AutoGeneratingColumn"
+                            BorderBrush="#FF0173C7"
+                            BorderThickness="1"
+                            IsReadOnly="True"
+                            RowHeaderWidth="0"
+                            RowHeight="22">
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="Padding" Value="10,4" />
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow">
+                                    <Setter Property="IsHitTestVisible" Value="False" />
+                                </Style>
+                            </DataGrid.RowStyle>
+                        </DataGrid>
+                    </DockPanel>
+                </Grid>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>

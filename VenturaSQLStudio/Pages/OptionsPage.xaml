@@ -1,0 +1,32 @@
+﻿<UserControl
+    x:Class="VenturaSQLStudio.Pages.OptionsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:VenturaSQLStudio.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ventura="clr-namespace:VenturaSQLStudio"
+    d:DesignHeight="1300"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <Grid>
+
+        <ScrollViewer>
+            <StackPanel Name="Container" Margin="20,0,20,20">
+
+                <Label Content="General" Style="{StaticResource HeaderLabel}" />
+                <!--<CheckBox IsChecked="{Binding AutoLoadProject}" VerticalAlignment="Center" Margin="0,0,0,10">Automatically open most recent project afer starting VenturaSQL Studio</CheckBox>-->
+                <Button
+                    Name="buttonClearMRU"
+                    Click="buttonClearMRU_Click"
+                    Style="{StaticResource ZoomButton}">
+                    Clear Most Recently Used list (MRU) on start page
+                </Button>
+
+
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</UserControl>

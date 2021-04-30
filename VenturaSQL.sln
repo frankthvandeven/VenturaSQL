@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VenturaSQLStudio", "VenturaSQLStudio\VenturaSQLStudio.csproj", "{EF585213-E9D0-4E29-8252-8773B672DA98}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VenturaSQL.NETStandard", "VenturaSQL.NETStandard\VenturaSQL.NETStandard.csproj", "{A7134646-5852-4816-8344-9AF4432E59FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3DDA93E2-343C-496D-A50D-44B1907A5BC4}"
+	ProjectSection(SolutionItems) = preProject
+		VenturaSQLReadMe.txt = VenturaSQLReadMe.txt
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VenturaSQL.AspNetCore.Server", "VenturaSQL.AspNetCore.Server\VenturaSQL.AspNetCore.Server.csproj", "{770BE458-A916-4137-B81E-E75D5A4F5CEB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug .Net Native|Any CPU = Debug .Net Native|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Debug-native|Any CPU = Debug-native|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF585213-E9D0-4E29-8252-8773B672DA98}.Debug .Net Native|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF585213-E9D0-4E29-8252-8773B672DA98}.Debug .Net Native|Any CPU.Build.0 = Debug|Any CPU
+		{EF585213-E9D0-4E29-8252-8773B672DA98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF585213-E9D0-4E29-8252-8773B672DA98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF585213-E9D0-4E29-8252-8773B672DA98}.Debug-native|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF585213-E9D0-4E29-8252-8773B672DA98}.Debug-native|Any CPU.Build.0 = Debug|Any CPU
+		{EF585213-E9D0-4E29-8252-8773B672DA98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF585213-E9D0-4E29-8252-8773B672DA98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7134646-5852-4816-8344-9AF4432E59FB}.Debug .Net Native|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7134646-5852-4816-8344-9AF4432E59FB}.Debug .Net Native|Any CPU.Build.0 = Debug|Any CPU
+		{A7134646-5852-4816-8344-9AF4432E59FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7134646-5852-4816-8344-9AF4432E59FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7134646-5852-4816-8344-9AF4432E59FB}.Debug-native|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7134646-5852-4816-8344-9AF4432E59FB}.Debug-native|Any CPU.Build.0 = Debug|Any CPU
+		{A7134646-5852-4816-8344-9AF4432E59FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7134646-5852-4816-8344-9AF4432E59FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{770BE458-A916-4137-B81E-E75D5A4F5CEB}.Debug .Net Native|Any CPU.ActiveCfg = Debug|Any CPU
+		{770BE458-A916-4137-B81E-E75D5A4F5CEB}.Debug .Net Native|Any CPU.Build.0 = Debug|Any CPU
+		{770BE458-A916-4137-B81E-E75D5A4F5CEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{770BE458-A916-4137-B81E-E75D5A4F5CEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{770BE458-A916-4137-B81E-E75D5A4F5CEB}.Debug-native|Any CPU.ActiveCfg = Debug|Any CPU
+		{770BE458-A916-4137-B81E-E75D5A4F5CEB}.Debug-native|Any CPU.Build.0 = Debug|Any CPU
+		{770BE458-A916-4137-B81E-E75D5A4F5CEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{770BE458-A916-4137-B81E-E75D5A4F5CEB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED739548-352C-4B43-9D7E-91071AF7D773}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,58 @@
+﻿<UserControl
+    x:Class="VenturaSQLStudio.Pages.RecordsetPreviewPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:VenturaSQLStudio.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d">
+
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <WrapPanel Name="panelWrap" DockPanel.Dock="Top">
+                <WrapPanel.Resources>
+                    <Style BasedOn="{StaticResource WrapPanelButton}" TargetType="{x:Type Button}" />
+                </WrapPanel.Resources>
+                <Button
+                    Name="btnYesLocalSqlCode"
+                    Click="btnYesLocalSqlCode_Click"
+                    Content="Direct ADO connection" />
+                <Button
+                    Name="btnNoLocalSqlCode"
+                    Click="btnNoLocalSqlCode_Click"
+                    Content="Without direct ADO support" />
+            </WrapPanel>
+
+            <TextBlock
+                Name="textblockInfo"
+                MinHeight="40"
+                Padding="5,4"
+                Background="#FFFFF19D"
+                DockPanel.Dock="Top"
+                Foreground="Black"
+                TextWrapping="Wrap" />
+
+            <avalonEdit:TextEditor
+                xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                x:Name="AvalonEditControl"
+                Margin="0,0,0,0"
+                FontFamily="Consolas"
+                FontSize="10pt"
+                IsReadOnly="True"
+                LineNumbersForeground="#FF2B91AF"
+                ShowLineNumbers="True"
+                SyntaxHighlighting="C#">
+                <avalonEdit:TextEditor.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="Copy" />
+                    </ContextMenu>
+                </avalonEdit:TextEditor.ContextMenu>
+            </avalonEdit:TextEditor>
+        </DockPanel>
+
+    </Grid>
+
+</UserControl>

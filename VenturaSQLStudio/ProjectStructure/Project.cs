@@ -1,0 +1,308 @@
+﻿using System;
+using System.Text;
+using System.ComponentModel;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Linq;
+using System.Windows.Media;
+using System.IO;
+using VenturaSQL;
+
+namespace VenturaSQLStudio {
+    public class Project : ViewModelBase
+    {
+        private string _provider_invariant_name;
+        private string _connection_string;
+
+        private AdvancedSettings _advanced_settings;
+        private AutoCreateSettings _autocreate_settings;
+
+        private List<VisualStudioProjectItem> _visualStudioProjects = new List<VisualStudioProjectItem>();
+
+        private RootItem _folderstructure;
+
+        private bool _modified;
+
+        public Project()
+        {
+            _folderstructure = new RootItem(this);
+
+            _advanced_settings = new AdvancedSettings(this);
+            _autocreate_settings = new AutoCreateSettings(this);
+
+            // On this line the number of Visual Studio output projects is set:
+            const int NUMBER_OF_PROJECTS = 6;
+
+            for (int i = 1; i <= NUMBER_OF_PROJECTS; i++)
+                _visualStudioProjects.Add(new VisualStudioProjectItem(this, i));
+
+            // Note: Collections should be cleared and not reinstantiated. This is necessary for data binding.           
+
+            _provider_invariant_name = "System.Data.SqlClient";
+            _connection_string = "Server=(local);Initial Catalog=YourDatabaseNameHere;Integrated Security=SSPI;Max Pool Size=250;Connect Timeout=30;";
+
+            _modified = false;
+        }
+
+        public bool IsModified
+        {
+            get { return _modified; }
+            //set
+            //{
+            //    if (_modified == value)
+            //        return;
+
+            //    _modified = value;
+
+            //    NotifyPropertyChanged("IsModified");
+            //}
+        }
+
+        /// <summary>
+        /// Mark the project as modified.
+        /// </summary>
+        public void SetModified()
+        {
+            if (_modified == true)
+                return;
+
+            _modified = true;
+
+            NotifyPropertyChanged("IsModified");
+        }
+
+        /// <summary>
+        /// Mark the project as unmodified.
+        /// </summary>
+        public void ResetModified()
+        {
+            if (_modified == false)
+                return;
+
+            _modified = false;
+
+            NotifyPropertyChanged("IsModified");
+
+        }
+
+        public AdvancedSettings AdvancedSettings
+        {
+            get { return _advanced_settings; }
+        }
+
+        public AutoCreateSettings AutoCreateSettings
+        {
+            get { return _autocreate_settings; }
+        }
+
+        public RootItem FolderStructure
+        {
+            get { return _folderstructure; }
+        }
+
+        public List<VisualStudioProjectItem> VisualStudioProjects
+        {
+            get
+            {
+                return _visualStudioProjects;
+            }
+        }
+
+        public string ProviderInvariantName
+        {
+            get { return _provider_invariant_name; }
+            set
+            {
+                if (_provider_invariant_name == value)
+                    return;
+
+                if (value == null)
+                    throw new ArgumentNullException(nameof(ProviderInvariantName));
+
+                _provider_invariant_name = value;
+
+                NotifyPropertyChanged("ProviderInvariantName");
+                NotifyPropertyChanged("ProviderInfoImage");
+                NotifyPropertyChanged("ProviderInfoName");
+                NotifyPropertyChanged("ProviderInfoDescription");
+                NotifyPropertyChanged("ParameterPrefix");
+                NotifyPropertyChanged("QuotePrefix");
+                NotifyPropertyChanged("QuoteSuffix");
+                NotifyPropertyChanged("ConnectorCode");
+
+                this.SetModified();
+            }
+        }
+
+        #region Extended provider information (readonly)
+
+        public ImageSource ProviderInfoImage
+        {
+            get
+            {
+                // The information comes from the repository, and NOT from the provider DLL.
+                ProviderInfo provider_info = ProviderRepository.List.FirstOrDefault(z => z.ProviderInvariantName == _provider_invariant_name);
+
+                if (provider_info == null)
+                    return ProviderInfo.GetProductImageFromFilename("default_not_installed.png");
+                else
+                    return provider_info.ProductImage;
+            }
+        }
+
+        public string ProviderInfoName
+        {
+            get
+            {
+                ProviderInfo provider_info = ProviderRepository.List.FirstOrDefault(z => z.ProviderInvariantName == _provider_invariant_name);
+
+                if (provider_info == null)
+                    return _provider_invariant_name;
+                else
+                    return provider_info.Name;
+            }
+        }
+
+        public string ProviderInfoDescription
+        {
+            get
+            {
+                ProviderInfo provider_info = ProviderRepository.List.FirstOrDefault(z => z.ProviderInvariantName == _provider_invariant_name);
+
+                if (provider_info == null)
+                    return "The provider is not installed or registered.";
+                else
+                    return provider_info.Description;
+            }
+        }
+
+        #endregion
+
+        public string ConnectionString
+        {
+            get { return _connection_string; }
+            set
+            {
+                if (_connection_string == value)
+                    return;
+
+                _connection_string = value;
+
+                NotifyPropertyChanged("ConnectionString");
+                NotifyPropertyChanged("ConnectorCode");
+                NotifyPropertyChanged("MacroConnectionString");
+
+                this.SetModified();
+            }
+        }
+
+        public string ConnectorCode
+        {
+            get
+            {
+                StringBuilder sb = new();
+
+                sb.Append("var connector = new AdoConnector(");
+
+                var provider_info = ProviderRepository.List.FirstOrDefault(z => z.ProviderInvariantName == _provider_invariant_name);
+
+                if (provider_info != null && !string.IsNullOrEmpty(provider_info.FactoryAsString))
+                    sb.Append(provider_info.FactoryAsString);
+                else
+                    sb.Append('?');
+
+                sb.Append(", \"");
+                sb.Append(this.MacroConnectionString.Replace("\"","\\\""));
+                sb.Append("\");");
+
+                return sb.ToString();
+            }
+        }
+
+        /// <summary>
+        /// This is the connection string with the macro {pf} filled in.
+        /// {pf} is the project file folder. For example: "c:\users\fvv\projects"
+        /// </summary>
+        public string MacroConnectionString
+        {
+            get
+            {
+                string output = _connection_string;
+
+                output = output.Replace("{pf}", Path.GetDirectoryName(MainWindow.ViewModel.FileName));
+
+                return output;
+            }
+        }
+
+        /// <summary>
+        /// Parameter Prefix. For SQL Server this is '@'
+        /// </summary>
+        public char ParameterPrefix
+        {
+            get
+            {
+                AdoConnector temp = AdoConnectorHelper.Create(_provider_invariant_name);
+
+                return temp.ParameterPrefix;
+            }
+        }
+
+        /// <summary>
+        /// Quote Prefix for column and table names. For SQL Server this is '['
+        /// </summary>
+        public string QuotePrefix
+        {
+            get
+            {
+                AdoConnector temp = AdoConnectorHelper.Create(_provider_invariant_name);
+
+                return temp.QuotePrefix;
+            }
+        }
+
+        /// <summary>
+        /// Quote Prefix for column and table names. For SQL Server this is ']'
+        /// </summary>
+        public string QuoteSuffix
+        {
+            get
+            {
+                AdoConnector temp = AdoConnectorHelper.Create(_provider_invariant_name);
+
+                return temp.QuoteSuffix;
+            }
+        }
+
+        // Call this method if any of the advanced settings for the provider were modified.
+        // This includes: parameter prefix and table name settings
+        public void ProviderRelatedSettingsWereModified()
+        {
+            List<ITreeViewItem> list = _folderstructure.AllProjectItemsInThisFolderAndSubfolders();
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                RecordsetItem rsi = list[i] as RecordsetItem;
+
+                if (rsi != null)
+                    rsi.ProviderRelatedSettingsWereModified();
+            }
+
+
+        }
+
+        public void FolderStructureWasModified()
+        {
+            List<ITreeViewItem> list = _folderstructure.AllProjectItemsInThisFolderAndSubfolders();
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                RecordsetItem rsi = list[i] as RecordsetItem;
+
+                if (rsi != null)
+                    rsi.FolderStructureWasModified();
+            }
+        }
+
+    }
+}

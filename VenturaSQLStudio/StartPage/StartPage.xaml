@@ -1,0 +1,155 @@
+﻿<UserControl
+    x:Class="VenturaSQLStudio.StartPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:UserControls="clr-namespace:VenturaSQLStudio.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:VenturaSQLStudio"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DataContext="{d:DesignInstance local:StartPage}"
+    d:DesignHeight="800"
+    d:DesignWidth="1200"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    mc:Ignorable="d">
+
+    <ScrollViewer HorizontalContentAlignment="Stretch" VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="250" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <DockPanel LastChildFill="True">
+                    <StackPanel Margin="20,20,10,5" DockPanel.Dock="Top">
+                        <Image
+                            Width="220"
+                            Margin="0,0,0,0"
+                            HorizontalAlignment="Left"
+                            Source="/VenturaSQLStudio;component/Assets/ventura_logo_venturasqlstudio.png" />
+                        <StackPanel Name="sectionProjectClosed">
+                            <Label Content="Start" Style="{StaticResource HeaderLabel}" />
+                            <Button
+                                Width="100"
+                                Height="24"
+                                HorizontalAlignment="Left"
+                                Click="ButtonNew_Click"
+                                Content="New Project..."
+                                Style="{StaticResource LinkButton}" />
+                            <Button
+                                Width="100"
+                                Height="24"
+                                HorizontalAlignment="Left"
+                                Click="ButtonOpen_Click"
+                                Content="Open Project..."
+                                Style="{StaticResource LinkButton}" />
+                        </StackPanel>
+                        <StackPanel Name="sectionProjectOpen" Visibility="Visible">
+                            <TextBlock
+                                Margin="0,15,0,0"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Foreground="#FF0173C7"
+                                Text="{Binding ViewModel.ProjectFilename, Mode=OneWay}" />
+                            <TextBlock Margin="0,2,0,0" Text="{Binding ViewModel.ProjectFolder, Mode=OneWay}" />
+                            <Button
+                                Width="80"
+                                Height="24"
+                                Margin="0,15,0,0"
+                                HorizontalAlignment="Left"
+                                Click="ButtonCloseProject_Click"
+                                Content="Close Project"
+                                Style="{StaticResource LinkButton}" />
+
+                        </StackPanel>
+                        <Label Content="Getting Started" Style="{StaticResource HeaderLabel}" />
+                    </StackPanel>
+                    <Grid Margin="20,0,10,20">
+                        <Grid Name="blockNoOpenProjectInfo" Visibility="Collapsed">
+                            <local:GettingStartedControl VerticalAlignment="Top" FileName="new_project.png">
+                                Click
+                                <Hyperlink Click="Hyperlink_NewProject">New Project</Hyperlink>
+                                to create a new project with a sample database, Recordsets and
+                                C# Client and Server projects.
+                            </local:GettingStartedControl>
+                        </Grid>
+
+                        <StackPanel Name="blockOpenProjectInfo">
+                            <local:GettingStartedControl FileName="providers.png">
+                                Go to the
+                                <Hyperlink Click="Hyperlink_ProjectSettings">Project Settings</Hyperlink>
+                                page and set the ADO.NET Provider, the connection string and Visual Studio C# output projects.
+                            </local:GettingStartedControl>
+                            <local:GettingStartedControl FileName="project_explorer.png">
+                                The
+                                <local:DocLink PageName="project_explorer">Project Explorer</local:DocLink>
+                                is used to add, delete, copy and move recordsets and folders.
+                            </local:GettingStartedControl>
+                            <local:GettingStartedControl FileName="auto_create.png">
+                                Enable
+                                <Hyperlink Click="Hyperlink_AutoCreate">Auto Create Recordsets</Hyperlink>
+                                and VenturaSQL will automatically create recordset definitions for basic
+                                database operations.
+                            </local:GettingStartedControl>
+                            <local:GettingStartedControl FileName="generate.png">
+                                Click
+                                <local:DocLink PageName="generate_page">[Generate]</local:DocLink>
+                                and recordset classes will be injected to the C# output projects.
+                            </local:GettingStartedControl>
+                            <local:GettingStartedControl FileName="visualstudio.png">
+                                You are ready to access the database in your Visual Studio C# projects with VenturaSQL's recordsets.
+                                Read about
+                                <local:DocLink PageName="recordsets_in_your_code">recordsets in your code</local:DocLink>
+                                , the
+                                <local:DocLink PageName="client_api">Client API (NetStandard)</local:DocLink>
+                                and the
+                                <local:DocLink PageName="server_api">Server API (AspNet/AspNetCore)</local:DocLink>
+                                online.
+                            </local:GettingStartedControl>
+                        </StackPanel>
+                    </Grid>
+                </DockPanel>
+
+            </Grid>
+
+            <StackPanel
+                Grid.Column="1"
+                Margin="10,20,20,20"
+                VerticalAlignment="Stretch"
+                Background="#FFDBDEE3">
+                <Label
+                    Margin="20,20,20,20"
+                    Content="Recent"
+                    Style="{StaticResource HeaderLabel}" />
+
+                <ItemsControl Name="_itemscontrolMRU" Margin="20,0,20,20">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel
+                                Height="24"
+                                Orientation="Horizontal"
+                                ToolTip="{Binding FullFilePath}">
+                                <Button
+                                    Click="Button_OpenProjectFromMRU_Click"
+                                    Content="{Binding FileNameWithoutExtension}"
+                                    Style="{StaticResource LinkButton}">
+                                    <Button.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="{Binding FileNameWithoutExtension}" IsEnabled="False" />
+                                            <Separator />
+                                            <MenuItem Click="MenuItem_OpenProjectFromMRU_Click" Header="Open Ventura Project" />
+                                            <MenuItem Click="MenuItemOpenContainingFolder_Click" Header="Open Containing Folder" />
+                                            <MenuItem Click="MenuItemRemoveFromList_Click" Header="Remove From List" />
+                                        </ContextMenu>
+                                    </Button.ContextMenu>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+</UserControl>

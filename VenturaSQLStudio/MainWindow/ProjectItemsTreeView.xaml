@@ -1,0 +1,105 @@
+﻿<UserControl
+    x:Class="VenturaSQLStudio.UserControls.ProjectItemsTreeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:VenturaSQLStudio"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=DotNetProjects.TreeViewEx"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+
+        <Style x:Key="CONTAINER_STYLE" TargetType="toolkit:TreeViewExItem">
+            <!--<EventSetter Event="MouseDoubleClick" Handler="DoubleClickOnTreeViewItem" />-->
+            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+
+            <!--<Setter Property="BorderBrushFocusedSelected" Value="Transparent"/>
+            <Setter Property="BorderBrushSelected" Value="Transparent"/>
+            <Setter Property="BorderBrushFocused" Value="Transparent"/>
+            <Setter Property="BorderBrushInactive" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>-->
+            <Setter Property="BackgroundHovered" Value="#FFD1E8FF"/>
+            <!--<Setter Property="BorderBrushHovered" Value="Transparent"/>-->
+            <!--<Setter Property="BackgroundSelectedHovered" Value="Transparent"/>-->
+            <!--<Setter Property="BorderBrushSelectedHovered" Value="Transparent"/>-->
+
+            <EventSetter Event="MouseDoubleClick" Handler="TreeViewExItem_MouseDoubleClick" />
+            <EventSetter Event="MouseRightButtonUp" Handler="TreeViewExItem_MouseRightButtonUp" />
+
+        </Style>
+
+        <HierarchicalDataTemplate DataType="{x:Type local:RootItem}" ItemsSource="{Binding Path=Children}">
+            <StackPanel Orientation="Horizontal">
+                <Image
+                    Width="16"
+                    Height="16"
+                    VerticalAlignment="Center"
+                    Source="/VenturaSQLStudio;component/Assets/CSharpProject_SolutionExplorerNode.png"
+                    Stretch="Fill" />
+                <TextBlock
+                    Margin="2,0,0,0"
+                    VerticalAlignment="Center"
+                    Text="Root of C# project" />
+            </StackPanel>
+        </HierarchicalDataTemplate>
+
+        <HierarchicalDataTemplate DataType="{x:Type local:FolderItem}" ItemsSource="{Binding Path=Children}">
+            <StackPanel Orientation="Horizontal">
+                <Image
+                    Width="16"
+                    Height="16"
+                    VerticalAlignment="Center"
+                    Source="{Binding FolderImage}"
+                    Stretch="Fill" />
+                <TextBlock
+                    Margin="2,0,0,0"
+                    VerticalAlignment="Center"
+                    Text="{Binding Path=Foldername}" />
+            </StackPanel>
+        </HierarchicalDataTemplate>
+
+        <HierarchicalDataTemplate DataType="{x:Type local:RecordsetItem}">
+            <StackPanel Orientation="Horizontal">
+                <CheckBox
+                    VerticalAlignment="Center"
+                    IsChecked="{Binding Enabled}"
+                    Visibility="{Binding Source={x:Static local:MainWindow.ViewModel}, Path=CheckBoxVisibility, Mode=OneWay}" />
+                <Image
+                    Width="16"
+                    Height="16"
+                    VerticalAlignment="Center"
+                    Source="/VenturaSQLStudio;component/Assets/DataGrid_674.png"
+                    Stretch="Fill" />
+                <TextBlock
+                    Margin="2,0,0,0"
+                    VerticalAlignment="Center"
+                    Text="{Binding Path=ClassName}"
+                    TextDecorations="{Binding TextDecorationForTreeview}" />
+            </StackPanel>
+        </HierarchicalDataTemplate>
+
+    </UserControl.Resources>
+
+    <Grid>
+        <DockPanel>
+            <!--<TextBlock DockPanel.Dock="Top" Margin="5">
+            <Run>Selected:</Run>
+            <Run x:Name="NumberOfSelectedNodes">unknown</Run>
+            </TextBlock>-->
+
+            <!--  https://github.com/dotnetprojects/TreeViewEx  -->
+
+            <toolkit:TreeViewEx
+                x:Name="TreeViewControl"
+                x:FieldModifier="public"
+                BorderThickness="0"
+                ItemContainerStyle="{StaticResource CONTAINER_STYLE}"
+                SelectedItems="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=SelectedNodes, Mode=OneWay}" />
+
+        </DockPanel>
+    </Grid>
+</UserControl>

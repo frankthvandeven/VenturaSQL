@@ -1,0 +1,247 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>true</UseWPF>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VenturaSQL.NETStandard\VenturaSQL.NETStandard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="5.0.5" />
+    <PackageReference Include="MySql.Data" Version="8.0.24" />
+    <PackageReference Include="Npgsql" Version="5.0.4" />
+    <PackageReference Include="System.Data.Odbc" Version="5.0.0" />
+    <PackageReference Include="System.Data.OleDb" Version="5.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Include="AvalonEdit" Version="6.1.1" />
+    <PackageReference Include="DotNetProjects.TreeViewEx" Version="5.0.13" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.7" />
+    <PackageReference Include="WinCopies.WindowsAPICodePack.Shell" Version="2.1.1" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <ApplicationIcon>Resources\ventura.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Validation\Validators\DisplayQueryInfoValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Validation\Validators\DisplayQueryInfoValidator.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="AvalonSql.xshd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Open_6529.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Paste_6520.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\arrow_run_16xLG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Delete.png" />
+    <Resource Include="Assets\Undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\CSharpProject_SolutionExplorerNode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\validation_error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\validation_info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\validation_warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ventura.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\RefreshArrow_Blue_48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\validate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\ventura_logo_venturasqlstudio.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\sql.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\arrow_Up_16xLG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\arrow_Down_16xLG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Refresh_32x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Create_48x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\StoredProcedureScript_32x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Settings_32x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Property_32x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\CloseSolution_32x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Help_32x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\DownloadFile_32x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\VenturaSqlBrandLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\NewFile_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\OpenFileExplorer_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\external-link-26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\copy-file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\move-file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\delete-file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\enable-checkboxes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pages\ProviderPage\ProductImages\default_installed.png" />
+    <Resource Include="Pages\ProviderPage\ProductImages\default_not_installed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pages\ProviderPage\ProductImages\exchange.png" />
+    <Resource Include="Pages\ProviderPage\ProductImages\facebook.png" />
+    <Resource Include="Pages\ProviderPage\ProductImages\twitter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pages\ProviderPage\ProductImages\sql_server.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pages\ProviderPage\ProductImages\oracle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pages\ProviderPage\ProductImages\mysql.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pages\ProviderPage\ProductImages\sqlite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pages\ProviderPage\ProductImages\mariadb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pages\ProviderPage\ProductImages\cdata_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pages\ProviderPage\ProductImages\db2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pages\ProviderPage\ProductImages\PostgreSQL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\insert_parameter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="StartPage\Images\hardware.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="StartPage\Images\new_project.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="StartPage\Images\providers.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\free-trial.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\DataGrid_674.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Cut_6523.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Copy_6524.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\save_16xLG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\find.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\FolderCreate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\FolderOpen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\licensekey_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\DatabaseTableGroup_256x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\DatabaseTableGroup_32x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\catalog_explained.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Settings_256x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\advanced_settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\ado_provider.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="StartPage\Images\project_explorer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="StartPage\Images\auto_create.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="StartPage\Images\generate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="StartPage\Images\visualstudio.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\email.png" />
+  </ItemGroup>
+
+</Project>

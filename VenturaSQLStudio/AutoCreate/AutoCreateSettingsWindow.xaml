@@ -1,0 +1,191 @@
+﻿<Window
+    x:Class="VenturaSQLStudio.Pages.AutoCreateSettingsWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:VenturaSQLStudio.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ventura="clr-namespace:VenturaSQLStudio"
+    Title="Auto Create Recordsets Settings"
+    MinWidth="250"
+    MinHeight="250"
+    d:DataContext="{d:DesignInstance local:AutoCreateSettingsWindow}"
+    ventura:ExtraWindowStyles.CanMaximize="false"
+    ventura:ExtraWindowStyles.CanMinimize="false"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    ResizeMode="CanResizeWithGrip"
+    ShowInTaskbar="False"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <RoutedCommand x:Key="OkCommand" />
+    </Window.Resources>
+
+    <Window.CommandBindings>
+        <CommandBinding
+            x:Name="OkCommandBinding"
+            CanExecute="OkCommand_CanExecute"
+            Command="{StaticResource OkCommand}"
+            Executed="OkCommand_Executed" />
+    </Window.CommandBindings>
+
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <StackPanel
+                Height="28"
+                Margin="15,10"
+                DockPanel.Dock="Bottom"
+                Orientation="Horizontal">
+                <Button
+                    Name="btnOk"
+                    Width="100"
+                    Padding="5"
+                    Command="{StaticResource OkCommand}"
+                    IsDefault="True">
+                    Ok
+                </Button>
+                <Button
+                    Width="80"
+                    Margin="10,0,0,0"
+                    Padding="5"
+                    Click="btnExcludeAll_Click">
+                    Exclude All
+                </Button>
+                <Button
+                    Width="100"
+                    Margin="10,0,0,0"
+                    Padding="5"
+                    Click="btnExcludeNone_Click">
+                    Exclude None
+                </Button>
+                <Button
+                    Width="182"
+                    Margin="10,0,0,0"
+                    Padding="5"
+                    Click="btnAdvancedSettings_Click">
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <Image
+                            Width="16"
+                            Height="16"
+                            Source="/VenturaSQLStudio;component/Assets/advanced_settings.png" />
+                        <TextBlock Margin="3,0,0,0">Advanced Provider Settings</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button
+                    Width="70"
+                    Margin="10,0,0,0"
+                    Padding="5"
+                    IsCancel="True">
+                    Cancel
+                </Button>
+            </StackPanel>
+            <StackPanel Margin="15,15,10,0" DockPanel.Dock="Top">
+                <TextBlock Margin="0,0,0,0" TextWrapping="Wrap">
+                    Automatically create recordsets for tables in the database.
+                </TextBlock>
+                <CheckBox
+                    Margin="0,5,0,0"
+                    VerticalAlignment="Center"
+                    IsChecked="{Binding ViewModel.Enabled}">
+                    Enabled
+                </CheckBox>
+                <CheckBox
+                    Margin="0,5,0,0"
+                    VerticalAlignment="Center"
+                    IsChecked="True"
+                    IsEnabled="False">
+                    Create 'Prikey' recordsets (SELECT * FROM &lt;tablename&gt; WHERE &lt;primary keys&gt;)
+                </CheckBox>
+                <CheckBox
+                    Margin="0,5,0,0"
+                    VerticalAlignment="Center"
+                    IsChecked="{Binding ViewModel.CreateGetAll}">
+                    Create 'GetAll' recordsets (SELECT * FROM &lt;tablename&gt;)
+                </CheckBox>
+                <CheckBox
+                    Margin="0,5,0,0"
+                    VerticalAlignment="Center"
+                    IsChecked="{Binding ViewModel.CreateIncremental}">
+                    Create 'Incr' (incremental loading) recordsets (SELECT * FROM &lt;tablename&gt; LIMIT &lt;rowlimit&gt; OFFSET &lt;rowoffset&gt;)
+                </CheckBox>
+                <TextBlock Margin="0,5,0,0" TextWrapping="Wrap">
+                    A recordset includes all table columns.
+                    A table without primary keys will not have its 'PriKey' recordset created.
+                    A 'GetAll' recordset will be created as read-only (not updateable) if no primary keys are set.
+                </TextBlock>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Center">Folder name:</TextBlock>
+                    <TextBox
+                        Name="tbFolderName"
+                        Width="260"
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        Text="{Binding ViewModel.Folder}" />
+                    <Button
+                        Width="48"
+                        Margin="3,0,0,0"
+                        Click="btnDefault_Click"
+                        ToolTip="Reset folder name to VenturaAutoCreate">
+                        Default
+                    </Button>
+                    <TextBlock Margin="15,0,0,0" VerticalAlignment="Center">
+                        (the folder will be created in the
+                        <Image
+                            Width="16"
+                            Height="16"
+                            Margin="0,0,0,-4"
+                            VerticalAlignment="Bottom"
+                            Source="/VenturaSQLStudio;component/Assets/CSharpProject_SolutionExplorerNode.png" />
+                        Root of the C# project)
+                    </TextBlock>
+                </StackPanel>
+                <TextBlock Margin="0,12,0,2">
+                    Select the tables to<Run FontWeight="Bold">exclude</Run>
+                    from recordset creation:</TextBlock>
+            </StackPanel>
+
+            <ListView
+                Name="lvTables"
+                Margin="15,0,15,0"
+                HorizontalContentAlignment="Stretch"
+                BorderBrush="#FF0173C7"
+                BorderThickness="1">
+                <ListView.Resources>
+                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                    </Style>
+                </ListView.Resources>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <!--<Setter Property="FontSize" Value="13" />
+                        <Setter Property="Height" Value="40" />-->
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <!--<Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="IsSelected" Value="True"/>
+                            </Trigger>
+                        </Style.Triggers>-->
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView AllowsColumnReorder="False">
+                        <GridViewColumn Width="46" Header="Exclude">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox HorizontalAlignment="Center" IsChecked="{Binding Exclude, UpdateSourceTrigger=PropertyChanged}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn
+                            Width="700"
+                            DisplayMemberBinding="{Binding DisplayTableName}"
+                            Header="Table" />
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </DockPanel>
+    </Grid>
+</Window>

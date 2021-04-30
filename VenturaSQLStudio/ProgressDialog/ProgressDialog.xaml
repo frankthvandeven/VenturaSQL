@@ -1,0 +1,14 @@
+﻿<Window x:Class="VenturaSQLStudio.Progress.ProgressDialog" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:ui="clr-namespace:VenturaSQLStudio.Progress" 
+        Height="90" Width="300" Title="VenturaSQL Studio" FontFamily="Segoe UI" ResizeMode="NoResize" 
+        WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterOwner" Closing="OnClosing"
+        ui:WindowSettings.HideCloseButton="True" >
+    <Grid Margin="10">
+        <TextBlock x:Name="TextLabel" Text="Loading..." TextTrimming="CharacterEllipsis" />
+        <TextBlock x:Name="SubTextLabel" Margin="0 18 0 0" Text="" FontStyle="Italic" Visibility="Collapsed" TextTrimming="CharacterEllipsis" />
+        <ProgressBar x:Name="ProgressBar" Margin="0 38 74 0" IsIndeterminate="True" />
+        <Button x:Name="CancelButton" Margin="0 38 0 0" Width="70" Content="Cancel" Visibility="Collapsed" HorizontalAlignment="Right" Click="OnCancelButtonClick" />
+    </Grid>
+</Window>

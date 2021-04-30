@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="VenturaSQLStudio.Pages.ProjectSettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VenturaSQLStudio.Pages"
+      xmlns:Ventura="clr-namespace:VenturaSQLStudio"
+      xmlns:UserControls="clr-namespace:VenturaSQLStudio.UserControls"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="800">
+
+    <Grid MinWidth="600">
+        <ScrollViewer>
+            <StackPanel Name="Container" Margin="20,0,20,20" >
+                <Label Content="Database connection" Style="{StaticResource HeaderLabel}" />
+                <StackPanel Margin="0,20,0,20" Orientation="Horizontal">
+                    <StackPanel Width="200" VerticalAlignment="Center" Orientation="Vertical">
+                        <Button Margin="0,0,0,0" HorizontalContentAlignment="Stretch" Name="buttonChangeProvider" Height="24" Click="buttonChangeProvider_Click">
+                            <Grid>
+                                <Image Margin="4,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Source="/VenturaSQLStudio;component/Assets/ado_provider.png" Width="16" Height="16" />
+                                <TextBlock TextAlignment="Center" Text="Select ADO.NET Provider" />
+                            </Grid>
+                        </Button>
+                        <Button Margin="0,6,0,0" HorizontalContentAlignment="Stretch" Name="buttonAdvancedSettings" Height="24" Click="buttonAdvancedSettings_Click">
+                            <Grid>
+                                <Image Margin="4,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Source="/VenturaSQLStudio;component/Assets/advanced_settings.png" Width="16" Height="16" />
+                                <TextBlock TextAlignment="Center" Text="Advanced Provider Settings" />
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                    <Image Margin="30,0,10,0" Source="{Binding ProviderInfoImage}" MaxWidth="80" MaxHeight="50" />
+                    <StackPanel>
+                        <TextBlock Text="{Binding ProviderInfoName}" FontWeight="Bold" FontSize="16"/>
+                        <TextBlock Text="{Binding ProviderInfoDescription}" FontSize="13"/>
+                        <TextBlock Text="{Binding ProviderInvariantName}" FontSize="13"/>
+                    </StackPanel>
+                </StackPanel>
+                <TextBlock Margin="0,10,0,0">Connection string:</TextBlock>
+                <TextBox Name="textboxConnectionString" Width="{Binding ElementName=Container,Path=ActualWidth}" VerticalScrollBarVisibility="Visible" Height="60"  HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding ConnectionString, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock FontSize="10" Margin="0,0,0,0" TextWrapping="Wrap">Macro '{pf}' inserts the project folder dynamically (currently <Run Name="runPojectFolder"/>).</TextBlock>
+                <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                    <Button Name="buttonTestConnectString" Style="{StaticResource ZoomButton}" Click="buttonTestConnectString_Click" >Test connection string</Button>
+                    <Button Name="buttonClipboard" Style="{StaticResource ZoomButton}" Margin="10,5,0,0" Click="buttonClipboard_Click" >Copy to clipboard</Button>
+                </StackPanel>
+
+                <Label Content="AdoConnector" Style="{StaticResource HeaderLabel}" />
+                <TextBlock Margin="0,0,0,6">Setting the AdoConnector in a C# project:</TextBlock>
+                <TextBox Name="textboxConnectorCode" Width="{Binding ElementName=Container,Path=ActualWidth}"
+                           FontFamily="Consolas" FontSize="10pt" IsReadOnly="True" Height="Auto"
+                           Padding="8"
+                           HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding ConnectorCode, Mode=OneWay}"/>
+
+                <Button Style="{StaticResource ZoomButton}" Margin="0,5,0,0" Click="buttonConnectorCodeClipboard_Click" >Copy to clipboard</Button>
+
+                <Label Content="Auto Create Recordsets" Style="{StaticResource HeaderLabel}" />
+                <TextBlock Text="{Binding AutoCreateSettings.AutoCreateInfoForSettingsPage}" />
+                <Button Margin="0,10,0,0" Style="{StaticResource ZoomButton}" Click="buttonAutoCreateSettings_Click">Settings</Button>
+
+                <ItemsControl Name="icVisualStudioProjects">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <UserControls:VisualStudioProject/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </StackPanel>
+        </ScrollViewer>
+
+
+    </Grid>
+</UserControl>

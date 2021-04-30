@@ -1,0 +1,196 @@
+﻿<UserControl xmlns:UserControls="clr-namespace:VenturaSQLStudio.UserControls" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VenturaSQLStudio.Pages.RecordsetEditorPage"
+             xmlns:pages="clr-namespace:VenturaSQLStudio.Pages"
+             xmlns:Ventura="clr-namespace:VenturaSQLStudio"
+             x:Class="VenturaSQLStudio.Pages.RecordsetEditorPage.SqlScriptEditorControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="1200" Loaded="UserControl_Loaded" Ventura:HelpProvider.HelpString ="SqlScriptEditorControl"
+             >
+    <UserControl.Resources>
+        <RoutedUICommand x:Key="DeleteParameterCommand" Text="Delete" />
+        <RoutedUICommand x:Key="InsertParameterNameCommand" Text="Insert into" />
+        <RoutedUICommand x:Key="MoveUpCommand" Text="Move Up" />
+        <RoutedUICommand x:Key="MoveDownCommand" Text="Move Down" />
+        <RoutedUICommand x:Key="InsertRowOffsetCommand" Text="Insert RowOffset" />
+        <RoutedUICommand x:Key="InsertRowLimitCommand" Text="Insert RowLimit" />
+        <RoutedUICommand x:Key="InsertDesignModeCommand" Text="Insert DesignMode" />
+    </UserControl.Resources>
+
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource DeleteParameterCommand}" CanExecute="DeleteParameterCommand_CanExecute"  Executed="DeleteParameterCommand_Executed"/>
+        <CommandBinding Command="{StaticResource InsertParameterNameCommand}" CanExecute="InsertParameterNameCommand_CanExecute"  Executed="InsertParameterNameCommand_Executed"/>
+        <CommandBinding Command="{StaticResource MoveUpCommand}" CanExecute="MoveUpCommand_CanExecute"  Executed="MoveUpCommand_Executed"/>
+        <CommandBinding Command="{StaticResource MoveDownCommand}" CanExecute="MoveDown_CanExecute"  Executed="MoveDownCommand_Executed"/>
+        <CommandBinding Command="{StaticResource InsertRowOffsetCommand}" CanExecute="InsertRowOffset_CanExecute"  Executed="InsertRowOffset_Executed"/>
+        <CommandBinding Command="{StaticResource InsertRowLimitCommand}" CanExecute="InsertRowLimit_CanExecute"  Executed="InsertRowLimit_Executed"/>
+        <CommandBinding Command="{StaticResource InsertDesignModeCommand}" CanExecute="InsertDesignMode_CanExecute"  Executed="InsertDesignMode_Executed"/>
+    </UserControl.CommandBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" MinHeight="140" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="1*" MinHeight="180"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel LastChildFill="True" Grid.Row="0" >
+            <StackPanel DockPanel.Dock="Top" Margin="0,0,0,8" Height="44" Orientation="Horizontal" Background="#FF0173C7">
+                <!--<TextBlock Foreground="White" Margin="5,0,5,0" VerticalAlignment="Center" >Resultset</TextBlock>-->
+                <ComboBox
+                Name="cbResultsets" IsEnabled="False"
+                Width="250" Height="24" Margin="10,0,0,0"
+                ToolTip="The list of resultset(s) as returned for the executed SQL script. Click [Collect] to update the list" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DisplayName}" TextDecorations="{Binding TextDecorationForListview}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Foreground="White" Margin="8,0,8,0" VerticalAlignment="Center" >updates table</TextBlock>
+                <ComboBox
+                Name="cbTables" IsEnabled="False"
+                Width="320" Height="24"
+                DisplayMemberPath="DisplayString" 
+                ItemsSource="{Binding ReferencedTablesList, Mode=OneWay}"  
+                SelectedItem="{Binding UpdateableTableNameAsRTI}" 
+                ToolTip="A list of tables referenced by the selected resultset. Click [Collect] to update the list" />
+                <Button VerticalAlignment="Center" Margin="8,0,0,0" Width="72" Height="24"
+                    Name="buttonCollect" Click="buttonCollect_Click"
+                    ToolTip="Execute the SQL script and collect resultset information" >
+                    <StackPanel Orientation="Horizontal">
+                        <Image VerticalAlignment="Center" Source="/VenturaSQLStudio;component/Assets/Refresh_32x.png" Width="16" Height="16"/>
+                        <TextBlock Margin="4,0,0,0" Text="Collect" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+            <Grid Height="auto" DockPanel.Dock="Bottom" Background="#FFDBDEE3">
+                <StackPanel Margin="10,6">
+                    <CheckBox IsChecked="{Binding RowloadIncremental}">Support incremental loading (pagination). Adds the IRecordsetIncremental interface and the ExecSqlIncremental() and ExecSqlNextPage() methods.</CheckBox>
+                    <TextBlock Name="tbIncrementalTip" TextWrapping="Wrap" Visibility="Collapsed" Height="auto" Margin="20,5,0,0"></TextBlock>
+                    <TextBlock Name="tbAutoCreateFolderTip" Visibility="Collapsed" TextWrapping="Wrap" Height="auto" Margin="0,5,0,0">This recordset is located in the auto create recordsets folder and can not be modified. Copy it to a different folder for editing.</TextBlock>
+                </StackPanel>
+            </Grid>
+            
+            <avalonEdit:TextEditor
+			xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+			x:Name="AvalonEditControl"
+			FontFamily="Consolas"
+			FontSize="10pt" 
+			ShowLineNumbers="True" 
+			LineNumbersForeground="#FF2B91AF"
+			Margin="0,0,0,0" GotFocus="AvalonEditControl_GotFocus" LostFocus="AvalonEditControl_LostFocus" TextChanged="AvalonEditControl_TextChanged">
+                <avalonEdit:TextEditor.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="Undo" />
+                        <MenuItem Command="Redo" />
+                        <Separator/>
+                        <MenuItem Command="Cut" />
+                        <MenuItem Command="Copy" />
+                        <MenuItem Command="Paste" />
+                        <Separator/>
+                        <MenuItem x:Name="menuItemInsertRowOffset" Command="{StaticResource InsertRowOffsetCommand}" />
+                        <MenuItem x:Name="menuItemInsertRowLimit" Command="{StaticResource InsertRowLimitCommand}" />
+                        <MenuItem x:Name="menuItemInsertDesignMode" Command="{StaticResource InsertDesignModeCommand}" />
+                    </ContextMenu>
+                </avalonEdit:TextEditor.ContextMenu>
+            </avalonEdit:TextEditor>
+        </DockPanel>
+
+        <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Background="#FF0173C7" />
+
+        <DockPanel Grid.Row="2" LastChildFill="True" >
+            <TextBlock Name="tbParameters" DockPanel.Dock="Top" Padding="5,4" TextTrimming="CharacterEllipsis" Foreground="Black" Background="#FFFFF19D"
+                   ToolTip="Shows how the parameter names will be used in the generated Recordset."/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="114"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" Margin="5" >
+                    <Button Margin="0,0,0,5" Click="buttonNew_Click" Height="24" HorizontalContentAlignment="Stretch" Name="buttonNew" ToolTip="Add a new parameter" >
+                        <Grid>
+                            <Image Margin="2,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Source="/VenturaSQLStudio;component/Assets/Create_48x.png" Width="16" Height="16" />
+                            <TextBlock TextAlignment="Center" Text="New" />
+                        </Grid>
+                    </Button>
+                    <Button Margin="0,0,0,5" Height="24" Command="{StaticResource InsertParameterNameCommand}" HorizontalContentAlignment="Stretch" ToolTip="Paste the selected parameter name into the SQL script editor">
+                        <Grid>
+                            <Image Margin="2,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Source="/VenturaSQLStudio;component/Assets/insert_parameter.png" Width="16" Height="16" />
+                            <TextBlock TextAlignment="Center" Text="Paste" />
+                        </Grid>
+                    </Button>
+                    <Button Margin="0,0,0,8" Height="24" Command="{StaticResource DeleteParameterCommand}" HorizontalContentAlignment="Stretch" ToolTip="Delete selected parameter(s)">
+                        <Grid>
+                            <Image Margin="2,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Source="/VenturaSQLStudio;component/Assets/Delete.png" Width="16" Height="16" />
+                            <TextBlock TextAlignment="Center" Text="Delete" />
+                        </Grid>
+                    </Button>
+                    <Button Margin="0,0,0,5" Height="24" Command="{StaticResource MoveUpCommand}" HorizontalContentAlignment="Stretch" >
+                        <Grid>
+                            <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="/VenturaSQLStudio;component/Assets/arrow_Up_16xLG.png" Width="16" Height="16" />
+                            <TextBlock TextAlignment="Center" Text="Move up" />
+                        </Grid>
+                    </Button>
+                    <Button Height="24" Command="{StaticResource MoveDownCommand}" HorizontalContentAlignment="Stretch">
+                        <Grid>
+                            <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="/VenturaSQLStudio;component/Assets/arrow_Down_16xLG.png" Width="16" Height="16" />
+                            <TextBlock TextAlignment="Center" Text="Move down" />
+                        </Grid>
+                    </Button>
+                </StackPanel>
+                <ListView SelectionMode="Extended" Grid.Column="1" ScrollViewer.CanContentScroll="False" BorderThickness="0" Margin="0" x:Name="listView">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <EventSetter Event="MouseDoubleClick" Handler="ParameterListViewItem_MouseDoubleClick" />
+                            <!--<Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="IsSelected" Value="True"/>
+                                    </Trigger>
+                                </Style.Triggers>-->
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.Resources>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                        </Style>
+                    </ListView.Resources>
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False">
+                            <GridViewColumn Header="Parameter Name" Width="170" DisplayMemberBinding="{Binding Name}" />
+                            <GridViewColumn Header="DbType" Width="130" DisplayMemberBinding="{Binding ShortDbTypeString}" />
+                            <GridViewColumn Header="Framework Type" Width="130" DisplayMemberBinding="{Binding FullTypenameInfo}" />
+                            <GridViewColumn Header="Input" Width="44">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsEnabled="False" Name="checkboxInput" IsChecked="{Binding Input, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Output" Width="44">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsEnabled="False" Name="checkboxOutput" IsChecked="{Binding Output, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Design value"  Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding DesignValue, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </DockPanel>
+
+    </Grid>
+</UserControl>

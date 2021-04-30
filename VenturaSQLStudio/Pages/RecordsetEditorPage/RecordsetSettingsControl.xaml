@@ -1,0 +1,225 @@
+﻿<UserControl
+    x:Class="VenturaSQLStudio.Pages.RecordsetEditorPage.RecordsetSettingsControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:VenturaSQLStudio.Pages.RecordsetEditorPage"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ventura="clr-namespace:VenturaSQLStudio"
+    d:DesignHeight="800"
+    d:DesignWidth="600"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <RoutedUICommand x:Key="CleanupCommand" Text="Cleanup" />
+        <RoutedUICommand x:Key="CollectCommand" Text="Collect" />
+        <RoutedUICommand x:Key="DefaultCommand" Text="Default" />
+    </UserControl.Resources>
+
+    <UserControl.CommandBindings>
+        <CommandBinding
+            CanExecute="CleanupCommand_CanExecute"
+            Command="{StaticResource CleanupCommand}"
+            Executed="CleanupCommand_Executed" />
+        <CommandBinding
+            CanExecute="CollectCommand_CanExecute"
+            Command="{StaticResource CollectCommand}"
+            Executed="CollectCommand_Executed" />
+        <CommandBinding
+            CanExecute="DefaultCommand_CanExecute"
+            Command="{StaticResource DefaultCommand}"
+            Executed="DefaultCommand_Executed" />
+    </UserControl.CommandBindings>
+
+    <ScrollViewer>
+        <StackPanel
+            MaxWidth="800"
+            Margin="20,0,20,20"
+            HorizontalAlignment="Left">
+
+            <Label
+                Margin="0,20,0,20"
+                Content="Code generation"
+                Style="{StaticResource HeaderLabel}" />
+            <RadioButton Margin="0,0,0,4" IsChecked="{Binding ImplementDatabinding}">Data Binding</RadioButton>
+            <RadioButton Margin="0,0,0,0" IsChecked="{Binding HighPerformance}">High performance</RadioButton>
+            <TextBlock
+                Margin="0,10,0,0"
+                HorizontalAlignment="Left"
+                TextWrapping="Wrap">
+                <Run FontWeight="Bold">Data Binding.</Run>
+                Implements the INotifyCollectionChanged and INotifyPropertyChanged interfaces.
+                The recordset functions like an ObservableCollection&lt;T&gt;, and changing a record's column value generates a PropertyChanged event.</TextBlock>
+            <TextBlock
+                Margin="0,10,0,0"
+                HorizontalAlignment="Left"
+                TextWrapping="Wrap">
+                <Run FontWeight="Bold">High Performance.</Run>
+                Recordsets are optimized for performance and cannot be used for data binding.</TextBlock>
+
+            <Label
+                Margin="0,20,0,20"
+                Content="Resultset definitions"
+                Style="{StaticResource HeaderLabel}" />
+            <TextBlock Margin="0,0,0,20" TextWrapping="Wrap">
+                An SQL script can produce a single resultset, multiple resultsets or no resultset.
+                In the case of a single resultset, the generated Recordset will be the collection of
+                rows and columns. In the case of multiple resultsets, the Recordset will have multiple
+                properties that each hold a resultset. In this section you can set the name of the properties.
+                The property name must start with the word &quot;Resultset&quot;.
+            </TextBlock>
+            <StackPanel Name="sectionNoDefinitions">
+                <TextBlock TextWrapping="Wrap">
+                    There are no resultset definitions. Click [Collect] to execute the SQL script and
+                    gather resultset information.
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Name="sectionMultipleDefinitions">
+                <TextBlock TextWrapping="Wrap">
+                    If the SQL script only produces a single resultset, the property name setting will not
+                    be needed and is ignored during code-generation.
+                </TextBlock>
+                <Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="250" />
+                        <ColumnDefinition Width="400" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="1" FontWeight="Bold">Property name</TextBlock>
+                    <TextBlock
+                        Grid.Column="2"
+                        Margin="20,0,0,0"
+                        FontWeight="Bold">
+                        Updates table
+                    </TextBlock>
+                </Grid>
+                <ItemsControl Margin="0,0,0,0" ItemsSource="{Binding Resultsets}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="30">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="250" />
+                                    <ColumnDefinition Width="400" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding ResultsetInternalName, UpdateSourceTrigger=PropertyChanged}"
+                                    TextDecorations="{Binding TextDecorationForListview}" />
+
+                                <TextBox
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    LostFocus="TextBoxResultsetName_LostFocus"
+                                    Text="{Binding ResultsetName, UpdateSourceTrigger=PropertyChanged}"
+                                    TextDecorations="{Binding TextDecorationForListview}" />
+
+                                <ComboBox
+                                    Grid.Column="2"
+                                    Height="24"
+                                    Margin="20,0,0,0"
+                                    VerticalAlignment="Center"
+                                    DisplayMemberPath="DisplayString"
+                                    ItemsSource="{Binding ReferencedTablesList, Mode=OneWay}"
+                                    SelectedItem="{Binding UpdateableTableNameAsRTI}"
+                                    ToolTip="A list of tables referenced by the selected resultset. Click [Collect] to update the list" />
+
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+
+            <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                <Button
+                    Width="72"
+                    Height="24"
+                    Margin="0,0,0,0"
+                    Command="{StaticResource CollectCommand}"
+                    ToolTip="Execute the SQL script and collect resultset information">
+                    <StackPanel Orientation="Horizontal">
+                        <Image
+                            Width="16"
+                            Height="16"
+                            Margin="0,0,4,0"
+                            VerticalAlignment="Center"
+                            Source="/VenturaSQLStudio;component/Assets/Refresh_32x.png" />
+                        <TextBlock VerticalAlignment="Center" Text="Collect" />
+                    </StackPanel>
+                </Button>
+                <Button
+                    Width="81"
+                    Height="24"
+                    Margin="8,0,0,0"
+                    Command="{StaticResource CleanupCommand}"
+                    ToolTip="Remove the struck through items">
+                    <StackPanel Orientation="Horizontal">
+                        <Image
+                            Width="16"
+                            Height="16"
+                            Margin="0,0,4,0"
+                            VerticalAlignment="Center"
+                            Source="/VenturaSQLStudio;component/Assets/Delete.png" />
+                        <TextBlock VerticalAlignment="Center" Text="Cleanup" />
+                    </StackPanel>
+                </Button>
+                <Button
+                    Width="81"
+                    Height="24"
+                    Margin="8,0,0,0"
+                    Command="{StaticResource DefaultCommand}"
+                    ToolTip="Reset the resultset names to 'RecordsetXXResultset'">
+                    Default
+                </Button>
+            </StackPanel>
+
+            <Label
+                Margin="0,20,0,20"
+                Content="Output"
+                Style="{StaticResource HeaderLabel}" />
+            <CheckBox
+                Margin="0,0,0,16"
+                IsChecked="{Binding Enabled}"
+                ToolTip="A disabled Recordset definition will be excluded from code generation.">
+                Enabled
+            </CheckBox>
+
+            <ItemsControl Name="icOutputProjects">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox
+                            Margin="10,0,0,6"
+                            Content="{Binding ProjectFileInfo}"
+                            IsChecked="{Binding Selected}"
+                            IsEnabled="{Binding Path=DataContext.Enabled, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=Default}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Label Content="Summary" Style="{StaticResource HeaderLabel}" />
+
+            <!--<TextBlock Margin="0,10,0,0" HorizontalAlignment="Stretch" TextAlignment="Left"
+                       TextWrapping="Wrap" Text="{Binding ClassNameInfo}"/>-->
+
+            <TextBlock Margin="0,0,0,0" TextWrapping="Wrap">
+                Optionally enter a summary. The text will be included in the generated Recordset's source-code in the class &lt;summary&gt;.
+                The maximum length is 1024 characters:
+            </TextBlock>
+
+            <TextBox
+                Height="100"
+                Margin="0,5,0,0"
+                HorizontalAlignment="Stretch"
+                AcceptsReturn="True"
+                MaxLength="1024"
+                Text="{Binding ClassSummary, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Auto" />
+
+            <!--  Content="{Binding Source={x:Static ventura:MainWindow.CurrentProject}, Path=ProjectFileInfo1}"  -->
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
