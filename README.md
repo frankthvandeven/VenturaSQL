@@ -45,9 +45,7 @@ VenturaSQL has three parts:
 + The tiny NuGet package [VenturaSQL.AspNetCore.Server](https://www.nuget.org/packages/VenturaSQL.AspNetCore.Server) to process incoming requests in the ASP.NET Core middle-tier
 + The VenturaSQLStudio WPF app that connects to your database and generates recordset source code for both client and server C# projects.
 
-The runtime DLL is 95KB, and the middle-tier DLL id 13KB.
-
-VenturaSQL is lightweight, does not use reflection and is very fast.
+The runtime DLL is 95KB, and the middle-tier DLL is 13KB. VenturaSQL is lightweight, does not use reflection and is very fast.
 
 ## Installer
 Install VenturaSQL Studio by downloading the the installer. The installer comes with ready to run sample projects. The installer will be available early May.
