@@ -54,7 +54,8 @@ Download this GitHub repository and open the solution and run the 'VenturaSQLStu
 
 Download and run the VenturaSQL Studio installer. The installer comes with ready to run sample projects. The installer will be available early May, and the download link will be here.
 
-# Documentation
+## Documentation
 Online documentation: https://docs.sysdev.nl
 
 The online documentation is for version 3, and needs updating to version 4. That will be done in May.
+
