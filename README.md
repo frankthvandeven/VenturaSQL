@@ -47,8 +47,12 @@ VenturaSQL has three parts:
 
 The runtime DLL is 95KB, and the middle-tier DLL is 13KB. VenturaSQL is lightweight, does not use reflection and is very fast.
 
-## Installer
-Install VenturaSQL Studio by downloading the the installer. The installer comes with ready to run sample projects. The installer will be available early May.
+## Installing VenturaSQL Studio
+Download this GitHub repository and open the solution and run the 'VenturaSQLStudio' project.
+
+**or**
+
+Download and run the VenturaSQL Studio installer. The installer comes with ready to run sample projects. The installer will be available early May, and the download link will be here.
 
 # Documentation
 Online documentation: https://docs.sysdev.nl
