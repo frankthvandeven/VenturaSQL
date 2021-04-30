@@ -7,7 +7,7 @@ namespace VenturaSQL
     /// <summary>
     /// Global settings for VenturaSQL.
     /// </summary>
-    public static class VenturaConfig
+    public static class VenturaSqlConfig
     {
         private static Connector _default_connector = null;
         private static Func<HttpConnector, HttpClient> _factory;
@@ -15,14 +15,14 @@ namespace VenturaSQL
         private static Func<HttpConnector, HttpClient> _default_factory = (HttpConnector connector) => new HttpClient();
 
 
-        static VenturaConfig()
+        static VenturaSqlConfig()
         {
             _factory = _default_factory;
         }
 
         /// <summary>
         /// When Recordset.ExecSqlAsync(), Recordset.SaveChangesAsync(), Transactional.ExecSqlAsync() or Transactional.SaveChangesAsync()
-        /// is called without setting the connector parameter, VenturaSQL will use the VenturaConfig.DefaultConnector.
+        /// is called without setting the connector parameter, VenturaSQL will use the VenturaSqlConfig.DefaultConnector.
         /// </summary>
         public static Connector DefaultConnector
         {

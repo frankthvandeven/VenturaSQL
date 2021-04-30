@@ -17,7 +17,7 @@ namespace VenturaSQL
 
         public static void ExecSql(params IRecordsetBase[] loaders)
         {
-            ExecSql(VenturaConfig.DefaultConnector, loaders);
+            ExecSql(VenturaSqlConfig.DefaultConnector, loaders);
         }
 
         public static void ExecSql(Connector connector, params IRecordsetBase[] recordsets)
@@ -54,7 +54,7 @@ namespace VenturaSQL
 
         public static async Task ExecSqlAsync(params IRecordsetBase[] recordsets)
         {
-            await ExecSqlAsync(VenturaConfig.DefaultConnector, recordsets);
+            await ExecSqlAsync(VenturaSqlConfig.DefaultConnector, recordsets);
         }
 
         public static async Task ExecSqlAsync(Connector connector, params IRecordsetBase[] recordsets)
@@ -91,7 +91,7 @@ namespace VenturaSQL
 
         public static void SaveChanges(params IRecordsetBase[] recordsets)
         {
-            SaveChanges(VenturaConfig.DefaultConnector, recordsets);
+            SaveChanges(VenturaSqlConfig.DefaultConnector, recordsets);
         }
 
         public static void SaveChanges(Connector connector, params IRecordsetBase[] recordsets)
@@ -122,7 +122,7 @@ namespace VenturaSQL
 
         public static async Task SaveChangesAsync(params IRecordsetBase[] recordsets)
         {
-            await SaveChangesAsync(VenturaConfig.DefaultConnector, recordsets);
+            await SaveChangesAsync(VenturaSqlConfig.DefaultConnector, recordsets);
         }
 
         public static async Task SaveChangesAsync(Connector connector, params IRecordsetBase[] recordsets)

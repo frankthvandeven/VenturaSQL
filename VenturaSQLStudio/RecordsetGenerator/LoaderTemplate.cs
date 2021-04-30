@@ -580,9 +580,9 @@ namespace VenturaSQLStudio {
             }
 
             if (codestyle == CodeStyle.Synchronous)
-                sb.Append(TAB + TAB + TAB + "Transactional.ExecSql(VenturaConfig.DefaultConnector, new IRecordsetBase[] { this });" + CRLF);
+                sb.Append(TAB + TAB + TAB + "Transactional.ExecSql(VenturaSqlConfig.DefaultConnector, new IRecordsetBase[] { this });" + CRLF);
             else
-                sb.Append(TAB + TAB + TAB + "await Transactional.ExecSqlAsync(VenturaConfig.DefaultConnector, new IRecordsetBase[] { this });" + CRLF);
+                sb.Append(TAB + TAB + TAB + "await Transactional.ExecSqlAsync(VenturaSqlConfig.DefaultConnector, new IRecordsetBase[] { this });" + CRLF);
 
             sb.Append(TAB + TAB + "}" + CRLF + CRLF);
 
@@ -663,9 +663,9 @@ namespace VenturaSQLStudio {
             sb.Append(TAB + TAB + "{" + CRLF);
 
             if (codestyle == CodeStyle.Synchronous)
-                sb.Append(TAB + TAB + TAB + "Transactional.SaveChanges(VenturaConfig.DefaultConnector, new IRecordsetBase[] { this });" + CRLF);
+                sb.Append(TAB + TAB + TAB + "Transactional.SaveChanges(VenturaSqlConfig.DefaultConnector, new IRecordsetBase[] { this });" + CRLF);
             else
-                sb.Append(TAB + TAB + TAB + "await Transactional.SaveChangesAsync(VenturaConfig.DefaultConnector, new IRecordsetBase[] { this });" + CRLF);
+                sb.Append(TAB + TAB + TAB + "await Transactional.SaveChangesAsync(VenturaSqlConfig.DefaultConnector, new IRecordsetBase[] { this });" + CRLF);
 
             sb.Append(TAB + TAB + "}" + CRLF + CRLF);
 

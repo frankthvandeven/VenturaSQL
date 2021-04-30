@@ -113,9 +113,11 @@ namespace VenturaSQLStudio
                 //    this.AddTab(() => new LicensePage(), "License", "LICENSE ", this.DataContext, TabMenu.CloseAble);
                 //}
 
-                CheckForUpdate check = new CheckForUpdate();
+                var check = new CheckForUpdate();
                 check.CheckForUpdateEvent += Check_CheckForUpdateEvent;
-                check.RunAsync();
+
+                // Async method not awaited on purpose.
+                _ = check.RunAsync();
 
             }; // end of Action block
 

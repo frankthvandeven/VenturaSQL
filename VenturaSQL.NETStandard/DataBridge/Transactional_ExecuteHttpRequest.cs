@@ -13,8 +13,11 @@ namespace VenturaSQL
         {
             // Send the request
 
-            HttpClient client = VenturaConfig.GetHttpClientFromFactory(connector);
-            
+            // Sharing one HttpClient for all request:
+            // https://www.aspnetmonsters.com/2016/08/2016-08-27-httpclientwrong/
+
+            HttpClient client = VenturaSqlConfig.GetHttpClientFromFactory(connector);
+
             // Has no effect.
             // client.DefaultRequestHeaders.Accept.Clear();
             // client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/venturasql"));
@@ -30,9 +33,9 @@ namespace VenturaSQL
             {
 
                 // work in progress
-                if( !response.IsSuccessStatusCode)
+                if (!response.IsSuccessStatusCode)
                 {
-                    
+
                     object xx = response.Content;
 
 

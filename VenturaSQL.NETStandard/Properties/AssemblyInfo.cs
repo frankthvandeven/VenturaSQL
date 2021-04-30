@@ -1,14 +1,14 @@
 using System.Reflection;
 using VenturaSQL;
 
-[assembly: ReleaseDate(2021, 4, 28, 5, 3 , 0)]
+[assembly: ReleaseDate(2021, 4, 30, 12, 21 , 29)]
 
 [assembly: AssemblyTitle("VenturaSQL runtime for .Net Standard 2.0. Works with .NET Core (Windows/macOS/Linux) and .NET Framework.")]
 [assembly: AssemblyDescription("VenturaSQL runtime for .Net Standard 2.0. Works with .NET Core (Windows/macOS/Linux) and .NET Framework.")]
 
-[assembly: AssemblyVersion("4.0.119.0")]
-[assembly: AssemblyFileVersion("4.0.119.0")]
-[assembly: AssemblyInformationalVersion("4.0.119")]
+[assembly: AssemblyVersion("4.0.120.0")]
+[assembly: AssemblyFileVersion("4.0.120.0")]
+[assembly: AssemblyInformationalVersion("4.0.120")]
 
 [assembly: AssemblyCompany("Frank Th. van de Ven")]
 [assembly: AssemblyProduct("VenturaSQL™")]

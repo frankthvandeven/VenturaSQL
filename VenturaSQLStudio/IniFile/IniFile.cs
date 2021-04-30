@@ -4,11 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 
 namespace VenturaSQLStudio {
-    /* Major overhaul done on Thursday 4 February 2016:
-    * File is now being closed after loading, and reopened for saving.
-    *
-    * It's professionally stable now.
-    */
 
     public class IniFile : IEnumerable<Group>
     {
