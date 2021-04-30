@@ -1,16 +1,15 @@
 # VenturaSQL
 The 3-tier SQL framework for C# projects.
 
-Where an ORM binds to columns properties dynamically, VenturaSQL is static. The generated classes with column properties are tightly linked to the resultset of an SQL statement (or script). Change the SQL statement, and the column properties change too.
+Where an ORM binds to columns properties dynamically, VenturaSQL is static. Each generated class with column properties belongs to the resultset of an SQL statement (or script). Change the SQL statement, and the column properties change too.
 
-VenturaSQL studio generates recordset classes based on an SQL statement. A recordset can retrieve and update database data via the built in Web API, or it can connect to a database directly.
+VenturaSQL studio generates recordset classes based on an SQL statement. A recordset can retrieve and update a database via the built in Web API. It can also connect to a database directly.
 
-VenturaSQL is perfect for Blazor WebAssembly. The recordsets in the browser have build in change tracking and only modified data is transmitted back to the server via Web API calls. For the Blazor WebAssembly developer, it is just like you connect to the database directly.
+VenturaSQL is perfect for **Blazor WebAssembly**. The recordsets in the browser have build in change tracking and only modified data is transmitted back to the server via Web API calls. Only a single Web API HttpPost Controller is needed, that never changes.
 
-VenturaSQL is lightweight, does not use reflection and very fast.
+For the Blazor WebAssembly developer, it feels just like you connect to the database directly.
 
-
-
+VenturaSQL is lightweight, does not use reflection and is very fast.
 
 VenturaSQL has three parts:
 
