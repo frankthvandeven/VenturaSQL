@@ -18,11 +18,12 @@ For the Blazor WebAssembly developer, it feels just like you connect to the data
 A single Web API controller with a POST method needs to be added to the ASP.NET Core project.
 
 ```csharp
+    [ApiController]
     public class VenturaSqlController : ControllerBase
     {
         [Route("api/venturasql")]
         [HttpPost]
-        public async Task<IActionResult> Index([FromBody] byte[] requestData)
+        public async Task<IActionResult> Index(byte[] requestData)
         {
             var processor = new VenturaSqlServerEngine();
             processor.CallBacks.LookupAdoConnector = LookupAdoConnector;
