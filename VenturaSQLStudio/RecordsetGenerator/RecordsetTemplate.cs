@@ -501,6 +501,7 @@ namespace VenturaSQLStudio {
                 sb.Append(PRE + TAB + TAB + TAB + "{" + CRLF);
 
                 var writable_key_columns = schema.FindAll(c => c.Updateable == true && c.IsKey == true);
+                var writable_nonkey_columns = schema.FindAll(c => c.Updateable == true && c.IsKey == false);
 
                 if (writable_key_columns.Count > 0)
                 {
@@ -513,12 +514,8 @@ namespace VenturaSQLStudio {
                     sb.Append(PRE + TAB + TAB + TAB + TAB + "}" + CRLF);
                 }
 
-                for (int i = 0; i < schema.Count; i++)
-                {
-                    VenturaColumn column = schema[i];
-                    if (column.Updateable == true && column.IsKey == false)
-                        sb.Append(PRE + TAB + TAB + TAB + TAB + $"if ({column.PrivateVariableName_Modified()}) track_array.AppendDataValue({i}, {column.PrivateVariableName_Current()});" + CRLF);
-                }
+                foreach (var column in writable_nonkey_columns)
+                        sb.Append(PRE + TAB + TAB + TAB + TAB + $"if ({column.PrivateVariableName_Modified()}) track_array.AppendDataValue({column.ColumnOrdinal}, {column.PrivateVariableName_Current()});" + CRLF);
 
                 sb.Append(PRE + TAB + TAB + TAB + TAB + "if (track_array.HasData == false) return;" + CRLF);
                 sb.Append(PRE + TAB + TAB + TAB + "}" + CRLF + CRLF);

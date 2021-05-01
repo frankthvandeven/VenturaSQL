@@ -79,7 +79,7 @@ namespace VenturaSQLStudio
                 // For VenturaSQL internal use
                 if (fullyQualifiedTablename != null && updateableTablename != null)
                     if (fullyQualifiedTablename == updateableTablename)
-                        if (row_info.IsReadOnly == false)
+                        if (row_info.IsReadOnly == false && row_info.IsIdentity == false && row_info.IsAutoIncrement == false)
                             column.Updateable = true;
 
                 builder.Add(column);

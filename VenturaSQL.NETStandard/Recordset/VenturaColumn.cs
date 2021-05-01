@@ -46,7 +46,7 @@ namespace VenturaSQL
 
         private string _description = null;
 
-        private bool _updateable = false; // for Ventura internal use. 
+        private bool _updateable = false; // for VenturaSql internal use. 
 
         public short ColumnOrdinal = -1;
 
