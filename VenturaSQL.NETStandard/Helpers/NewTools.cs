@@ -7,7 +7,7 @@ namespace VenturaSQL
     /// <summary>
     /// New general functions for Ventura. Multi platform.
     /// </summary>
-    public class NewTools
+    public static class NewTools
     {
 
         public static Version VenturaVersion

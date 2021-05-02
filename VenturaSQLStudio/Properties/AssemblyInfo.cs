@@ -29,7 +29,7 @@ using VenturaSQL;
                                               // app, or any theme specific resource dictionaries)
 )]
 
-[assembly: ReleaseDate(2021, 5, 1, 5, 14 , 45)]
+[assembly: ReleaseDate(2021, 5, 2, 7, 59 , 5)]
 
 // Version information for an assembly consists of the following four values: Major Version, Minor Version, Build Number, Revision
 // You can specify all the values or you can default the Build and Revision Numbers 
@@ -37,9 +37,9 @@ using VenturaSQL;
 //
 // Ventura uses version as: Major.Minor.Patch The Revision part always remains fixed at zero.
 //
-[assembly: AssemblyVersion("4.0.122.0")]
-[assembly: AssemblyFileVersion("4.0.122.0")]
-[assembly: AssemblyInformationalVersion("4.0.122")] // <-- This is the 'general' product version, for example: "1.0.1 or 1.0.1-rc or 1.1.2-beta4 or 2.0.0-alpha3"
+[assembly: AssemblyVersion("4.0.123.0")]
+[assembly: AssemblyFileVersion("4.0.123.0")]
+[assembly: AssemblyInformationalVersion("4.0.123")] // <-- This is the 'general' product version, for example: "1.0.1 or 1.0.1-rc or 1.1.2-beta4 or 2.0.0-alpha3"
 
 // General Information about an assembly is controlled through the following set of attributes.
 [assembly: AssemblyCompany("Frank Th. van de Ven")]

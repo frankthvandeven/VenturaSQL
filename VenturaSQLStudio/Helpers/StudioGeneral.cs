@@ -17,7 +17,7 @@ using System.Diagnostics;
 namespace VenturaSQLStudio
 {
     /// <summary>
-    /// General Ventura functions wrapped in a central static class.
+    /// General functions wrapped in a central static class.
     /// </summary>
     public static class StudioGeneral
     {
@@ -255,14 +255,6 @@ namespace VenturaSQLStudio
 
         } // end of function SmartClose
 
-        /// <summary>
-        /// For debugging purposes.
-        /// </summary>
-        public static void ClickSound()
-        {
-            //new SoundPlayer(@"C:\Active\Ventura\Projects\VenturaSQL Studio\Assets\button_select1.wav").Play();
-        }
-
         public static void StartBrowser(string url)
         {
             url = url.Replace("&", "^&");
@@ -354,33 +346,4 @@ namespace VenturaSQLStudio
 
     } // end of class
 
-
-    public class TNTimer
-    {
-        private long startTime;
-        private long endTime;
-        private TimeSpan timeTaken;
-
-        public TNTimer()
-        {
-            this.Start();
-        }
-
-        public void Start()
-        {
-            startTime = DateTime.Now.Ticks;
-        }
-
-        public void Stop()
-        {
-            endTime = DateTime.Now.Ticks;
-            timeTaken = new TimeSpan(endTime - startTime);
-        }
-
-        public string TimeTakenString()
-        {
-            return timeTaken.ToString();
-        }
-
-    }
 }

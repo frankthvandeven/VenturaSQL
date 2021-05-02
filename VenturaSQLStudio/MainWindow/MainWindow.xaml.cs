@@ -115,9 +115,8 @@ namespace VenturaSQLStudio
 
                 var check = new CheckForUpdate();
                 check.CheckForUpdateEvent += Check_CheckForUpdateEvent;
-
-                // Async method not awaited on purpose.
-                _ = check.RunAsync();
+                
+                _ = check.RunAsync(); // Async method not awaited is intentional.
 
             }; // end of Action block
 
