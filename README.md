@@ -11,6 +11,8 @@ A recordset can retrieve and update a database via a built in Web API. It can al
 
 ![Image of the recordset editor](https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/screenshot_rs_editor.png)
 
+<img src="https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/screenshot_rs_editor.png" width="50%" >
+
 ## Blazor WebAssembly
 VenturaSQL is perfect for **Blazor WebAssembly**. The recordsets in the browser have built in change tracking and only modified data is transmitted back to the server via Web API. 
 
