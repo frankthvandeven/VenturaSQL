@@ -7,17 +7,13 @@ The VenturaSQL Studio WPF app generates recordset classes based on SQL statement
 
 Each generated recordset has column properties that belong to the resultset of an SQL statement. Change the SQL statement, and the column properties change too.
 
-A recordset can retrieve and update a database via a built in Web API. It can also connect to a database directly.
+A recordset can retrieve and update a database via the built in Web API, data is packed in binary format. It can also connect to a database directly.
 
-![Image of Yaktocat](https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/screenshot_rs_editor50.png)
-<img src="https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/screenshot_rs_editor.png" width="50%" >
-<img src="https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/screenshot_rs_editor.png" width="1104" >
-
-
+![Image of recordset editor](https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/README_IMG1.png)
 
 
 ## Blazor WebAssembly
-VenturaSQL is perfect for **Blazor WebAssembly**. The recordsets in the browser have built in change tracking and only modified data is transmitted back to the server via Web API. 
+VenturaSQL is perfect for **Blazor WebAssembly**. The recordsets in the browser have built in change tracking and only modified data is transmitted back to the server via Web API calls.
 
 For the Blazor WebAssembly developer, it feels just like you connect to the database directly.
 
