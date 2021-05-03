@@ -9,6 +9,12 @@ Each generated recordset has column properties that belong to the resultset of a
 
 A recordset can retrieve and update a database via a built in Web API. It can also connect to a database directly.
 
+<img src="https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/screenshot_rs_editor.png" width="50%" >
+<img src="https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/screenshot_rs_editor.png" width="1104" >
+
+
+
+
 ## Blazor WebAssembly
 VenturaSQL is perfect for **Blazor WebAssembly**. The recordsets in the browser have built in change tracking and only modified data is transmitted back to the server via Web API. 
 
