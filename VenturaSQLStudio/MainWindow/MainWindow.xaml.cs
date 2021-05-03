@@ -178,7 +178,7 @@ namespace VenturaSQLStudio
 
         private void button_DownloadUpdate_Click(object sender, RoutedEventArgs e)
         {
-            StudioGeneral.StartBrowser("https://site.sysdev.nl/ProductVenturaSQL/DownloadsAndSupport/DownloadLatest");
+            StudioGeneral.StartBrowser("https://site.sysdev.nl/venturasql");
         }
 
         private void button_CloseUpdatePanel_Click(object sender, RoutedEventArgs e)
