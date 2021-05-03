@@ -9,10 +9,8 @@ Each generated recordset has column properties that belong to the resultset of a
 
 A recordset can retrieve and update a database via a built in Web API. It can also connect to a database directly.
 
-![Image of the recordset editor](https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/screenshot_rs_editor.png)
-
 <img src="https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/screenshot_rs_editor.png" width="50%" >
-<img src="https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/screenshot_rs_editor.png" style="max-width:60%;" >
+<img src="https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/screenshot_rs_editor.png" width="1104" >
 
 
 
