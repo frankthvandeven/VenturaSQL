@@ -12,7 +12,7 @@ A recordset can retrieve and update a database via a built in Web API. It can al
 ![Image of the recordset editor](https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/screenshot_rs_editor.png)
 
 <img src="https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/screenshot_rs_editor.png" width="50%" >
-<img src="https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/screenshot_rs_editor.png" max-width="50%" >
+<img src="https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/screenshot_rs_editor.png" style="max-width:60%;" >
 
 
 
