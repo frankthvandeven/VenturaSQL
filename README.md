@@ -1,8 +1,9 @@
 # VenturaSQL
 The 3-tier SQL framework for C# projects.
 
+The only requirement for using VenturaSQL is that the client must be able to run C# code. A browser with Blazor is supported. A browser only running JavaScript is not supported.
+
 Where an ORM binds to columns properties dynamically, VenturaSQL is static and the mapping is already done at compile time. With a runtime DLL of less than 100KB you can use both an ORM and VenturaSQL in the same project. Both approaches have their unique benefits. Use VenturaSQL when:
-+ The client runs C# code. A client only running JavaScript is not supported
 + Work with SQL statements that you enter in the VenturaSQL Studio editor
 + Access a database over Http and Web API without having to write controller code
 + Optimized for raw performance thanks to binary data transfer and static binding instead of reflection
