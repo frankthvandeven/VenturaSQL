@@ -9,6 +9,10 @@ Where an ORM binds to columns properties dynamically, VenturaSQL is static and t
 
 The only requirement for using VenturaSQL is that the client must be able to run C# code. A browser running C# code with Blazor WebAssembly is supported, but a browser only running JavaScript is not supported.
 
+VenturaSQL can support any ADO.NET data provider, but currently the only tested providers are:
+++ System.Data.SqlClient (Microsoft SQL Server)
+++ System.Data.SQLite (SQLite.org)
+
 ## VenturaSQL Studio generates recordsets
 The VenturaSQL Studio WPF app generates recordset classes based on SQL statements. The recordsets are automatically injected into your C# projects.
 
