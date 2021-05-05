@@ -46,8 +46,29 @@ A single static Web API controller with a POST method needs to be added to the A
 
         private AdoConnector LookupAdoConnector(string requestedName)
         {
-            return ServerConnector.BikeStores;
+            return new AdoConnector(SqlClientFactory.Instance, "Server=tcp:xxx,1433;Initial Catalog=VanArsdel;User ID=yyy;Password=zzz;");
         }
+```
+## The client
+
+```csharp
+VenturaSqlConfig.DefaultConnector = new HttpConnector("DefaultConnector", "api/venturasql");
+
+PriKey_CountryCodes_Recordset rs = new PriKey_CountryCodes_Recordset();
+
+rs.ExecSql("us");
+
+if (rs.RecordCount != 0)
+{
+    MessageBox.Show($"County code 'us' already exists.");
+    return;
+}
+
+rs.Append();
+rs.CountryCodeID = "us";
+rs.Name = "United States";
+
+rs.SaveChanges();
 ```
 
 ## The VenturaSQL system
