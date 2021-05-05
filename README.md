@@ -94,5 +94,6 @@ Online documentation: https://docs.sysdev.nl
 + A recordset can hold multiple resultsets.
 + Updating multiple tables using multiple recordsets can easily be bundled into a single database transaction (for rollback) using the Transactional.SaveChanges() method.
 + Calculated columns.
-+ Column properties generate data binding events.
-+ VenturaSQL Studio automatically generates basic recordsets with "SELECT * WHERE <prikey>" statements.
++ Column properties generate data binding events (INotifyPropertyChanged and INotifyCollectionChanged).
++ VenturaSQL Studio automatically generates basic recordsets with "SELECT <all columns> WHERE <prikey>" statements.
++ VenturaSQL Studio has a code snippet generator, for example for filling viewmodels.
