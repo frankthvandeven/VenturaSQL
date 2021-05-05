@@ -1,10 +1,10 @@
 # VenturaSQL
 The 3-tier SQL framework for C# projects.
 
-Where an ORM binds to columns properties dynamically, VenturaSQL is static and the mapping is already done compile time. With a runtime DLL of less than 100KB you can use both an ORM and VenturaSQL in the same project. Use VenturaSQL when:
+Where an ORM binds to columns properties dynamically, VenturaSQL is static and the mapping is already done at compile time. With a runtime DLL of less than 100KB you can use both an ORM and VenturaSQL in the same project. Both approaches have their unique benefits. Use VenturaSQL when you need to:
 + Work with SQL statements that you enter in the VenturaSQL Studio editor
-+ Access a database over Http and Web API without having to write code
-+ Very fast thanks to binary data transfer and static binding instead of reflection
++ Access a database over Http and Web API without having to write controller code
++ Optimized for raw performance thanks to binary data transfer and static binding instead of reflection
 
 The VenturaSQL Studio WPF app generates recordset classes based on SQL statements or scripts. The recordsets are automatically injected into your C# projects.
 
