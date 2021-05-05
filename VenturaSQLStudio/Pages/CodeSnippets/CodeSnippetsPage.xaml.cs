@@ -86,13 +86,13 @@ namespace VenturaSQLStudio.Pages
 
             _snippet_list.Add(new SnippetListItem
             {
-                Title = "XAML definition for Ventura's UWP HyperGrid.",
+                Title = "XAML definition for VenturaSQL's UWP HyperGrid.",
                 DoCreate = () => new SnippetHyperGrid()
             });
 
             _snippet_list.Add(new SnippetListItem
             {
-                Title = "XAML definition for Ventura's UWP Form.",
+                Title = "XAML definition for VenturaSQL's UWP Form.",
                 DoCreate = () => new SnippetForm()
             });
 

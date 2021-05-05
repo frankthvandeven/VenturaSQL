@@ -296,7 +296,7 @@ namespace VenturaSQLStudio.AutoCreate
                 sb.Append(CRLF);
                 sb.Append($"-- VenturaSQL doesn't know the incremental loading (pagination) SQL syntax for provider '{piv}' and used the default OFFSET/LIMIT syntax.");
                 sb.Append(CRLF);
-                sb.Append("-- If the above syntax is wrong, contact Frank and ask for Ventura to be updated and for now disable the automatic creation of 'Incr' recordsets in [Project Settings]-[Auto Create Recordsets]-[Settings].");
+                sb.Append("-- If the above syntax is wrong, contact Frank and ask for VenturaSQL to be updated and for now disable the automatic creation of 'Incr' recordsets in [Project Settings]-[Auto Create Recordsets]-[Settings].");
             }
 
             rs.SqlScript = sb.ToString();

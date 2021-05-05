@@ -8,7 +8,7 @@ namespace VenturaSQL
 	public class VenturaException : Exception
 	{
 
-		public VenturaException() : base("Ventura Exception")
+		public VenturaException() : base("VenturaSQL Exception")
 		{
 		}
 

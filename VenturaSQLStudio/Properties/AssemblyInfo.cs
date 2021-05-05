@@ -35,7 +35,7 @@ using VenturaSQL;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below: [assembly: AssemblyVersion("1.0.*")]
 //
-// Ventura uses version as: Major.Minor.Patch The Revision part always remains fixed at zero.
+// VenturaSQL uses version as: Major.Minor.Patch The Revision part always remains fixed at zero.
 //
 [assembly: AssemblyVersion("4.0.123.0")]
 [assembly: AssemblyFileVersion("4.0.123.0")]

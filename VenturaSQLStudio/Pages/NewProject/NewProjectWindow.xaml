@@ -90,7 +90,7 @@
                 </Button>
             </StackPanel>
             <TextBlock Margin="10,8,10,0" TextWrapping="Wrap">
-                It is recommended that you create the Ventura project file in the same folder as
+                It is recommended that you create the VenturaSQL project file in the same folder as
                 where the Visual Studio solution file (.sln) is located.<LineBreak />
                 <LineBreak />
                 <Hyperlink NavigateUri="uri" RequestNavigate="Hyperlink_RequestNavigate">Click here to set the File name and Location based on an existing .sln file.</Hyperlink>

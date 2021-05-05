@@ -419,7 +419,7 @@ namespace VenturaSQL
 
         #endregion
 
-        #region Interface IRecordsetBase - exposing internals to the Ventura Runtime
+        #region Interface IRecordsetBase - exposing internals to the VenturaSQL Runtime
 
         /// <summary>
         /// Returns the TRecord[] as an IRecordBase[] array.

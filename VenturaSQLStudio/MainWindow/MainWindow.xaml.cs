@@ -109,7 +109,7 @@ namespace VenturaSQLStudio
 
                 //if (Central.RefreshResult != RefreshResult.ValidLicenseKey || (Central.RefreshResult == RefreshResult.ValidLicenseKey && Central.Unlocked() == false))
                 //{
-                //    MessageBox.Show("Your Ventura license is not valid and needs attention.\n\nThe license page will be opened.", "VenturaSQL Studio", MessageBoxButton.OK, MessageBoxImage.Stop);
+                //    MessageBox.Show("Your VenturaSQL license is not valid and needs attention.\n\nThe license page will be opened.", "VenturaSQL Studio", MessageBoxButton.OK, MessageBoxImage.Stop);
                 //    this.AddTab(() => new LicensePage(), "License", "LICENSE ", this.DataContext, TabMenu.CloseAble);
                 //}
 
@@ -178,7 +178,7 @@ namespace VenturaSQLStudio
 
         private void button_DownloadUpdate_Click(object sender, RoutedEventArgs e)
         {
-            StudioGeneral.StartBrowser("https://site.sysdev.nl/venturasql");
+            StudioGeneral.StartBrowser("https://dotnet.sysdev.nl/venturasql");
         }
 
         private void button_CloseUpdatePanel_Click(object sender, RoutedEventArgs e)
@@ -403,7 +403,7 @@ namespace VenturaSQLStudio
 #if LICENSE_MANAGER
             if (Central.RefreshResult != RefreshResult.ValidLicenseKey || (Central.RefreshResult == RefreshResult.ValidLicenseKey && Central.Unlocked() == false))
             {
-                MessageBox.Show("Code generation is locked.\n\nYour Ventura license is not activated or invalid and needs attention.\n\nThe license page will be selected.", "VenturaSQL Studio", MessageBoxButton.OK, MessageBoxImage.Stop);
+                MessageBox.Show("Code generation is locked.\n\nYour VenturaSQL license is not activated or invalid and needs attention.\n\nThe license page will be selected.", "VenturaSQL Studio", MessageBoxButton.OK, MessageBoxImage.Stop);
                 this.AddTab(() => new LicensePage(), "License", "LICENSE ", this.DataContext, TabMenu.CloseAble);
                 return;
             }

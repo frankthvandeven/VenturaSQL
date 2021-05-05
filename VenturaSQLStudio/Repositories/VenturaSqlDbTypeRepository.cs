@@ -55,15 +55,15 @@ namespace VenturaSQLStudio
             // 2. SqlDbType.Udt = The underlying type is a CLR class type.
             // 3. SqlDbType.Structured = The underlying type is a DataTable. Not implemented yet. Also not: Structured only exists as an SqlParameter, and never in a returned Resultset.
 
-            // There is one type that is not supported by Ventura in a RESULTSET in VenturaSQL Studio:
+            // There is one type that is not supported by VenturaSQL in a RESULTSET in VenturaSQL Studio:
             // 1. SqlDbType.Variant. Not worth investing the time to support it.
 
-            // There are 3 types that are not supported by Ventura as a PARAMETER in VenturaSQL Studio:
+            // There are 3 types that are not supported by VenturaSQL as a PARAMETER in VenturaSQL Studio:
             // 1. SqlDbType.Variant. Not worth investing the time to support it.
             // 2. SqlDbType.Udt. Not yet supported, but planned for later. Problem: where to find the underlying CLR type from within VenturaSQL Studio?
             // 3. SqlDbType.Structured. Not yet supported. Planned for later.
 
-            #region Hard coded information for eaxch (Ventura)SqlDbType.
+            #region Hard coded information for each (Ventura)SqlDbType.
 
             temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.BigInt, VenturaCode.Int64)
             {
@@ -463,7 +463,7 @@ namespace VenturaSQLStudio
             });
 
             // Structured is only used in SqlParameters and will never be part of a Result set. This is a special type,
-            // and will be recognized by Ventura and treated different from other types.
+            // and will be recognized by VenturaSQL and treated different from other types.
             temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Structured, VenturaCode.Object)
             {
                 AllowedInResultset = false, /* Will never be in Resultset anyway */

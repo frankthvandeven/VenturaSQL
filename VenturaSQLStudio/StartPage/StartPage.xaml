@@ -137,7 +137,7 @@
                                         <ContextMenu>
                                             <MenuItem Header="{Binding FileNameWithoutExtension}" IsEnabled="False" />
                                             <Separator />
-                                            <MenuItem Click="MenuItem_OpenProjectFromMRU_Click" Header="Open Ventura Project" />
+                                            <MenuItem Click="MenuItem_OpenProjectFromMRU_Click" Header="Open VenturaSQL Project" />
                                             <MenuItem Click="MenuItemOpenContainingFolder_Click" Header="Open Containing Folder" />
                                             <MenuItem Click="MenuItemRemoveFromList_Click" Header="Remove From List" />
                                         </ContextMenu>

@@ -54,10 +54,10 @@
                     <Hyperlink NavigateUri="https://www.sysdev.nl" RequestNavigate="Hyperlink_RequestNavigate">sysdev.nl</Hyperlink>
                 </Paragraph>
 
-                <Paragraph>
-                    <Hyperlink NavigateUri="https://site.sysdev.nl/Frank/LicenseAgreement" RequestNavigate="Hyperlink_RequestNavigate">Click here</Hyperlink>
+                <!--<Paragraph>
+                    <Hyperlink NavigateUri="https://dotnet.sysdev.nl/venturasql" RequestNavigate="Hyperlink_RequestNavigate">Click here</Hyperlink>
                     to read the License Agreement online.
-                </Paragraph>
+                </Paragraph>-->
 
                 <Paragraph>
                     Warning: This computer program is protected by copyright law and international treaties. Unauthorized reproduction

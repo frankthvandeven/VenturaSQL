@@ -13,7 +13,7 @@ namespace VenturaSQLStudio
 
         public async Task RunAsync()
         {
-            var url = "https://site.sysdev.nl/api/checkforupdate";
+            var url = "https://dotnet.sysdev.nl/api/checkforupdate";
 
 #if DEBUG
             //url = "https://localhost:44345/api/checkforupdate";

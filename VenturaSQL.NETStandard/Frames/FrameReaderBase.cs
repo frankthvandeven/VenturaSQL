@@ -48,7 +48,7 @@ namespace VenturaSQL
 
                 _remote_ventura_platform = (VenturaPlatform)this.ReadByte();
 
-                // Remote Ventura version.
+                // Remote VenturaSQL version.
                 int major_version = this.ReadInt32();
                 int minor_version = this.ReadInt32();
                 int build_version = this.ReadInt32();

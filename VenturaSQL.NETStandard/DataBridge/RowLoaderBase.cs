@@ -91,7 +91,7 @@ namespace VenturaSQL
                             /* We need a fresh array initialised */
                             object[] columnvalues = new object[columncount];
 
-                            /* This is the ONLY place in all Ventura code where SqlDataReader.GetValues() is called */
+                            /* This is the ONLY place in all VenturaSQL code where SqlDataReader.GetValues() is called */
                             dbdatareader.GetValues(columnvalues);                 //Alternative: ((IDataRecord)sqldatareader)[column_index]
 
                             /* Replace DBNull with a null */

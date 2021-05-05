@@ -420,7 +420,7 @@ namespace VenturaSQLStudio {
             sb.Append(TAB + TAB + "}" + CRLF + CRLF);
 
             sb.Append(TAB + TAB + "/// <summary>" + CRLF);
-            sb.Append(TAB + TAB + "/// For internal use by Ventura only. Use SetExecSqlParams() instead." + CRLF);
+            sb.Append(TAB + TAB + "/// For internal use by VenturaSQL only. Use SetExecSqlParams() instead." + CRLF);
             sb.Append(TAB + TAB + "/// </summary>" + CRLF);
             sb.Append(TAB + TAB + "object[] IRecordsetBase.InputParameterValues" + CRLF); // was public
             sb.Append(TAB + TAB + "{" + CRLF);
@@ -433,7 +433,7 @@ namespace VenturaSQLStudio {
             sb.Append(TAB + TAB + "}" + CRLF + CRLF);
 
             sb.Append(TAB + TAB + "/// <summary>" + CRLF);
-            sb.Append(TAB + TAB + "/// For internal use by Ventura only. Use Output property instead." + CRLF);
+            sb.Append(TAB + TAB + "/// For internal use by VenturaSQL only. Use Output property instead." + CRLF);
             sb.Append(TAB + TAB + "/// </summary>" + CRLF);
             sb.Append(TAB + TAB + "object[] IRecordsetBase.OutputParameterValues" + CRLF); // was public
             sb.Append(TAB + TAB + "{" + CRLF);
