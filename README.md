@@ -1,7 +1,8 @@
 # VenturaSQL
 The 3-tier SQL framework for C# projects.
 
-Where an ORM binds to columns properties dynamically, VenturaSQL is static and the mapping is already done at compile time. With a runtime DLL of less than 100KB you can use both an ORM and VenturaSQL in the same project. Both approaches have their unique benefits. Use VenturaSQL when you need to:
+Where an ORM binds to columns properties dynamically, VenturaSQL is static and the mapping is already done at compile time. With a runtime DLL of less than 100KB you can use both an ORM and VenturaSQL in the same project. Both approaches have their unique benefits. Use VenturaSQL when:
++ The client runs C# code. A client only running JavaScript is not supported
 + Work with SQL statements that you enter in the VenturaSQL Studio editor
 + Access a database over Http and Web API without having to write controller code
 + Optimized for raw performance thanks to binary data transfer and static binding instead of reflection
@@ -10,12 +11,12 @@ The VenturaSQL Studio WPF app generates recordset classes based on SQL statement
 
 Each generated recordset has column properties that belong to the resultset of an SQL statement. Change the SQL statement, and the column properties change too.
 
-A recordset can retrieve and update a database via the built in Web API. Data is transmitted in binary format. In desktop and server applications, a recordset can connect to a database directly.
+A recordset can retrieve and update a database via the built in Web API. Data is transmitted in binary format. In desktop and server applications, a recordset can also connect to a database directly.
 
 ![Image of recordset editor](https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/README_IMG1.png)
 
 ## Blazor WebAssembly
-VenturaSQL is perfect for **Blazor WebAssembly**. The recordsets in the browser have built in change tracking and only modified data is transmitted back to the server via Web API calls.
+VenturaSQL is perfect for **Blazor WebAssembly**. The VenturaSQL C# recordsets running in the browser have built in change tracking and only modified data is transmitted back to the server via Web API calls.
 
 For the Blazor WebAssembly developer, it feels just like you connect to the database directly.
 
