@@ -1,21 +1,27 @@
 # VenturaSQL
 The 3-tier SQL framework for C# projects.
 
-Where an ORM binds to columns properties dynamically, VenturaSQL is static.
+The only requirement for using VenturaSQL is that the client must be able to run C# code. A browser with Blazor is supported. A browser only running JavaScript is not supported.
+
+Where an ORM binds to columns properties dynamically, VenturaSQL is static and the mapping is already done at compile time. With a runtime DLL of less than 100KB you can use both an ORM and VenturaSQL in the same project. Both approaches have their unique benefits. Use VenturaSQL when:
++ Work with SQL statements that you enter in the VenturaSQL Studio editor
++ Access a database over Http and Web API without having to write controller code
++ Optimized for raw performance thanks to binary data transfer and static binding instead of reflection
 
 The VenturaSQL Studio WPF app generates recordset classes based on SQL statements or scripts. The recordsets are automatically injected into your C# projects.
 
 Each generated recordset has column properties that belong to the resultset of an SQL statement. Change the SQL statement, and the column properties change too.
 
-A recordset can retrieve and update a database via the built in Web API, data is packed in binary format. It can also connect to a database directly.
+A recordset can retrieve and update a database via the built in Web API. Data is transmitted in binary format. In desktop and server applications, a recordset can also connect to a database directly.
 
 ![Image of recordset editor](https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/README_IMG1.png)
 
-
 ## Blazor WebAssembly
-VenturaSQL is perfect for **Blazor WebAssembly**. The recordsets in the browser have built in change tracking and only modified data is transmitted back to the server via Web API calls.
+VenturaSQL is perfect for **Blazor WebAssembly**. The VenturaSQL C# recordsets running in the browser have built in change tracking and only modified data is transmitted back to the server via Web API calls.
 
 For the Blazor WebAssembly developer, it feels just like you connect to the database directly.
+
+[Here is a demo](https://blazordemo.com) of a Blazor WebAssembly app using VenturaSQL for data access.
 
 ## Web API
 A single Web API controller with a POST method needs to be added to the ASP.NET Core project.
@@ -52,14 +58,12 @@ VenturaSQL has three parts:
 The runtime DLL is 95KB, and the middle-tier DLL is 13KB. VenturaSQL is lightweight, does not use reflection and is very fast.
 
 ## Installing VenturaSQL Studio
-Download this GitHub repository and open the solution and run the 'VenturaSQLStudio' project.
+Download and run the VenturaSQL Studio installer. The installer comes with ready to run sample projects. [Open the downloads page](https://site.sysdev.nl/venturasql)
 
 **or**
 
-Download and run the VenturaSQL Studio installer. The installer comes with ready to run sample projects. The installer will be available early May, and the download link will be here.
+Download this GitHub repository and open the solution and run the 'VenturaSQLStudio' project. The GitHub repository does not include the sample projects.
 
 ## Documentation
 Online documentation: https://docs.sysdev.nl
-
-The online documentation is for version 3, and needs updating to version 4. That will be done in May.
 
