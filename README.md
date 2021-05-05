@@ -1,18 +1,21 @@
 # VenturaSQL
 The 3-tier SQL framework for C# projects.
 
-The only requirement for using VenturaSQL is that the client must be able to run C# code. A browser with Blazor is supported. A browser only running JavaScript is not supported.
-
 Where an ORM binds to columns properties dynamically, VenturaSQL is static and the mapping is already done at compile time. With a runtime DLL of less than 100KB you can use both an ORM and VenturaSQL in the same project. Both approaches have their unique benefits. Use VenturaSQL when:
-+ Work with SQL statements that you enter in the VenturaSQL Studio editor
-+ Access a database over Http and Web API without having to write controller code
-+ Optimized for raw performance thanks to binary data transfer and static binding instead of reflection
 
++ Raw performance is needed. VenturaSQL uses optimized binary data transfer and static binding instead of reflection.
++ Entering SQL statements (or complete scripts) in the VenturaSQL Studio editor is an acceptable starting point for implementing your data access API.
++ You don't want to spend development time writing Web API controller code.
+
+The only requirement for using VenturaSQL is that the client must be able to run C# code.
++ A browser running C# code with Blazor WebAssembly is supported. But a browser only running JavaScript is not supported.
+
+## VenturaSQL Studio generates recordsets
 The VenturaSQL Studio WPF app generates recordset classes based on SQL statements or scripts. The recordsets are automatically injected into your C# projects.
 
-Each generated recordset has column properties that belong to the resultset of an SQL statement. Change the SQL statement, and the column properties change too.
+Each generated recordset has column properties based on the resultset of an SQL statement. Change the SQL statement, and the column properties change too.
 
-A recordset can retrieve and update a database via the built in Web API. Data is transmitted in binary format. In desktop and server applications, a recordset can also connect to a database directly.
+A recordset retrieves and updates a database via a single static Web API Controller. There is no need to write controller code. Data is transmitted in binary format. In desktop and server applications, a recordset can also connect to a database directly.
 
 ![Image of recordset editor](https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/README_IMG1.png)
 
