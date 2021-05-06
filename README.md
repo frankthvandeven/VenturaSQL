@@ -5,11 +5,11 @@ Where an ORM binds to columns properties dynamically, VenturaSQL is static and t
 
 + Raw performance is needed. VenturaSQL uses optimized binary data transfer and static binding instead of reflection. When saving changes, only modified column data is sent to the server.
 + Entering SQL statements (or complete scripts) in the VenturaSQL Studio editor is an acceptable starting point for implementing your data access API.
-+ You don't want to spend development time writing Web API controller code.
++ You don't want to spend time writing Web API controller code.
 
 The only requirement for using VenturaSQL is that the client must be able to run C# code. A browser running C# code with Blazor WebAssembly is supported, but a browser only running JavaScript is not supported.
 
-VenturaSQL can support any ADO.NET data provider, but currently the only tested providers are:
+VenturaSQL can use any ADO.NET data provider, but currently the only tested providers are:
 + System.Data.SqlClient (Microsoft SQL Server)
 + System.Data.SQLite (SQLite.org)
 
