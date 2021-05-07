@@ -18,12 +18,12 @@ The VenturaSQL Studio WPF app generates recordset classes based on SQL statement
 
 Each generated recordset has column properties based on the resultset of an SQL statement. Change the SQL statement, and the column properties change too.
 
-A recordset retrieves data and updates the database via a single static Web API Controller. There is no need to write controller code. Data is transmitted in binary format. In desktop and server applications, a recordset can also connect to a database directly.
+A recordset retrieves data and updates the database via a single Web API Controller. You only need add controller code once. Data is transmitted in binary format. In desktop and server applications, a recordset can also connect to a database directly.
 
 ![Image of recordset editor](https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/README_IMG1.png)
 
 ## Blazor WebAssembly
-VenturaSQL is perfect for **Blazor WebAssembly**. The VenturaSQL C# recordsets running in the browser are optimized for speed and have built in change tracking. Only modified data is transmitted back to the server via Web API calls.
+VenturaSQL is perfect for Blazor WebAssembly. The VenturaSQL C# recordsets running in the browser are optimized for speed and have built in change tracking. Only modified data is transmitted back to the server via Web API calls.
 
 For the Blazor WebAssembly developer, it feels just like you are connected to the database directly.
 
@@ -91,6 +91,9 @@ The runtime DLL is 95KB, and the middle-tier DLL is 13KB. VenturaSQL is lightwei
 **or**
 
 Download this GitHub repository and open the solution and run the VenturaSQLStudio project. The GitHub repository does not include the template projects.
+
+## See it run on your PC in minutes
+The easiest way to get started with VenturaSQL is to run the installer, create a new project with the Blazor WebAssembly template and run it. Open the [Getting started with VenturaSQL](https://sysdev.nl/2021/05/getting-started-with-venturasql/) page for illustrated instructions.
 
 ## Resources
 + Online documentation: https://docs.sysdev.nl
