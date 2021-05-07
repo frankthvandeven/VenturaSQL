@@ -159,6 +159,9 @@ namespace VenturaSQLStudio
             //            template_folder = @"C:\Active\VenturaSQL\BuildSystem\Templates";
             //#endif
 
+            // Convert to absolute path.
+            template_folder = Path.GetFullPath(template_folder);
+
             return template_folder;
         }
 

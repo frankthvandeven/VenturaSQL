@@ -57,7 +57,7 @@ namespace VenturaSQLStudio.Pages
 
             if (!Directory.Exists(folder))
             {
-                ViewModel.Templates[0].Description += $" Templates not available. Template folder {folder} does not exist.";
+                ViewModel.Templates[0].Description += $" Templates not available. Template folder '{folder}' does not exist.";
                 return;
             }
 
