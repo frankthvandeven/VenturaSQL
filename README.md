@@ -7,6 +7,8 @@ Where an ORM binds to columns properties dynamically, VenturaSQL is static and t
 + Entering SQL statements (or complete scripts) in the VenturaSQL Studio editor is an acceptable starting point for implementing your data access API.
 + You don't want to spend time writing Web API controller code.
 
+Read [Making the case for VenturaSQL](https://sysdev.nl/2021/05/making-the-case-for-venturasql/) for a comparison between VenturaSQL and ORM. The article explains the difference between approaches, and what solution to choose depending on the scenario.
+
 The only requirement for using VenturaSQL is that the client must be able to run C# code. A browser running C# code with Blazor WebAssembly is supported, but a browser only running JavaScript is not supported.
 
 VenturaSQL can use any ADO.NET data provider, but currently the only tested providers are:
