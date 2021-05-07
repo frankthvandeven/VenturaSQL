@@ -7,7 +7,7 @@ Where an ORM binds to columns properties dynamically, VenturaSQL is static and t
 + Entering SQL statements (or complete scripts) in the VenturaSQL Studio editor is an acceptable starting point for implementing your data access API.
 + You don't want to spend time writing Web API controller code.
 
-Read [Making the case for VenturaSQL](https://sysdev.nl/2021/05/making-the-case-for-venturasql/) for a comparison between VenturaSQL and ORM. The article explains the difference between approaches, and what solution to choose depending on the scenario.
+Read [Making the case for VenturaSQL](https://sysdev.nl/making-the-case-for-venturasql/) article for a comparison between VenturaSQL and ORM. The article explains the difference between approaches, and what solution to choose depending on the scenario.
 
 The only requirement for using VenturaSQL is that the client must be able to run C# code. A browser running C# code with Blazor WebAssembly is supported, but a browser only running JavaScript is not supported.
 
@@ -95,7 +95,7 @@ The runtime DLL is 95KB, and the middle-tier DLL is 13KB. VenturaSQL is lightwei
 Download this GitHub repository and open the solution and run the VenturaSQLStudio project. The GitHub repository does not include the template projects.
 
 ## See it run on your PC in minutes
-The easiest way to get started with VenturaSQL is to run the installer, create a new project with the Blazor WebAssembly template and run it. Open the [Getting started with VenturaSQL](https://sysdev.nl/2021/05/getting-started-with-venturasql/) page for illustrated instructions.
+The easiest way to get started with VenturaSQL is to run the installer, create a new project with the Blazor WebAssembly template and run it. Open the [Getting started with VenturaSQL](https://sysdev.nl/getting-started-with-venturasql/) article for illustrated instructions.
 
 ## Resources
 + Online documentation: https://docs.sysdev.nl
