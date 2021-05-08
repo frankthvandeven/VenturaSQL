@@ -29,9 +29,9 @@ namespace VenturaSQLStudio.Pages
                 view.GroupDescriptions.Add(groupDescription);
             }
 
-            int ventura_version = Assembly.GetExecutingAssembly().GetName().Version.Major;
+            int vsql_version = Assembly.GetExecutingAssembly().GetName().Version.Major;
 
-            textblockInfo.Text = $"VenturaSQL Studio {ventura_version} runs on .NET {Environment.Version.Major}, and this runtime does not support the dynamic " +
+            textblockInfo.Text = $"VenturaSQL Studio {vsql_version} runs on .NET {Environment.Version.Major}, and this runtime does not support the dynamic " +
                                  "loading of ADO.NET providers. Provider DLLs must be linked into the VenturaSQLStudio executable. " +
                                  "Contact fvv@sysdev.nl if you need a provider added. The \"Optional providers\" list is just a small " +
                                  "selection out of all the free and commercial ADO.NET providers available.";

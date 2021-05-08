@@ -19,7 +19,7 @@
                     <Image
                         Width="200"
                         Height="46"
-                        Source="/VenturaSQLStudio;component/Assets/ventura_logo_venturasqlstudio.png" />
+                        Source="/VenturaSQLStudio;component/Assets/venturasql_logo_studio.png" />
                     <LineBreak />
                     The 3-tier SQL framework for C# projects.
                 </Paragraph>

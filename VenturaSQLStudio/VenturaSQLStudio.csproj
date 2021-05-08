@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <ApplicationIcon>Resources\ventura.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\venturasql.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -71,7 +71,7 @@
     <Resource Include="Assets\validation_warning.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ventura.ico" />
+    <Resource Include="Resources\venturasql.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\RefreshArrow_Blue_48x48.png" />
@@ -80,7 +80,7 @@
     <Resource Include="Assets\validate.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\ventura_logo_venturasqlstudio.png" />
+    <Resource Include="Assets\venturasql_logo_studio.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\sql.png" />

@@ -26,7 +26,7 @@
                             Width="220"
                             Margin="0,0,0,0"
                             HorizontalAlignment="Left"
-                            Source="/VenturaSQLStudio;component/Assets/ventura_logo_venturasqlstudio.png" />
+                            Source="/VenturaSQLStudio;component/Assets/venturasql_logo_studio.png" />
                         <StackPanel Name="sectionProjectClosed">
                             <Label Content="Start" Style="{StaticResource HeaderLabel}" />
                             <Button
