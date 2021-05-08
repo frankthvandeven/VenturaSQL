@@ -33,13 +33,13 @@ namespace VenturaSQLStudio
                 if (_list[i].VenturaSqlDbType == venturasqldbtype)
                     return _list[i];
             }
-
+             
             return null;
         }
 
-        public static VenturaCode GetVenturaCode(SqlDbType venturasqldbtype)
+        public static VenturaSqlCode GetVenturaSqlCode(SqlDbType venturasqldbtype)
         {
-            return GetItem(venturasqldbtype).VenturaCode;
+            return GetItem(venturasqldbtype).VenturaSqlCode;
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace VenturaSQLStudio
 
             #region Hard coded information for each (Ventura)SqlDbType.
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.BigInt, VenturaCode.Int64)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.BigInt, VenturaSqlCode.Int64)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 8,
@@ -80,7 +80,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Binary, VenturaCode.Bytes)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Binary, VenturaSqlCode.Bytes)
             {
                 FixedSizeOnDisk = false,
                 BytesPerElement = 1,
@@ -95,7 +95,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Bit, VenturaCode.Boolean)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Bit, VenturaSqlCode.Boolean)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 1,
@@ -110,7 +110,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Char, VenturaCode.String)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Char, VenturaSqlCode.String)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 1,
@@ -125,7 +125,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.DateTime, VenturaCode.DateTime)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.DateTime, VenturaSqlCode.DateTime)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 8,
@@ -140,7 +140,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Decimal, VenturaCode.Decimal)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Decimal, VenturaSqlCode.Decimal)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 17,
@@ -155,7 +155,7 @@ namespace VenturaSQLStudio
                 ScaleMax = 38 // scale must be less or equal to Precision.
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Float, VenturaCode.Double)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Float, VenturaSqlCode.Double)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 8,
@@ -170,7 +170,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Image, VenturaCode.Bytes)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Image, VenturaSqlCode.Bytes)
             {
                 FixedSizeOnDisk = false,
                 BytesPerElement = 1,
@@ -185,7 +185,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Int, VenturaCode.Int32)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Int, VenturaSqlCode.Int32)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 4,
@@ -200,7 +200,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Money, VenturaCode.Decimal)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Money, VenturaSqlCode.Decimal)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 8,
@@ -215,7 +215,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.NChar, VenturaCode.String)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.NChar, VenturaSqlCode.String)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 2,
@@ -230,7 +230,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.NText, VenturaCode.String)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.NText, VenturaSqlCode.String)
             {
                 FixedSizeOnDisk = false,
                 BytesPerElement = 2,
@@ -245,7 +245,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.NVarChar, VenturaCode.String)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.NVarChar, VenturaSqlCode.String)
             {
                 FixedSizeOnDisk = false,
                 BytesPerElement = 2,
@@ -260,7 +260,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Real, VenturaCode.Single)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Real, VenturaSqlCode.Single)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 4,
@@ -275,7 +275,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.UniqueIdentifier, VenturaCode.Guid)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.UniqueIdentifier, VenturaSqlCode.Guid)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 16,
@@ -290,7 +290,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.SmallDateTime, VenturaCode.DateTime)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.SmallDateTime, VenturaSqlCode.DateTime)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 4,
@@ -305,7 +305,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.SmallInt, VenturaCode.Int16)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.SmallInt, VenturaSqlCode.Int16)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 2,
@@ -320,7 +320,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.SmallMoney, VenturaCode.Decimal)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.SmallMoney, VenturaSqlCode.Decimal)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 4,
@@ -335,7 +335,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Text, VenturaCode.String)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Text, VenturaSqlCode.String)
             {
                 FixedSizeOnDisk = false,
                 BytesPerElement = 1,
@@ -350,7 +350,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Timestamp, VenturaCode.Bytes)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Timestamp, VenturaSqlCode.Bytes)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 1,
@@ -365,7 +365,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.TinyInt, VenturaCode.Byte)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.TinyInt, VenturaSqlCode.Byte)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 1,
@@ -380,7 +380,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.VarBinary, VenturaCode.Bytes)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.VarBinary, VenturaSqlCode.Bytes)
             {
                 FixedSizeOnDisk = false,
                 BytesPerElement = 1,
@@ -395,7 +395,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.VarChar, VenturaCode.String)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.VarChar, VenturaSqlCode.String)
             {
                 FixedSizeOnDisk = false,
                 BytesPerElement = 1,
@@ -410,7 +410,7 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Variant, VenturaCode.Object)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Variant, VenturaSqlCode.Object)
             {
                 AllowedInResultset = false,
                 AllowedInParameterList = false,
@@ -429,7 +429,7 @@ namespace VenturaSQLStudio
             });
 
 
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Xml, VenturaCode.String)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Xml, VenturaSqlCode.String)
             {
                 FixedSizeOnDisk = false,
                 BytesPerElement = 1,
@@ -444,8 +444,8 @@ namespace VenturaSQLStudio
                 ScaleMax = null
             });
 
-            // The UDT is an special type, and will be recognized by Ventura and treated different from other types.
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Udt, VenturaCode.Object)
+            // The UDT is an special type, and will be recognized by VenturaSQL and treated different from other types.
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Udt, VenturaSqlCode.Object)
             {
                 AllowedInParameterList = false,
 
@@ -464,7 +464,7 @@ namespace VenturaSQLStudio
 
             // Structured is only used in SqlParameters and will never be part of a Result set. This is a special type,
             // and will be recognized by VenturaSQL and treated different from other types.
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Structured, VenturaCode.Object)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Structured, VenturaSqlCode.Object)
             {
                 AllowedInResultset = false, /* Will never be in Resultset anyway */
                 AllowedInParameterList = false, /* Not yet implemented */
@@ -483,7 +483,7 @@ namespace VenturaSQLStudio
             });
 
             // Date data ranging in value from January 1,1 AD through December 31, 9999 AD.
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Date, VenturaCode.DateTime)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Date, VenturaSqlCode.DateTime)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 3,
@@ -499,7 +499,7 @@ namespace VenturaSQLStudio
             });
 
             // Time data based on a 24-hour clock. Time value range is 00:00:00 through 23:59:59.9999999 with an accuracy of 100 nanoseconds.
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Time, VenturaCode.TimeSpan)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.Time, VenturaSqlCode.TimeSpan)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 5, /* time(0/1/2) is 3 bytes. time(3/4) is 4 bytes. time(5/6/7) is 5 bytes */
@@ -516,7 +516,7 @@ namespace VenturaSQLStudio
 
             // Date and time data. Date value range is from January 1,1 AD through December 31, 9999 AD.
             // Time value range is 00:00:00 through 23:59:59.9999999 with an accuracy of 100 nanoseconds.
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.DateTime2, VenturaCode.DateTime)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.DateTime2, VenturaSqlCode.DateTime)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 7, /* datetime2(0/1/2) is 6 bytes. time(3/4) is 7 bytes. time(5/6/7) is 8 bytes */
@@ -533,7 +533,7 @@ namespace VenturaSQLStudio
 
             // Date and time data with time zone awareness. Date value range is from January 1,1 AD through December 31, 9999 AD.
             // Time value range is 00:00:00 through 23:59:59.9999999 with an accuracy of 100 nanoseconds.Time zone value range is - 14:00 through + 14:00.
-            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.DateTimeOffset, VenturaCode.DateTimeOffset)
+            temp_list.Add(new VenturaSqlDbTypeInfo(SqlDbType.DateTimeOffset, VenturaSqlCode.DateTimeOffset)
             {
                 FixedSizeOnDisk = true,
                 BytesPerElement = 10, /* datetimeoffset(0/1/2) is 8 bytes. datetimeoffset(3/4) is 9 bytes. datetimeoffset(5/6/7) is 10 bytes */
@@ -561,20 +561,20 @@ namespace VenturaSQLStudio
     public class VenturaSqlDbTypeInfo
     {
         private SqlDbType _venturasqldbtype;
-        private VenturaCode _venturacode;
+        private VenturaSqlCode _venturasqlcode;
 
         private string _csharptype;
         private string _csharptypenullable;
         private bool _isvaluetype;
 
-        internal VenturaSqlDbTypeInfo(SqlDbType venturasqldbtype, VenturaCode venturacode)
+        internal VenturaSqlDbTypeInfo(SqlDbType venturasqldbtype, VenturaSqlCode venturasqlcode)
         {
             _venturasqldbtype = venturasqldbtype;
-            _venturacode = venturacode;
+            _venturasqlcode = venturasqlcode;
 
-            _csharptype = VenturaCodeRepository.GetCSharpType(venturacode);
-            _csharptypenullable = VenturaCodeRepository.GetCSharpTypeNullable(venturacode);
-            _isvaluetype = VenturaCodeRepository.GetIsValueType(venturacode);
+            _csharptype = VenturaSqlCodeRepository.GetCSharpType(venturasqlcode);
+            _csharptypenullable = VenturaSqlCodeRepository.GetCSharpTypeNullable(venturasqlcode);
+            _isvaluetype = VenturaSqlCodeRepository.GetIsValueType(venturasqlcode);
         }
 
         public SqlDbType VenturaSqlDbType
@@ -582,9 +582,9 @@ namespace VenturaSQLStudio
             get { return _venturasqldbtype; }
         }
 
-        public VenturaCode VenturaCode
+        public VenturaSqlCode VenturaSqlCode
         {
-            get { return _venturacode; }
+            get { return _venturasqlcode; }
         }
 
         public string CSharpType

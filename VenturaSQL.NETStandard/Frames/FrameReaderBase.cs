@@ -18,8 +18,8 @@ namespace VenturaSQL
 
         private byte[] m_buffer = new byte[16];
 
-        private VenturaPlatform _remote_ventura_platform;
-        private Version _remote_ventura_version;
+        private VenturaSqlPlatform _remote_vsql_platform;
+        private Version _remote_vsql_version;
 
         private string _classname;
 
@@ -38,22 +38,22 @@ namespace VenturaSQL
 
                 // Read the header
                 if (buffer.Length < 15)
-                    throw new VenturaException($"The received data is too short. Expected at least 15 header bytes, but got {_buffer.Length} bytes.");
+                    throw new VenturaSqlException($"The received data is too short. Expected at least 15 header bytes, but got {_buffer.Length} bytes.");
 
                 byte typeF = this.ReadByte();
                 byte typeV = this.ReadByte();
 
                 if (typeF != 70 || typeV != 86)
-                    throw new VenturaException("FrameStream data invalid.");
+                    throw new VenturaSqlException("FrameStream data invalid.");
 
-                _remote_ventura_platform = (VenturaPlatform)this.ReadByte();
+                _remote_vsql_platform = (VenturaSqlPlatform)this.ReadByte();
 
                 // Remote VenturaSQL version.
                 int major_version = this.ReadInt32();
                 int minor_version = this.ReadInt32();
                 int build_version = this.ReadInt32();
 
-                _remote_ventura_version = new Version(major_version, minor_version, build_version);
+                _remote_vsql_version = new Version(major_version, minor_version, build_version);
 
                 // Start processing the frames here, the frames are guaranteed to be integral.
                 int expectedposition = _position;
@@ -73,10 +73,10 @@ namespace VenturaSQL
                     expectedposition += PayLoadLength;
 
                     if (_position < expectedposition)
-                        throw new VenturaException($"Under-reading frame. Expected position is {expectedposition} but real position is {_position}. Class {_classname}.");
+                        throw new VenturaSqlException($"Under-reading frame. Expected position is {expectedposition} but real position is {_position}. Class {_classname}.");
 
                     if (_position > expectedposition)
-                        throw new VenturaException($"Over-reading frame. Expected position is {expectedposition} but real position is {_position}. Class {_classname}. ");
+                        throw new VenturaSqlException($"Over-reading frame. Expected position is {expectedposition} but real position is {_position}. Class {_classname}. ");
 
                 } // end while
 
@@ -89,7 +89,7 @@ namespace VenturaSQL
         }
 
         /// <summary>
-        /// RemoteVenturaPlatform and RemoteVenturaVersion are already set when Init() is called.
+        /// RemoteVenturaSqlPlatform and RemoteVenturaSqlVersion are already set when Init() is called.
         /// </summary>
         protected abstract void Init();
 
@@ -97,14 +97,14 @@ namespace VenturaSQL
 
         protected abstract void Dispose();
 
-        protected VenturaPlatform RemoteVenturaPlatform
+        protected VenturaSqlPlatform RemoteVenturaSqlPlatform
         {
-            get { return _remote_ventura_platform; }
+            get { return _remote_vsql_platform; }
         }
 
-        protected Version RemoteVenturaVersion
+        protected Version RemoteVenturaSqlVersion
         {
-            get { return _remote_ventura_version; }
+            get { return _remote_vsql_version; }
         }
 
         /// <summary>

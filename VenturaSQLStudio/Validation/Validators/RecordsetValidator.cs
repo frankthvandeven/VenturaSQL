@@ -194,11 +194,11 @@ namespace VenturaSQLStudio.Validation.Validators
                 ColumnArrayBuilder builder = new ColumnArrayBuilder();
                 builder.Add(queryinfo.ResultSets[r], null);
 
-                VenturaSchema schema = new VenturaSchema(builder);
+                VenturaSqlSchema schema = new VenturaSqlSchema(builder);
 
                 for (int c = 0; c < schema.Count; c++)
                 {
-                    VenturaColumn column = schema[c];
+                    VenturaSqlColumn column = schema[c];
 
                     if (column.ColumnName == "") // Column without a name. Normal in expression like SUM(..)
                         AddError($"Column '{(c + 1)}', of result set {r + 1}, has no name. Use the \"AS\" clause to name the column. For example SELECT SUM(Total) AS 'Total'");

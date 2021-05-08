@@ -30,7 +30,7 @@
 
                 <Paragraph>
                     Version
-                    <Run Text="{Binding Source={x:Static ventura:MainWindow.ViewModel}, Path=VenturaVersionString, Mode=OneWay}" />
+                    <Run Text="{Binding Source={x:Static ventura:MainWindow.ViewModel}, Path=VenturaSqlVersionString, Mode=OneWay}" />
                 </Paragraph>
 
                 <Paragraph>

@@ -84,8 +84,8 @@ namespace VenturaSQLStudio.Pages
 
                 template.PreGenerate();
 
-                _generatedcode_YesDirectSql = template.GenerateCSharp("PreviewGenerate", true, VenturaPlatform.NETStandard);
-                _generatedcode_NoDirectSql = template.GenerateCSharp("PreviewGenerateWithoutADO", false, VenturaPlatform.NETStandard);
+                _generatedcode_YesDirectSql = template.GenerateCSharp("PreviewGenerate", true, VenturaSqlPlatform.NETStandard);
+                _generatedcode_NoDirectSql = template.GenerateCSharp("PreviewGenerateWithoutADO", false, VenturaSqlPlatform.NETStandard);
 
                 template.PostGenerate();
             }

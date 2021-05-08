@@ -1,6 +1,6 @@
 
 namespace VenturaSQL
 {
-    public delegate void ColumnAddedEventDelegate(VenturaColumn column);
+    public delegate void ColumnAddedEventDelegate(VenturaSqlColumn column);
 
 }

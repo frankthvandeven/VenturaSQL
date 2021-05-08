@@ -56,7 +56,7 @@ namespace VenturaSQLStudio
         {
             get
             {
-                VenturaColumn c = new VenturaColumn(_columnname, _fulltypename, true);
+                VenturaSqlColumn c = new VenturaSqlColumn(_columnname, _fulltypename, true);
                 return c.ShortTypeNameForColumnProperty();
             }
         }

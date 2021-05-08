@@ -14,7 +14,7 @@ namespace VenturaSQL
             get;
         }
 
-        VenturaPlatform GeneratorTarget
+        VenturaSqlPlatform GeneratorTarget
         {
             get;
         }
@@ -44,7 +44,7 @@ namespace VenturaSQL
             get;
         }
 
-        VenturaSchema ParameterSchema
+        VenturaSqlSchema ParameterSchema
         {
             get;
         }
@@ -67,4 +67,4 @@ namespace VenturaSQL
 
     }
 
-} // end of assembly
+}

@@ -28,9 +28,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Repositories\VenturaSqlCodeRepository.cs" />
+    <None Include="Repositories\VenturaSqlDbTypeRepository.cs" />
     <None Include="Validation\Validators\DisplayQueryInfoValidator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Repositories\VenturaSqlCodeRepository.cs" />
+    <Compile Remove="Repositories\VenturaSqlDbTypeRepository.cs" />
     <Compile Remove="Validation\Validators\DisplayQueryInfoValidator.cs" />
   </ItemGroup>
 

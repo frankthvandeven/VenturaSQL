@@ -3,7 +3,7 @@
     public interface IResultsetBase
     {
 
-        VenturaSchema Schema
+        VenturaSqlSchema Schema
         {
             get;
             set;

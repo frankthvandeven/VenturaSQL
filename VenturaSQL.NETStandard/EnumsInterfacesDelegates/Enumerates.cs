@@ -2,7 +2,7 @@
 namespace VenturaSQL
 {
 
-    public enum VenturaPlatform : byte
+    public enum VenturaSqlPlatform : byte 
     {
         NETStandard = 0
     }

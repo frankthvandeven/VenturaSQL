@@ -4,35 +4,35 @@ using System.Collections.Generic;
 namespace VenturaSQLStudio
 {
 
-    public static class VenturaCodeRepository
+    public static class VenturaSqlCodeRepository
     {
-        private static volatile VenturaCodeInfo[] _list;
+        private static volatile VenturaSqlCodeInfo[] _list;
 
-        static VenturaCodeRepository() // A static constructor is guaranteed to be called only once. It is thread safe.
+        static VenturaSqlCodeRepository() // A static constructor is guaranteed to be called only once. It is thread safe.
         {
             CreateList();
         }
 
-        public static VenturaCodeInfo[] List
+        public static VenturaSqlCodeInfo[] List
         {
             get { return _list; }
         }
 
-        public static VenturaCodeInfo GetItem(VenturaCode venturacode)
+        public static VenturaSqlCodeInfo GetItem(VenturaSqlCode venturasqlcode)
         {
             for (int i = 0; i < _list.Length; i++)
             {
-                if (_list[i].VenturaCode == venturacode)
+                if (_list[i].VenturaSqlCode == venturasqlcode)
                     return _list[i];
             }
 
-            throw new InvalidOperationException($"VenturaCode {venturacode} not found in repository. Should not happen.");
+            throw new InvalidOperationException($"VenturaSqlCode {venturasqlcode} not found in repository. Should not happen.");
         }
 
         /// <summary>
         /// Returns null if not found.
         /// </summary>
-        public static VenturaCodeInfo GetItem(Type type)
+        public static VenturaSqlCodeInfo GetItem(Type type)
         {
             for (int i = 0; i < _list.Length; i++)
             {
@@ -43,19 +43,19 @@ namespace VenturaSQLStudio
             return null;
         }
 
-        public static string GetCSharpType(VenturaCode venturacode)
+        public static string GetCSharpType(VenturaSqlCode venturasqlcode)
         {
-            return GetItem(venturacode).CSharpType;
+            return GetItem(venturasqlcode).CSharpType;
         }
 
-        public static string GetCSharpTypeNullable(VenturaCode venturacode)
+        public static string GetCSharpTypeNullable(VenturaSqlCode venturasqlcode)
         {
-            return GetItem(venturacode).CSharpTypeNullable;
+            return GetItem(venturasqlcode).CSharpTypeNullable;
         }
 
-        public static bool GetIsValueType(VenturaCode venturacode)
+        public static bool GetIsValueType(VenturaSqlCode venturasqlCode)
         {
-            return GetItem(venturacode).IsValueType;
+            return GetItem(venturasqlCode).IsValueType;
         }
 
 
@@ -64,9 +64,9 @@ namespace VenturaSQLStudio
         /// </summary>
         private static void CreateList()
         {
-            List<VenturaCodeInfo> temp_list = new List<VenturaCodeInfo>();
+            List<VenturaSqlCodeInfo> temp_list = new List<VenturaSqlCodeInfo>();
 
-            temp_list.Add(new VenturaCodeInfo(VenturaCode.Boolean)
+            temp_list.Add(new VenturaSqlCodeInfo(VenturaSqlCode.Boolean)
             {
                 Type = typeof(bool),
                 CSharpType = "bool",
@@ -74,7 +74,7 @@ namespace VenturaSQLStudio
                 IsValueType = true
             });
 
-            temp_list.Add(new VenturaCodeInfo(VenturaCode.Byte)
+            temp_list.Add(new VenturaSqlCodeInfo(VenturaSqlCode.Byte)
             {
                 Type = typeof(byte),
                 CSharpType = "byte",
@@ -82,7 +82,7 @@ namespace VenturaSQLStudio
                 IsValueType = true
             });
 
-            temp_list.Add(new VenturaCodeInfo(VenturaCode.DateTime)
+            temp_list.Add(new VenturaSqlCodeInfo(VenturaSqlCode.DateTime)
             {
                 Type = typeof(DateTime),
                 CSharpType = "DateTime",
@@ -90,7 +90,7 @@ namespace VenturaSQLStudio
                 IsValueType = true
             });
 
-            temp_list.Add(new VenturaCodeInfo(VenturaCode.Decimal)
+            temp_list.Add(new VenturaSqlCodeInfo(VenturaSqlCode.Decimal)
             {
                 Type = typeof(decimal),
                 CSharpType = "decimal",
@@ -98,7 +98,7 @@ namespace VenturaSQLStudio
                 IsValueType = true
             });
 
-            temp_list.Add(new VenturaCodeInfo(VenturaCode.Single)
+            temp_list.Add(new VenturaSqlCodeInfo(VenturaSqlCode.Single)
             {
                 Type = typeof(float),
                 CSharpType = "float",
@@ -106,7 +106,7 @@ namespace VenturaSQLStudio
                 IsValueType = true
             });
 
-            temp_list.Add(new VenturaCodeInfo(VenturaCode.Double)
+            temp_list.Add(new VenturaSqlCodeInfo(VenturaSqlCode.Double)
             {
                 Type = typeof(double),
                 CSharpType = "double",
@@ -114,7 +114,7 @@ namespace VenturaSQLStudio
                 IsValueType = true
             });
 
-            temp_list.Add(new VenturaCodeInfo(VenturaCode.Int16)
+            temp_list.Add(new VenturaSqlCodeInfo(VenturaSqlCode.Int16)
             {
                 Type = typeof(short),
                 CSharpType = "short",
@@ -122,7 +122,7 @@ namespace VenturaSQLStudio
                 IsValueType = true
             });
 
-            temp_list.Add(new VenturaCodeInfo(VenturaCode.Int32)
+            temp_list.Add(new VenturaSqlCodeInfo(VenturaSqlCode.Int32)
             {
                 Type = typeof(int),
                 CSharpType = "int",
@@ -130,7 +130,7 @@ namespace VenturaSQLStudio
                 IsValueType = true
             });
 
-            temp_list.Add(new VenturaCodeInfo(VenturaCode.Int64)
+            temp_list.Add(new VenturaSqlCodeInfo(VenturaSqlCode.Int64)
             {
                 Type = typeof(long),
                 CSharpType = "long",
@@ -138,7 +138,7 @@ namespace VenturaSQLStudio
                 IsValueType = true
             });
 
-            temp_list.Add(new VenturaCodeInfo(VenturaCode.String)
+            temp_list.Add(new VenturaSqlCodeInfo(VenturaSqlCode.String)
             {
                 Type = typeof(string),
                 CSharpType = "string",
@@ -146,7 +146,7 @@ namespace VenturaSQLStudio
                 IsValueType = false
             });
 
-            temp_list.Add(new VenturaCodeInfo(VenturaCode.Guid)
+            temp_list.Add(new VenturaSqlCodeInfo(VenturaSqlCode.Guid)
             {
                 Type = typeof(Guid),
                 CSharpType = "Guid",
@@ -154,7 +154,7 @@ namespace VenturaSQLStudio
                 IsValueType = true
             });
 
-            temp_list.Add(new VenturaCodeInfo(VenturaCode.Bytes)
+            temp_list.Add(new VenturaSqlCodeInfo(VenturaSqlCode.Bytes)
             {
                 Type = typeof(byte[]),
                 CSharpType = "byte[]",
@@ -162,7 +162,7 @@ namespace VenturaSQLStudio
                 IsValueType = false
             });
 
-            temp_list.Add(new VenturaCodeInfo(VenturaCode.Object)
+            temp_list.Add(new VenturaSqlCodeInfo(VenturaSqlCode.Object)
             {
                 Type = typeof(object),
                 CSharpType = "object",
@@ -170,7 +170,7 @@ namespace VenturaSQLStudio
                 IsValueType = false
             });
 
-            temp_list.Add(new VenturaCodeInfo(VenturaCode.TimeSpan)
+            temp_list.Add(new VenturaSqlCodeInfo(VenturaSqlCode.TimeSpan)
             {
                 Type = typeof(TimeSpan),
                 CSharpType = "TimeSpan",
@@ -178,7 +178,7 @@ namespace VenturaSQLStudio
                 IsValueType = true
             });
 
-            temp_list.Add(new VenturaCodeInfo(VenturaCode.DateTimeOffset)
+            temp_list.Add(new VenturaSqlCodeInfo(VenturaSqlCode.DateTimeOffset)
             {
                 Type = typeof(DateTimeOffset),
                 CSharpType = "DateTimeOffset",
@@ -189,21 +189,21 @@ namespace VenturaSQLStudio
             _list = temp_list.ToArray();
         }
 
-    } // End of class VenturaCodeRepository
+    } // End of class VenturaSqlCodeRepository
 
 
-    public class VenturaCodeInfo
+    public class VenturaSqlCodeInfo
     {
-        private VenturaCode _venturacode;
+        private VenturaSqlCode _venturasqlcode;
 
-        public VenturaCodeInfo(VenturaCode venturacode)
+        public VenturaSqlCodeInfo(VenturaSqlCode venturasqlcode)
         {
-            _venturacode = venturacode;
+            _venturasqlcode = venturasqlcode;
         }
 
-        public VenturaCode VenturaCode
+        public VenturaSqlCode VenturaSqlCode
         {
-            get { return _venturacode; }
+            get { return _venturasqlcode; }
         }
 
         public Type Type { get; set; }
@@ -215,17 +215,17 @@ namespace VenturaSQLStudio
 
         public string DisplayString
         {
-            get { return $"{_venturacode} ({CSharpTypeNullable})"; }
+            get { return $"{_venturasqlcode} ({CSharpTypeNullable})"; }
         }
 
         public string DataString
         {
-            get { return _venturacode.ToString(); }
+            get { return _venturasqlcode.ToString(); }
         }
 
     }
 
-    public enum VenturaCode : byte
+    public enum VenturaSqlCode : byte
     {
         Boolean = 1,
         Byte = 2,
@@ -243,9 +243,9 @@ namespace VenturaSQLStudio
         TimeSpan = 14,
         DateTimeOffset = 15
 
-    } // end of enum VenturaCode
+    }
 
-} // End of namespace
+}
 
 
 //public Type GetColumnCodeType
@@ -254,30 +254,30 @@ namespace VenturaSQLStudio
 //    {
 //        switch (this.ColumnCode)
 //        {
-//            case VenturaCode.Boolean:
+//            case VenturaSqlCode.Boolean:
 //                //return typeof(System.Boolean);
 //                return Type.GetType("System.Boolean");
-//            case VenturaCode.Byte:
+//            case VenturaSqlCode.Byte:
 //                return Type.GetType("System.Byte");
-//            case VenturaCode.DateTime:
+//            case VenturaSqlCode.DateTime:
 //                return Type.GetType("System.DateTime");
-//            case VenturaCode.Decimal:
+//            case VenturaSqlCode.Decimal:
 //                return Type.GetType("System.Decimal");
-//            case VenturaCode.Single:
+//            case VenturaSqlCode.Single:
 //                return Type.GetType("System.Single");
-//            case VenturaCode.Double:
+//            case VenturaSqlCode.Double:
 //                return Type.GetType("System.Double");
-//            case VenturaCode.Int16:
+//            case VenturaSqlCode.Int16:
 //                return Type.GetType("System.Int16");
-//            case VenturaCode.Int32:
+//            case VenturaSqlCode.Int32:
 //                return Type.GetType("System.Int32");
-//            case VenturaCode.Int64:
+//            case VenturaSqlCode.Int64: 
 //                return Type.GetType("System.Int64");
-//            case VenturaCode.String:
+//            case VenturaSqlCode.String:
 //                return Type.GetType("System.String");
-//            case VenturaCode.Guid:
+//            case VenturaSqlCode.Guid:
 //                return Type.GetType("System.Guid");
-//            case VenturaCode.Bytes:
+//            case VenturaSqlCode.Bytes:
 //                return typeof(System.Byte[]);
 //                //return Type.GetType("System.Byte[]");
 //        } // end of switch

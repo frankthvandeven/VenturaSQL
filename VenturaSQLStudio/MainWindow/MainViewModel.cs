@@ -61,7 +61,7 @@ namespace VenturaSQLStudio
                     sb.Append(" - ");
                 }
 
-                sb.Append($"VenturaSQL Studio {this.VenturaVersionString}");
+                sb.Append($"VenturaSQL Studio {this.VenturaSqlVersionString}");
 
                 return sb.ToString(); // "VenturaSQL Studio"
             }
@@ -192,14 +192,14 @@ namespace VenturaSQLStudio
         //    }
         //}
 
-        public Version VenturaVersion
+        public Version VenturaSqlVersion
         {
             get { return Assembly.GetExecutingAssembly().GetName().Version; }
         }
 
-        public string VenturaVersionString
+        public string VenturaSqlVersionString
         {
-            get { return VenturaVersion.ToString(3); }
+            get { return VenturaSqlVersion.ToString(3); }
         }
 
         public bool ProjectItemsCheckBoxVisible

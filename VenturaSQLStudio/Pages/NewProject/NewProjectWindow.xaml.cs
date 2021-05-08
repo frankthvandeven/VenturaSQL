@@ -35,7 +35,7 @@ namespace VenturaSQLStudio.Pages
             cbCreateDirectory.IsChecked = true;
             //cbCreateDirectory.IsEnabled = false;
 
-            txtFilename.Text = this.FindNewFileName("Ventura", MainWindow.ViewModel.DefaultProjectsFolder);
+            txtFilename.Text = this.FindNewFileName("Project", MainWindow.ViewModel.DefaultProjectsFolder);
             txtFilename.SelectAll();
             txtFilename.Focus();
 

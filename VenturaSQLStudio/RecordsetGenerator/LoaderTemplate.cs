@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using VenturaSQL;
 using VenturaSQLStudio.Ado;
-using VenturaSQLStudio.Helpers;
+using VenturaSQLStudio.Helpers; 
 
 namespace VenturaSQLStudio {
     internal class LoaderTemplate
@@ -21,9 +21,9 @@ namespace VenturaSQLStudio {
 
         private int _updateableResultsetsCount;
 
-        private VenturaSchema _parameterschema;
-        private List<VenturaColumn> _inputparameters;
-        private List<VenturaColumn> _outputparameters;
+        private VenturaSqlSchema _parameterschema;
+        private List<VenturaSqlColumn> _inputparameters;
+        private List<VenturaSqlColumn> _outputparameters;
 
         private DateTime _timestamp;
 
@@ -44,12 +44,12 @@ namespace VenturaSQLStudio {
 
             _timestamp = timestamp;
 
-            _parameterschema = recordsetitem.Parameters.AsVenturaSchema();
+            _parameterschema = recordsetitem.Parameters.AsVenturaSqlSchema();
 
-            _inputparameters = new List<VenturaColumn>();
-            _outputparameters = new List<VenturaColumn>();
+            _inputparameters = new List<VenturaSqlColumn>();
+            _outputparameters = new List<VenturaSqlColumn>();
 
-            foreach (VenturaColumn parameter in _parameterschema)
+            foreach (VenturaSqlColumn parameter in _parameterschema)
             {
                 if (parameter.Input)
                     _inputparameters.Add(parameter);
@@ -71,7 +71,7 @@ namespace VenturaSQLStudio {
 
         }
 
-        internal void StandAloneLoaderClass(StringBuilder sb, bool AdoDirectSwitch, VenturaPlatform generatortarget)
+        internal void StandAloneLoaderClass(StringBuilder sb, bool AdoDirectSwitch, VenturaSqlPlatform generatortarget)
         {
             sb.Append(TAB + @"/// <summary>" + CRLF);
 
@@ -171,7 +171,7 @@ namespace VenturaSQLStudio {
                 sb.Append(TAB + TAB + "private OutputParamHolder _outputparamholder;" + CRLF);
 
             if (_parameterschema.Count > 0)
-                sb.Append(TAB + TAB + "private VenturaSchema _parameterschema;" + CRLF);
+                sb.Append(TAB + TAB + "private VenturaSqlSchema _parameterschema;" + CRLF);
 
             sb.Append(TAB + TAB + "private int _rowlimit = 500;" + CRLF);
             sb.Append(TAB + TAB + @"private const string CRLF = ""\r\n"";" + CRLF);
@@ -265,7 +265,7 @@ namespace VenturaSQLStudio {
             if (_parameterschema.Count > 0)
             {
                 sb.Append(TAB + TAB + TAB + "ColumnArrayBuilder param_array = new ColumnArrayBuilder();" + CRLF + CRLF);
-                foreach (VenturaColumn parameter in _parameterschema)
+                foreach (VenturaSqlColumn parameter in _parameterschema)
                 {
                     string columnsize = "null";
                     string precision = "null";
@@ -286,13 +286,13 @@ namespace VenturaSQLStudio {
                 }
 
                 sb.Append(CRLF);
-                sb.Append(TAB + TAB + TAB + "_parameterschema = new VenturaSchema(param_array);" + CRLF + CRLF);
+                sb.Append(TAB + TAB + TAB + "_parameterschema = new VenturaSqlSchema(param_array);" + CRLF + CRLF);
             }
             // End: Define parameter schema
 
         }
 
-        internal void InsertPropertiesAndMethods(StringBuilder sb, bool AdoDirectSwitch, VenturaPlatform generatortarget)
+        internal void InsertPropertiesAndMethods(StringBuilder sb, bool AdoDirectSwitch, VenturaSqlPlatform generatortarget)
         {
 
             // The hash is calculated from all schema columns plus the Sql script.
@@ -321,12 +321,12 @@ namespace VenturaSQLStudio {
             sb.Append(TAB + TAB + TAB + "get { return \"" + this.ToHexadecimalString(hash) + "\"; }" + CRLF);
             sb.Append(TAB + TAB + "}" + CRLF + CRLF);
 
-            sb.Append(TAB + TAB + "VenturaPlatform IRecordsetBase.GeneratorTarget" + CRLF);
+            sb.Append(TAB + TAB + "VenturaSqlPlatform IRecordsetBase.GeneratorTarget" + CRLF);
             sb.Append(TAB + TAB + "{" + CRLF);
-            sb.Append(TAB + TAB + TAB + $"get {{ return VenturaPlatform.{generatortarget}; }}" + CRLF);
+            sb.Append(TAB + TAB + TAB + $"get {{ return VenturaSqlPlatform.{generatortarget}; }}" + CRLF);
             sb.Append(TAB + TAB + "}" + CRLF + CRLF);
 
-            Version studio_version = MainWindow.ViewModel.VenturaVersion;
+            Version studio_version = MainWindow.ViewModel.VenturaSqlVersion;
 
             sb.Append(TAB + TAB + "Version IRecordsetBase.GeneratorVersion" + CRLF);
             sb.Append(TAB + TAB + "{" + CRLF);
@@ -407,7 +407,7 @@ namespace VenturaSQLStudio {
 
             sb.Append(TAB + TAB + "}" + CRLF + CRLF);
 
-            sb.Append(TAB + TAB + "VenturaSchema IRecordsetBase.ParameterSchema" + CRLF); // was public
+            sb.Append(TAB + TAB + "VenturaSqlSchema IRecordsetBase.ParameterSchema" + CRLF); // was public
             sb.Append(TAB + TAB + "{" + CRLF);
             sb.Append(TAB + TAB + TAB + "get { ");
 
@@ -473,7 +473,7 @@ namespace VenturaSQLStudio {
                 sb.Append(TAB + TAB + "public void SetExecSqlParams(");
                 for (int x = 0; x < _inputparameters.Count; x++)
                 {
-                    VenturaColumn parameter = _inputparameters[x];
+                    VenturaSqlColumn parameter = _inputparameters[x];
                     sb.Append(parameter.ShortTypeNameForColumnProperty() + " " + parameter.ColumnNameWithoutPrefix());
                     if (x < (_inputparameters.Count - 1))
                         sb.Append(", ");
@@ -483,19 +483,19 @@ namespace VenturaSQLStudio {
 
                 for (int x = 0; x < _inputparameters.Count; x++)
                 {
-                    VenturaColumn parameter = _inputparameters[x];
+                    VenturaSqlColumn parameter = _inputparameters[x];
                     sb.Append(TAB + TAB + TAB + $"_inputparametervalues[{parameter.ColumnOrdinal}] = {parameter.ColumnNameWithoutPrefix()};" + CRLF);
                 }
                 sb.Append(TAB + TAB + "}" + CRLF + CRLF);
             }
-            // End: SetExecSqlParams function
+            // End: SetExecSqlParams function 
 
             GenerateExecSql(sb, CodeStyle.Synchronous, generatortarget);
             GenerateExecSql(sb, CodeStyle.Async, generatortarget);
 
             if (_updateableResultsetsCount > 0)
             {
-                //if (generatortarget == VenturaPlatform.AspNet || generatortarget == VenturaPlatform.WPF || generatortarget == VenturaPlatform.WinForms)
+                //if (generatortarget == VenturaSqlPlatform.AspNet || generatortarget == VenturaSqlPlatform.WPF || generatortarget == VenturaSqlPlatform.WinForms)
                 GenerateSaveChanges(sb, CodeStyle.Synchronous);
                 GenerateSaveChanges(sb, CodeStyle.Async);
             }
@@ -512,7 +512,7 @@ namespace VenturaSQLStudio {
                 sb.Append(TAB + TAB + TAB + TAB + "_values = values;" + CRLF);
                 sb.Append(TAB + TAB + TAB + "}" + CRLF + CRLF);
 
-                foreach (VenturaColumn parameter in _inputparameters)
+                foreach (VenturaSqlColumn parameter in _inputparameters)
                 {
                     sb.Append(TAB + TAB + TAB + "public " + parameter.ShortTypeNameForColumnProperty() + " " + parameter.ColumnNameWithoutPrefix() + CRLF);
                     sb.Append(TAB + TAB + TAB + "{" + CRLF);
@@ -536,7 +536,7 @@ namespace VenturaSQLStudio {
                 sb.Append(TAB + TAB + TAB + TAB + "_values = values;" + CRLF);
                 sb.Append(TAB + TAB + TAB + "}" + CRLF + CRLF);
 
-                foreach (VenturaColumn parameter in _outputparameters)
+                foreach (VenturaSqlColumn parameter in _outputparameters)
                 {
                     sb.Append(TAB + TAB + TAB + "public " + parameter.ShortTypeNameForColumnProperty() + " " + parameter.ColumnNameWithoutPrefix() + CRLF);
                     sb.Append(TAB + TAB + TAB + "{" + CRLF);
@@ -555,7 +555,7 @@ namespace VenturaSQLStudio {
             Async = 1
         }
 
-        private void GenerateExecSql(StringBuilder sb, CodeStyle codestyle, VenturaPlatform generatortarget)
+        private void GenerateExecSql(StringBuilder sb, CodeStyle codestyle, VenturaSqlPlatform generatortarget)
         {
             if (codestyle == CodeStyle.Synchronous)
                 sb.Append(TAB + TAB + "public void ExecSql(");
@@ -567,7 +567,7 @@ namespace VenturaSQLStudio {
                 if (x > 0)
                     sb.Append(", ");
 
-                VenturaColumn parameter = _inputparameters[x];
+                VenturaSqlColumn parameter = _inputparameters[x];
                 sb.Append(parameter.ShortTypeNameForColumnProperty() + " " + parameter.ColumnNameWithoutPrefix());
             }
             sb.Append(")" + CRLF);
@@ -575,7 +575,7 @@ namespace VenturaSQLStudio {
 
             for (int x = 0; x < _inputparameters.Count; x++)
             {
-                VenturaColumn parameter = _inputparameters[x];
+                VenturaSqlColumn parameter = _inputparameters[x];
                 sb.Append(TAB + TAB + TAB + $"_inputparametervalues[{parameter.ColumnOrdinal}] = {parameter.ColumnNameWithoutPrefix()};" + CRLF);
             }
 
@@ -597,7 +597,7 @@ namespace VenturaSQLStudio {
             {
                 sb.Append(", ");
 
-                VenturaColumn parameter = _inputparameters[x];
+                VenturaSqlColumn parameter = _inputparameters[x];
                 sb.Append(parameter.ShortTypeNameForColumnProperty() + " " + parameter.ColumnNameWithoutPrefix());
             }
             sb.Append(")" + CRLF);
@@ -605,7 +605,7 @@ namespace VenturaSQLStudio {
 
             for (int x = 0; x < _inputparameters.Count; x++)
             {
-                VenturaColumn parameter = _inputparameters[x];
+                VenturaSqlColumn parameter = _inputparameters[x];
                 sb.Append(TAB + TAB + TAB + $"_inputparametervalues[{parameter.ColumnOrdinal}] = {parameter.ColumnNameWithoutPrefix()};" + CRLF);
             }
 
@@ -713,7 +713,7 @@ namespace VenturaSQLStudio {
                     bw.Write(udcitem.FullTypename);
                 }
 
-                VenturaSchema schema = new VenturaSchema(column_array_builder);
+                VenturaSqlSchema schema = new VenturaSqlSchema(column_array_builder);
                 schema.WriteSchemaToStream(ms);
             }
 

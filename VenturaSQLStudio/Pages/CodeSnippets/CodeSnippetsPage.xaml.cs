@@ -21,7 +21,7 @@ namespace VenturaSQLStudio.Pages
         private QueryInfo _queryinfo;
         private ResultSetInfo _resultset_info;
         private ResultsetItem _resultset_item;
-        private VenturaSchema _schema;
+        private VenturaSqlSchema _schema;
 
         // The list for the combobox.
         private List<string> _resultsetnames = new List<string>();
@@ -186,7 +186,7 @@ namespace VenturaSQLStudio.Pages
             ColumnArrayBuilder builder = new ColumnArrayBuilder();
             builder.Add(_resultset_info, _resultset_item.UpdateableTableName);
 
-            _schema = new VenturaSchema(builder);
+            _schema = new VenturaSqlSchema(builder);
 
             lvColumns.ItemsSource = null;
 
@@ -194,7 +194,7 @@ namespace VenturaSQLStudio.Pages
 
             for (int x = 0; x < _schema.Count; x++)
             {
-                VenturaColumn schema_column = _schema[x];
+                VenturaSqlColumn schema_column = _schema[x];
                 _columns.Add(new ColumnListItem(schema_column.ColumnName, schema_column, null));
             }
 
@@ -276,7 +276,7 @@ namespace VenturaSQLStudio.Pages
                 return;
             }
 
-            List<VenturaColumn> selected_database_columns = new List<VenturaColumn>();
+            List<VenturaSqlColumn> selected_database_columns = new List<VenturaSqlColumn>();
 
             foreach (var item in _columns)
                 if (item.Include && item.SchemaColumn != null)
@@ -322,7 +322,7 @@ namespace VenturaSQLStudio.Pages
 }
 
 
-//sb.Append(PRE + TAB + TAB + TAB + $"schema_array.Add(new VenturaColumn(\"{column.ColumnName}\", typeof({column.ShortTypeNameAsCSharpString()}), {column.IsNullable.ToString().ToLower()})" + CRLF);
+//sb.Append(PRE + TAB + TAB + TAB + $"schema_array.Add(new VenturaSqlColumn(\"{column.ColumnName}\", typeof({column.ShortTypeNameAsCSharpString()}), {column.IsNullable.ToString().ToLower()})" + CRLF);
 //sb.Append(PRE + TAB + TAB + TAB + "{" + CRLF);
 //if (column.Updateable == true) list.Add($"Updateable = {column.Updateable.ToString().ToLower()}");
 //if (column.DbType != null) list.Add($"DbType = DbType.{column.DbType}");

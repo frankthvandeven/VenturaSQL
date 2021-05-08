@@ -139,7 +139,7 @@ namespace VenturaSQLStudio
         {
             _latest_version_reported_by_server = latest_version;
 
-            Version current = _main_viewmodel.VenturaVersion;
+            Version current = _main_viewmodel.VenturaSqlVersion;
             current = new Version(current.Major, current.Minor, current.Build); // Remove the fourth part, the revision number, from the current version number
 
             if (latest_version > current)

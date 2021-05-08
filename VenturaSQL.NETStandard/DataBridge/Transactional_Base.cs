@@ -40,11 +40,11 @@ namespace VenturaSQL
             }
 
             if (connector is HttpConnector)
-                throw new VenturaException("The synchronous execution of HttpConnectors is not supported. Use ExecSqlAsync instead.");
+                throw new VenturaSqlException("The synchronous execution of HttpConnectors is not supported. Use ExecSqlAsync instead.");
             else if (connector is AdoConnector)
                 ExecSql_Ado((AdoConnector)connector, recordsets);
             else
-                throw new VenturaException($"Unhandled Connector type {connector.GetType().FullName}.");
+                throw new VenturaSqlException($"Unhandled Connector type {connector.GetType().FullName}.");
 
             foreach (IRecordsetBase recordset in recordsets)
                 foreach (IResultsetBase resultset in recordset.Resultsets)
@@ -81,7 +81,7 @@ namespace VenturaSQL
             else if (connector is AdoConnector)
                 await ExecSql_AdoAsync((AdoConnector)connector, recordsets);
             else
-                throw new VenturaException($"Unhandled Connector type {connector.GetType().FullName}.");
+                throw new VenturaSqlException($"Unhandled Connector type {connector.GetType().FullName}.");
 
             foreach (IRecordsetBase recordset in recordsets)
                 foreach (IResultsetBase resultset in recordset.Resultsets)
@@ -108,11 +108,11 @@ namespace VenturaSQL
                 }
 
             if (connector is HttpConnector)
-                throw new VenturaException("The synchronous execution of HttpConnectors is not supported. Use SaveChangesAsync instead.");
+                throw new VenturaSqlException("The synchronous execution of HttpConnectors is not supported. Use SaveChangesAsync instead.");
             else if (connector is AdoConnector)
                 SaveChanges_Ado((AdoConnector)connector, recordsets);
             else
-                throw new VenturaException($"Unhandled Connector type {connector.GetType().FullName}.");
+                throw new VenturaSqlException($"Unhandled Connector type {connector.GetType().FullName}.");
 
             foreach (IRecordsetBase recordset in recordsets)
                 foreach (IResultsetBase resultset in recordset.Resultsets)
@@ -143,7 +143,7 @@ namespace VenturaSQL
             else if (connector is AdoConnector)
                 await SaveChanges_AdoAsync((AdoConnector)connector, recordsets);
             else
-                throw new VenturaException($"Unhandled Connector type {connector.GetType().FullName}.");
+                throw new VenturaSqlException($"Unhandled Connector type {connector.GetType().FullName}.");
 
             foreach (IRecordsetBase recordset in recordsets)
                 foreach (IResultsetBase resultset in recordset.Resultsets)

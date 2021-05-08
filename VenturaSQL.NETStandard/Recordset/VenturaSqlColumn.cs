@@ -4,7 +4,7 @@ using System.Data.Common;
 
 namespace VenturaSQL
 {
-    public partial class VenturaColumn
+    public partial class VenturaSqlColumn
     {
         // basic data (mandatory)
         private string _column_name; // The name of the column; this might not be unique. If this cannot be determined, a null value is returned. This name always reflects the most recent renaming of the column in the current view or command text. 
@@ -50,12 +50,12 @@ namespace VenturaSQL
 
         public short ColumnOrdinal = -1;
 
-        // Begin: VenturaColumns are also used to store a list of Sql Parameters. This is for Sql Parameters only
+        // Begin: VenturaSqlColumns are also used to store a list of Sql Parameters. This is for Sql Parameters only
         private bool _input;
         private bool _output;
         // End: This is for Sql Parameters only
 
-        public VenturaColumn(string column_name, Type column_type, bool null_able)
+        public VenturaSqlColumn(string column_name, Type column_type, bool null_able)
         {
             if (column_type == null)
                 throw new ArgumentNullException("column_type");
@@ -70,7 +70,7 @@ namespace VenturaSQL
             _fulltypename = TypeTools.FullTypename(column_type);
         }
 
-        public VenturaColumn(string column_name, string fully_qualified_typename, bool null_able)
+        public VenturaSqlColumn(string column_name, string fully_qualified_typename, bool null_able)
         {
             if (fully_qualified_typename == null)
                 throw new ArgumentNullException("fully_qualified_typename");
@@ -319,7 +319,7 @@ namespace VenturaSQL
             else if (_input == true && _output == true)
                 sql_parameter.Direction = ParameterDirection.InputOutput;
             else
-                throw new VenturaException($"Sql Parameter {_column_name} error. Both Input and Output are false. Forgot a validation?");
+                throw new VenturaSqlException($"Sql Parameter {_column_name} error. Both Input and Output are false. Forgot a validation?");
 
             if (_dbtype != null)
                 sql_parameter.DbType = _dbtype.Value;
@@ -401,9 +401,9 @@ namespace VenturaSQL
             }
         }
 
-        public VenturaColumn Clone()
+        public VenturaSqlColumn Clone()
         {
-            VenturaColumn newcolumn = new VenturaColumn(this.ColumnName, this.ColumnType, this.IsNullable);
+            VenturaSqlColumn newcolumn = new VenturaSqlColumn(this.ColumnName, this.ColumnType, this.IsNullable);
 
             // sql related (needed for databridge)
             newcolumn.DbType = this.DbType;
@@ -448,5 +448,5 @@ namespace VenturaSQL
         }
 
     }
-} // end of assembly
+}
 

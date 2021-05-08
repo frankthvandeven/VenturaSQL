@@ -3,7 +3,7 @@ using System.IO;
 
 namespace VenturaSQL
 {
-    public partial class VenturaSchema
+    public partial class VenturaSqlSchema
     {
         /// <summary>
         /// Used for calculating the Recordset hash 
@@ -14,7 +14,7 @@ namespace VenturaSQL
 
             bw.Write(_list.Length);
 
-            foreach (VenturaColumn column in _list)
+            foreach (VenturaSqlColumn column in _list)
             {
                 // ColumnName
                 bw.Write(column.ColumnName);
@@ -79,7 +79,7 @@ namespace VenturaSQL
         //{
 
         //    if (columnvalues.Length < _list.Length)
-        //        throw new VenturaException($"CheckRowDataTypes found an error. Columnvalues array shorter than {_list.Length}");
+        //        throw new VenturaSqlException($"CheckRowDataTypes found an error. Columnvalues array shorter than {_list.Length}");
 
         //    for (int x = 0; x < _list.Length; x++)
         //    {
@@ -89,51 +89,51 @@ namespace VenturaSQL
 
         //        switch (column.ColumnCode)
         //        {
-        //            case VenturaCode.Boolean:
+        //            case VenturaSqlCode.Boolean:
         //                if (!(columnvalue is Boolean))
         //                    ThrowDataTypeException(column.ColumnName, x, "Boolean", columntype.ToString());
         //                break;
-        //            case VenturaCode.Byte:
+        //            case VenturaSqlCode.Byte:
         //                if (!(columnvalue is Byte))
         //                    ThrowDataTypeException(column.ColumnName, x, "Byte", columntype.ToString());
         //                break;
-        //            case VenturaCode.DateTime:
+        //            case VenturaSqlCode.DateTime:
         //                if (!(columnvalue is DateTime))
         //                    ThrowDataTypeException(column.ColumnName, x, "DateTime", columntype.ToString());
         //                break;
-        //            case VenturaCode.Decimal:
+        //            case VenturaSqlCode.Decimal:
         //                if (!(columnvalue is Decimal))
         //                    ThrowDataTypeException(column.ColumnName, x, "Decimal", columntype.ToString());
         //                break;
-        //            case VenturaCode.Single:
+        //            case VenturaSqlCode.Single:
         //                if (!(columnvalue is Single))
         //                    ThrowDataTypeException(column.ColumnName, x, "Single(float)", columntype.ToString());
         //                break;
-        //            case VenturaCode.Double:
+        //            case VenturaSqlCode.Double:
         //                if (!(columnvalue is Double))
         //                    ThrowDataTypeException(column.ColumnName, x, "Double", columntype.ToString());
         //                break;
-        //            case VenturaCode.Int16:
+        //            case VenturaSqlCode.Int16:
         //                if (!(columnvalue is Int16))
         //                    ThrowDataTypeException(column.ColumnName, x, "Int16(short)", columntype.ToString());
         //                break;
-        //            case VenturaCode.Int32:
+        //            case VenturaSqlCode.Int32:
         //                if (!(columnvalue is Int32))
         //                    ThrowDataTypeException(column.ColumnName, x, "Int32(int)", columntype.ToString());
         //                break;
-        //            case VenturaCode.Int64:
+        //            case VenturaSqlCode.Int64:
         //                if (!(columnvalue is Int64))
         //                    ThrowDataTypeException(column.ColumnName, x, "Int64(long)", columntype.ToString());
         //                break;
-        //            case VenturaCode.String:
+        //            case VenturaSqlCode.String:
         //                if (!(columnvalue is String))
         //                    ThrowDataTypeException(column.ColumnName, x, "String", columntype.ToString());
         //                break;
-        //            case VenturaCode.Guid:
+        //            case VenturaSqlCode.Guid:
         //                if (!(columnvalue is Guid))
         //                    ThrowDataTypeException(column.ColumnName, x, "Guid", columntype.ToString());
         //                break;
-        //            case VenturaCode.Bytes:
+        //            case VenturaSqlCode.Bytes:
         //                if (columntype.IsArray == false)
         //                    ThrowDataTypeException(column.ColumnName, x, "Byte[]", columntype.ToString());
 
@@ -153,14 +153,14 @@ namespace VenturaSQL
 
         //private void ThrowDataTypeException(string columnname, int columnordinal, string expectedtype, string detectedtype)
         //{
-        //    throw new VenturaException($"Schemaholder detected invalid data type in column '{columnname}' (ordinal {columnordinal}). The expected type is {expectedtype} but the detected type is {detectedtype}.");
+        //    throw new VenturaSqlException($"Schemaholder detected invalid data type in column '{columnname}' (ordinal {columnordinal}). The expected type is {expectedtype} but the detected type is {detectedtype}.");
         //}
 
         public int GetColumnOrdinal(string columnName)
         {
             for (int x = 0; x < _list.Length; x++)
             {
-                if (_list[x].ColumnName == columnName)
+                if (_list[x].ColumnName == columnName) 
                     return x;
             }
 

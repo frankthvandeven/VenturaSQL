@@ -141,13 +141,13 @@ namespace VenturaSQLStudio.ProjectActions
 
         }
 
-        private VenturaPlatform TargetPlatform2Enum(string platformstring)
+        private VenturaSqlPlatform TargetPlatform2Enum(string platformstring)
         {
-            VenturaPlatform s = (VenturaPlatform)Enum.Parse(typeof(VenturaPlatform), platformstring);
+            VenturaSqlPlatform s = (VenturaSqlPlatform)Enum.Parse(typeof(VenturaSqlPlatform), platformstring);
             return s;
         }
 
-        private void Write2File(VisualStudio_Projectfile_Modifier vspm, RecordsetItem recordsetitem, MasterTemplate template, string outputfolder, bool ado_direct, VenturaPlatform generatortarget)
+        private void Write2File(VisualStudio_Projectfile_Modifier vspm, RecordsetItem recordsetitem, MasterTemplate template, string outputfolder, bool ado_direct, VenturaSqlPlatform generatortarget)
         {
             string namespace_name = vspm.RelativePath2Namespace(outputfolder);
 

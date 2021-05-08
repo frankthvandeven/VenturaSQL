@@ -5,10 +5,10 @@ using VenturaSQLStudio.Ado;
 
 namespace VenturaSQLStudio
 {
-    public static class VenturaColumnExtensions
+    public static class VenturaSqlColumnExtensions
     {
 
-        public static string ShortTypeNameString(this VenturaColumn column)
+        public static string ShortTypeNameString(this VenturaSqlColumn column)
         {
             var fullTypename = column.FullTypename;
 
@@ -24,7 +24,7 @@ namespace VenturaSQLStudio
         /// The FullTypename is converted into the short name, and if a C# type alias if available.
         /// System.Int32 -> Int32 -> int
         /// </summary>
-        public static string ShortTypeNameAsCSharpString(this VenturaColumn column)
+        public static string ShortTypeNameAsCSharpString(this VenturaSqlColumn column)
         {
             string retvar = ShortTypeNameString(column);
 
@@ -40,7 +40,7 @@ namespace VenturaSQLStudio
         /// A value type becomes Nullable by using a generic Nullable<>.
         /// A reference type is Nullable anyways.
         /// </summary>
-        private static Type ConvertToColumnPropertyType(this VenturaColumn column)
+        private static Type ConvertToColumnPropertyType(this VenturaSqlColumn column)
         {
             Type type = column.ColumnType;
 
@@ -67,7 +67,7 @@ namespace VenturaSQLStudio
         /// Returns the typename as C# source code.
         /// Will be made a nullable type if IsNullable is set to true.
         /// </summary>
-        public static string ShortTypeNameForColumnProperty(this VenturaColumn column)
+        public static string ShortTypeNameForColumnProperty(this VenturaSqlColumn column)
         {
             bool add_question_mark;
 
@@ -104,7 +104,7 @@ namespace VenturaSQLStudio
         /// For C# code generator.
         /// Converts ColumnName to valid C# PropertyName.
         /// </summary>
-        public static string PropertyName(this VenturaColumn column)
+        public static string PropertyName(this VenturaSqlColumn column)
         {
             return TemplateHelper.ConvertToValidIdentifier(column.ColumnName);
         }
@@ -113,7 +113,7 @@ namespace VenturaSQLStudio
         /// For C# code generator.
         /// For example "_cur__customer_id"
         /// </summary>
-        public static string PrivateVariableName_Current(this VenturaColumn column)
+        public static string PrivateVariableName_Current(this VenturaSqlColumn column)
         {
             return "_cur__" + TemplateHelper.ConvertToValidIdentifier(column.ColumnName);
         }
@@ -122,7 +122,7 @@ namespace VenturaSQLStudio
         /// For C# code generator.
         /// For example "_ori__customer_id"
         /// </summary>
-        public static string PrivateVariableName_Original(this VenturaColumn column)
+        public static string PrivateVariableName_Original(this VenturaSqlColumn column)
         {
             return "_ori__" + TemplateHelper.ConvertToValidIdentifier(column.ColumnName);
         }
@@ -131,12 +131,12 @@ namespace VenturaSQLStudio
         /// For C# code generator.
         /// For example "_mod__customer_id"
         /// </summary>
-        public static string PrivateVariableName_Modified(this VenturaColumn column)
+        public static string PrivateVariableName_Modified(this VenturaSqlColumn column)
         {
             return "_mod__" + TemplateHelper.ConvertToValidIdentifier(column.ColumnName);
         }
 
-        public static bool ForbidNullValue(this VenturaColumn column)
+        public static bool ForbidNullValue(this VenturaSqlColumn column)
         {
             if (column.IsNullable == true) // the property allows null.
                 return false;
@@ -159,12 +159,12 @@ namespace VenturaSQLStudio
         /// <summary>
         /// Returns the column name with the first character removed. 
         /// </summary>
-        public static string ColumnNameWithoutPrefix(this VenturaColumn column)
+        public static string ColumnNameWithoutPrefix(this VenturaSqlColumn column)
         {
             return column.ColumnName.Substring(1);
         }
 
-        public static TableName AsTableName(this VenturaColumn column)
+        public static TableName AsTableName(this VenturaSqlColumn column)
         {
             return new TableName(column.BaseServerName, column.BaseCatalogName, column.BaseSchemaName, column.BaseTableName);
         }
@@ -173,7 +173,7 @@ namespace VenturaSQLStudio
         /// Returns for example: "_cur__birthdate = new DateTime();"
         /// Output depends on IsNullable.
         /// </summary>
-        public static string InitToDefaultValueAsSourceCode(this VenturaColumn column)
+        public static string InitToDefaultValueAsSourceCode(this VenturaSqlColumn column)
         {
             StringBuilder sb = new StringBuilder();
 

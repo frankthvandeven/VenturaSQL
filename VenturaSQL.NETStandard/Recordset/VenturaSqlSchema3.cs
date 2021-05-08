@@ -5,7 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary; // Contains BinaryFormatte
 
 namespace VenturaSQL
 {
-    public partial class VenturaSchema
+    public partial class VenturaSqlSchema
     {
         private byte[] _buffer = new byte[16];
 
@@ -15,7 +15,7 @@ namespace VenturaSQL
 
         /// <summary>
         /// Writes all values in an object array to a FrameStream.
-        /// The object array must exactly match the columns in this VenturaSchema.
+        /// The object array must exactly match the columns in this VenturaSqlSchema.
         /// This method is used for tranmitting the full record with all columns.
         ///
         /// This method is the opposite of Frame2ObjectArray().
@@ -43,7 +43,7 @@ namespace VenturaSQL
 
         /// <summary>
         /// Converts an object containing a value to it's binary representation
-        /// in a FrameStream using the VenturaCode.
+        /// in a FrameStream using the VenturaSqlCode.
         /// Warning: cannot handle nulls!
         /// </summary>
         public void ObjectValue2Frame(FrameWriter framewriter, short ordinal, object valueObject)
@@ -151,7 +151,7 @@ namespace VenturaSQL
 
         /// <summary>
         /// Parses a byte array, and writes all values found into an object array.
-        /// The object array containing values matches the columns in this VenturaSchema.
+        /// The object array containing values matches the columns in this VenturaSqlSchema.
         /// This method is used for Recordset.Load() on the Client side.
         ///
         /// This method is the opposite of ObjectArray2Frame().
@@ -176,7 +176,7 @@ namespace VenturaSQL
 
         /// <summary>
         /// Parses a byte array, and writes all values found into an object array.
-        /// The object array containing values matches the columns in this VenturaSchema.
+        /// The object array containing values matches the columns in this VenturaSqlSchema.
         /// This method is used for Recordset.Load() on the Client side.
         ///
         /// This method is the opposite of ObjectArray2Frame().

@@ -29,7 +29,7 @@ namespace VenturaSQLStudio
             var requestData = new CheckForUpdateDTO();
 
             requestData.Product = "venturasql-studio";
-            requestData.Version = MainWindow.ViewModel.VenturaVersion.ToString(3);
+            requestData.Version = MainWindow.ViewModel.VenturaSqlVersion.ToString(3);
             requestData.ProductKey = product_key;
             requestData.MachineHash = StudioGeneral.GetMachineHash();
 

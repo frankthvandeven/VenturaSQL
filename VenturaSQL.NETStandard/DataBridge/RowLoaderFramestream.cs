@@ -11,7 +11,7 @@ namespace VenturaSQL
         private IRecordsetBase _loader;
         private IRecordsetIncremental _incr_loader;
         private IResultsetBase _currentresultset;
-        private VenturaSchema _currentschema;
+        private VenturaSqlSchema _currentschema;
 
         private int _rowcount;
         private FrameWriter _framewriter;

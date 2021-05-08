@@ -10,7 +10,7 @@ namespace VenturaSQL
     /// </summary>
     public class TrackArray
     {
-        private VenturaSchema _schema;
+        private VenturaSqlSchema _schema;
 
         private TrackArrayStatus _status;
 
@@ -22,7 +22,7 @@ namespace VenturaSQL
         private object[] _prikey_values;
         private short[] _prikey_ordinals;
 
-        public TrackArray(VenturaSchema schema)
+        public TrackArray(VenturaSqlSchema schema)
         {
             _schema = schema;
 

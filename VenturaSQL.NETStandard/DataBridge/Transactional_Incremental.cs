@@ -20,11 +20,11 @@ namespace VenturaSQL
                 return;
 
             if (connector is HttpConnector)
-                throw new VenturaException("The synchronous execution of HttpConnectors is not supported. Use ExecSqlIncrementalAsync instead.");
+                throw new VenturaSqlException("The synchronous execution of HttpConnectors is not supported. Use ExecSqlIncrementalAsync instead.");
             else if (connector is AdoConnector)
                 ExecSql_Ado((AdoConnector)connector, new IRecordsetBase[] { recordsetbase });
             else
-                throw new VenturaException($"Unhandled Connector type {connector.GetType().FullName}.");
+                throw new VenturaSqlException($"Unhandled Connector type {connector.GetType().FullName}.");
 
             resultsetbase.OnAfterExecSql();
 
@@ -49,7 +49,7 @@ namespace VenturaSQL
             else if (connector is AdoConnector)
                 await ExecSql_AdoAsync((AdoConnector)connector, new IRecordsetBase[] { recordsetbase });
             else
-                throw new VenturaException($"Unhandled Connector type {connector.GetType().FullName}.");
+                throw new VenturaSqlException($"Unhandled Connector type {connector.GetType().FullName}.");
 
             resultsetbase.OnAfterExecSql();
 
@@ -71,11 +71,11 @@ namespace VenturaSQL
             resultsetbase.Clear();
 
             if (connector is HttpConnector)
-                throw new VenturaException("The synchronous execution of HttpConnectors is not supported. Use ExecSqlNextPageAsync instead.");
+                throw new VenturaSqlException("The synchronous execution of HttpConnectors is not supported. Use ExecSqlNextPageAsync instead.");
             else if (connector is AdoConnector)
                 ExecSql_Ado((AdoConnector)connector, new IRecordsetBase[] { recordsetbase });
             else
-                throw new VenturaException($"Unhandled Connector type {connector.GetType().FullName}.");
+                throw new VenturaSqlException($"Unhandled Connector type {connector.GetType().FullName}.");
 
             resultsetbase.OnAfterExecSql();
 
@@ -101,7 +101,7 @@ namespace VenturaSQL
             else if (connector is AdoConnector)
                 await ExecSql_AdoAsync((AdoConnector)connector, new IRecordsetBase[] { recordsetbase });
             else
-                throw new VenturaException($"Unhandled Connector type {connector.GetType().FullName}.");
+                throw new VenturaSqlException($"Unhandled Connector type {connector.GetType().FullName}.");
 
             resultsetbase.OnAfterExecSql();
 

@@ -39,7 +39,7 @@ namespace VenturaSQLStudio {
         #region By .NET Framework Type
         private void FillByCodeType()
         {
-            /// Based on the System.TypeCode enum and the VenturaCode enum.
+            /// Based on the System.TypeCode enum and the VenturaSqlCode enum.
 
             // Not added yet:
 
@@ -181,7 +181,7 @@ namespace VenturaSQLStudio {
 
         private void FillByDbType()
         {
-            // DbType is enum that sets the actual DbParamter.DbType.
+            // DbType is enum that sets the actual DbParameter.DbType.
 
             this.Add(new DbTypeRepositoryItem("dbtype_ansistring")
             {

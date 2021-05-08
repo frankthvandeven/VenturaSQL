@@ -42,13 +42,13 @@ namespace VenturaSQL
 
             if (loader.ParameterSchema != null)
             {
-                VenturaSchema parameterschema = loader.ParameterSchema;
+                VenturaSqlSchema parameterschema = loader.ParameterSchema;
                 Object[] parametervalues = loader.InputParameterValues;
 
                 // Set the Sql parameters.
                 for (int x = 0; x < parameterschema.Count; x++)
                 {
-                    VenturaColumn parameter = parameterschema[x];
+                    VenturaSqlColumn parameter = parameterschema[x];
 
                     DbParameter db_parameter = parameter.CreateSqlParameter(connector);
 
@@ -143,7 +143,7 @@ namespace VenturaSQL
             /* begin: process output parameters */
             if (loader.ParameterSchema != null && loader.OutputParameterValues != null)
             {
-                VenturaSchema parameterschema = loader.ParameterSchema;
+                VenturaSqlSchema parameterschema = loader.ParameterSchema;
 
                 for (int x = 0; x < parameterschema.Count; x++)
                 {
@@ -168,14 +168,14 @@ namespace VenturaSQL
 
         } // end of method
 
-        private int[] CreateTrimArray(VenturaSchema schema)
+        private int[] CreateTrimArray(VenturaSqlSchema schema)
         {
             List<int> columns2trim = new List<int>();
 
             /* find the columns that need to be R-Trimmed (char and nchar) */
             for (int x = 0; x < schema.Count; x++)
             {
-                VenturaColumn column = schema[x];
+                VenturaSqlColumn column = schema[x];
                 if (column.ColumnType == typeof(string))
                     columns2trim.Add(column.ColumnOrdinal);
             }

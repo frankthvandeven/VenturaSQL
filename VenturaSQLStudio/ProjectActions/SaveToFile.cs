@@ -27,7 +27,7 @@ namespace VenturaSQLStudio.ProjectActions
                     writer.WriteComment("Do not edit this document manually, or at least make a backup before doing so.");
 
                     writer.WriteStartElement("project");
-                    writer.WriteAttributeString("writerversion", MainWindow.ViewModel.VenturaVersion.ToString());
+                    writer.WriteAttributeString("writerversion", MainWindow.ViewModel.VenturaSqlVersion.ToString());
 
                     writer.WriteStartElement("inputdatabase");
                     writer.WriteAttributeString("providerinvariantname", project.ProviderInvariantName);

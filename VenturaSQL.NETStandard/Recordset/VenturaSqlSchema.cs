@@ -5,20 +5,20 @@ using System.Collections.Generic;
 namespace VenturaSQL
 {
 
-    public partial class VenturaSchema : IEnumerable<VenturaColumn>
+    public partial class VenturaSqlSchema : IEnumerable<VenturaSqlColumn>
     {
-        private VenturaColumn[] _list = null;
+        private VenturaSqlColumn[] _list = null;
         private SchemaCode[] _schemacodes = null;
 
-        private VenturaColumn _identity_column = null;
+        private VenturaSqlColumn _identity_column = null;
 
         /// <summary>
-        /// This is the only constructor for the VenturaSchema class.
+        /// This is the only constructor for the VenturaSqlSchema class.
         ///
-        /// Schema will be initialized with a list of VenturaColumns.
+        /// Schema will be initialized with a list of VenturaSqlColumns.
         /// The ColumnOrdinal will be correctly set for each column.
         /// </summary>
-        public VenturaSchema(ColumnArrayBuilder builder)
+        public VenturaSqlSchema(ColumnArrayBuilder builder)
         {
             _list = builder.ToArray();
 
@@ -42,7 +42,7 @@ namespace VenturaSQL
             FillSchemaCodes();
         }
 
-        public VenturaColumn this[int index]
+        public VenturaSqlColumn this[int index]
         {
             get
             {
@@ -50,7 +50,7 @@ namespace VenturaSQL
             }
         }
 
-        public VenturaColumn this[string column_name]
+        public VenturaSqlColumn this[string column_name]
         {
             get
             {
@@ -63,12 +63,12 @@ namespace VenturaSQL
             }
         }
 
-        public List<VenturaColumn> FindAll(Predicate<VenturaColumn> match)
+        public List<VenturaSqlColumn> FindAll(Predicate<VenturaSqlColumn> match)
         {
             if (match == null)
                 throw new ArgumentNullException("match");
 
-            List<VenturaColumn> list = new List<VenturaColumn>();
+            List<VenturaSqlColumn> list = new List<VenturaSqlColumn>();
 
             for (int i = 0; i < _list.Length; i++)
                 if (match(_list[i]))
@@ -81,7 +81,7 @@ namespace VenturaSQL
         /// Returns the (first) column that has IsIdentity set to true.
         /// Returns null if there is no such column.
         /// </summary>
-        public VenturaColumn IdentityColumn
+        public VenturaSqlColumn IdentityColumn
         {
             get { return _identity_column; }
         }
@@ -91,9 +91,9 @@ namespace VenturaSQL
             get { return _list.Length; }
         }
 
-        public IEnumerator<VenturaColumn> GetEnumerator()
+        public IEnumerator<VenturaSqlColumn> GetEnumerator()
         {
-            foreach (VenturaColumn column in _list)
+            foreach (VenturaSqlColumn column in _list)
                 yield return column;
         }
 
@@ -139,7 +139,7 @@ namespace VenturaSQL
                 else if (type == typeof(DateTimeOffset))
                     _schemacodes[i] = SchemaCode.DateTimeOffset;
                 else
-                    throw new InvalidOperationException($"VenturaSchema doesn't know how to binarize {type.FullName} yet. Please contact support.");
+                    throw new InvalidOperationException($"VenturaSqlSchema doesn't know how to binarize {type.FullName} yet. Please contact support.");
             }
 
 

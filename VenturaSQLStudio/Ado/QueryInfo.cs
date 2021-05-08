@@ -104,7 +104,7 @@ namespace VenturaSQLStudio.Ado
                 return;
 
             if (SqlScriptIsEmpty() == true)
-                throw new VenturaException("There is no SQL script.");
+                throw new VenturaSqlException("There is no SQL script.");
 
             using (DbConnection connection = _ado_connector.OpenConnection())
             {

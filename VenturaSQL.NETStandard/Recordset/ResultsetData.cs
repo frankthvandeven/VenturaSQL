@@ -9,7 +9,7 @@ namespace VenturaSQL
         where TRecord : IRecordBase
     {
 
-        private VenturaSchema _schema;
+        private VenturaSqlSchema _schema;
         private string _updateable_tablename;
         private TRecord[] _records;
         private int _currentrecord_index;
@@ -39,7 +39,7 @@ namespace VenturaSQL
         public void Delete()
         {
             if (_currentrecord_index == -1)
-                throw new InvalidOperationException(VenturaStrings.CURRENT_RECORD_NOT_SET);
+                throw new InvalidOperationException(VenturaSqlStrings.CURRENT_RECORD_NOT_SET);
 
             Delete(_currentrecord_index);
         }
@@ -75,7 +75,7 @@ namespace VenturaSQL
         public void RealDelete()
         {
             if (_currentrecord_index == -1)
-                throw new InvalidOperationException(VenturaStrings.CURRENT_RECORD_NOT_SET);
+                throw new InvalidOperationException(VenturaSqlStrings.CURRENT_RECORD_NOT_SET);
 
             RemoveItem(_currentrecord_index); // Do a real delete.
             ResetCurrentRecordAfterRemove(_currentrecord_index);
@@ -457,7 +457,7 @@ namespace VenturaSQL
             get { return _recordcount; }
         }
 
-        VenturaSchema IResultsetBase.Schema
+        VenturaSqlSchema IResultsetBase.Schema
         {
             get { return _schema; }
             set { _schema = value; }

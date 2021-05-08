@@ -11,7 +11,7 @@ namespace VenturaSQLStudio.Pages
 
         // Parameters
         public string SyntaxHighlighting { get; set; } = "C#";
-        public List<VenturaColumn> SelectedColumns { get; set; }
+        public List<VenturaSqlColumn> SelectedColumns { get; set; }
         public List<UDCItem> Selected_UDC_Columns { get; set; }
         public string RecordsetVariable { get; set; }
         public string ViewmodelVariable { get; set; }

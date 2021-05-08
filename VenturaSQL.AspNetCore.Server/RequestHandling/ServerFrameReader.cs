@@ -94,7 +94,7 @@ namespace VenturaSQL.AspNetCore.Server.RequestHandling
                     IRecordsetBase loader = RecordsetFinder.FindLoader(hash, fullclassname);
 
                     if (loader == null)
-                        throw new VenturaException($"Recordset {fullclassname} not found on remote system.");
+                        throw new VenturaSqlException($"Recordset {fullclassname} not found on remote system.");
 
                     _current_loader = loader;
 

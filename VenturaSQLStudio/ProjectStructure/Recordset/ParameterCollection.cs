@@ -22,17 +22,17 @@ namespace VenturaSQLStudio {
             return temp;
         }
 
-        public VenturaSchema AsVenturaSchema()
+        public VenturaSqlSchema AsVenturaSqlSchema()
         {
             ColumnArrayBuilder builder = new ColumnArrayBuilder();
 
             foreach (ParameterItem item in this)
             {
-                VenturaColumn column = item.AsVenturaColumn();
+                VenturaSqlColumn column = item.AsVenturaSqlColumn();
                 builder.Add(column);
             }
 
-            return new VenturaSchema(builder);
+            return new VenturaSqlSchema(builder);
         }
 
         protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)

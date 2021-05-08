@@ -11,15 +11,15 @@ namespace VenturaSQLStudio
             {
                 List<TargetPlatformListItem> list = new List<TargetPlatformListItem>();
 
-                list.Add(new TargetPlatformListItem(".NET Standard", VenturaPlatform.NETStandard, AdoSupport.YesUserCanChoose));
+                list.Add(new TargetPlatformListItem(".NET Standard", VenturaSqlPlatform.NETStandard, AdoSupport.YesUserCanChoose));
 
                 // Long ago...
-                //list.Add(new TargetPlatformListItem("Asp.Net", VenturaPlatform.AspNet, AdoSupport.Obligated));
-                //list.Add(new TargetPlatformListItem("WPF", VenturaPlatform.WPF, AdoSupport.YesUserCanChoose));
-                //list.Add(new TargetPlatformListItem("WinForms", VenturaPlatform.WinForms, AdoSupport.YesUserCanChoose));
-                //list.Add(new TargetPlatformListItem("UWP (Windows 10 App)", VenturaPlatform.UWP, AdoSupport.NoAdo));
-                //list.Add(new TargetPlatformListItem("Xamarin.Android", VenturaPlatform.Android, AdoSupport.NoAdo));
-                //list.Add(new TargetPlatformListItem("Xamarin.iOS", VenturaPlatform.iOS, AdoSupport.NoAdo));
+                //list.Add(new TargetPlatformListItem("Asp.Net", VenturaSqlPlatform.AspNet, AdoSupport.Obligated));
+                //list.Add(new TargetPlatformListItem("WPF", VenturaSqlPlatform.WPF, AdoSupport.YesUserCanChoose));
+                //list.Add(new TargetPlatformListItem("WinForms", VenturaSqlPlatform.WinForms, AdoSupport.YesUserCanChoose));
+                //list.Add(new TargetPlatformListItem("UWP (Windows 10 App)", VenturaSqlPlatform.UWP, AdoSupport.NoAdo));
+                //list.Add(new TargetPlatformListItem("Xamarin.Android", VenturaSqlPlatform.Android, AdoSupport.NoAdo));
+                //list.Add(new TargetPlatformListItem("Xamarin.iOS", VenturaSqlPlatform.iOS, AdoSupport.NoAdo));
 
                 return list;
             }
@@ -45,13 +45,13 @@ namespace VenturaSQLStudio
     public class TargetPlatformListItem
     {
         private string _fullname;
-        private VenturaPlatform _venturaplatform;
+        private VenturaSqlPlatform _venturasqlplatform;
         private AdoSupport _ado_support;
 
-        public TargetPlatformListItem(string fullname, VenturaPlatform venturaplatform, AdoSupport ado_support)
+        public TargetPlatformListItem(string fullname, VenturaSqlPlatform venturasqlplatform, AdoSupport ado_support)
         {
             _fullname = fullname;
-            _venturaplatform = venturaplatform;
+            _venturasqlplatform = venturasqlplatform;
             _ado_support = ado_support;
         }
 
@@ -64,13 +64,13 @@ namespace VenturaSQLStudio
         {
             get
             {
-                return _venturaplatform.ToString();
+                return _venturasqlplatform.ToString();
             }
         }
 
-        public VenturaPlatform VenturaPlatform
+        public VenturaSqlPlatform VenturaSqlPlatform
         {
-            get { return _venturaplatform; }
+            get { return _venturasqlplatform; }
         }
 
         public AdoSupport AdoSupport

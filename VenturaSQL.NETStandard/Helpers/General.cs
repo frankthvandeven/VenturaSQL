@@ -7,7 +7,7 @@ using System.Data.Common;
 namespace VenturaSQL
 {
     /// <summary>
-    /// General Ventura functions
+    /// General VenturaSQL functions
     /// </summary>
     public static class General
     {
@@ -111,33 +111,17 @@ namespace VenturaSQL
 
         } // end of function SmartClose
 
-    } // end of class
-
-    public class TNTimer
-    {
-        private long startTime;
-        private long endTime;
-        private TimeSpan timeTaken;
-
-        public TNTimer()
+        public static Version VenturaSqlVersion
         {
-            this.Start();
+            get { return typeof(General).Assembly.GetName().Version; }
         }
 
-        public void Start()
+        /// <summary>
+        /// Returns the platform the currently executing VenturaSQL runtime was compiled for.
+        /// </summary>
+        public static VenturaSqlPlatform ExecutingVenturaSqlPlatform
         {
-            startTime = DateTime.Now.Ticks;
-        }
-
-        public void Stop()
-        {
-            endTime = DateTime.Now.Ticks;
-            timeTaken = new TimeSpan(endTime - startTime);
-        }
-
-        public string TimeTakenString()
-        {
-            return timeTaken.ToString();
+            get { return VenturaSqlPlatform.NETStandard; }
         }
 
     }

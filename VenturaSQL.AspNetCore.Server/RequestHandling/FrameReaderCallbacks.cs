@@ -10,7 +10,7 @@ namespace VenturaSQL.AspNetCore.Server.RequestHandling
         {
         }
 
-        public LookupAdoConnectorDelegate LookupAdoConnector;
+        public LookupAdoConnectorDelegate LookupAdoConnector { get; set; }
 
 
     }

@@ -7,7 +7,7 @@ namespace VenturaSQL
 {
 
     /// <summary>
-    /// Use the frameStream to prepare data frames for sending to TCP/IP. 
+    /// Use the frameStream to prepare data frames for sending to Http. 
     /// </summary>
     public class FrameWriter : IDisposable
     {
@@ -50,13 +50,13 @@ namespace VenturaSQL
             _memorystream.WriteByte((byte)86); // the file type marker
 
             // This platform (1 byte)
-            _memorystream.WriteByte((byte)VenturaPlatform.NETStandard);
+            _memorystream.WriteByte((byte)VenturaSqlPlatform.NETStandard);
 
             // The version (12 bytes)
-            Version venturaversion = NewTools.VenturaVersion;
-            this.Write(venturaversion.Major);
-            this.Write(venturaversion.Minor);
-            this.Write(venturaversion.Build);
+            Version vrsn = General.VenturaSqlVersion;
+            this.Write(vrsn.Major);
+            this.Write(vrsn.Minor);
+            this.Write(vrsn.Build);
 
             // End of header
 

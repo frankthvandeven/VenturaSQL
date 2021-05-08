@@ -33,21 +33,21 @@ namespace VenturaSQLStudio {
         /// <summary>
         /// Generates the source code and returns it as a string.
         /// </summary>
-        internal void GenerateCSharp(StringBuilder sb, bool AdoDirectSwitch, VenturaPlatform generatortarget, LoaderTemplate loadertemplate, string recordsetname, string recordname)
+        internal void GenerateCSharp(StringBuilder sb, bool AdoDirectSwitch, VenturaSqlPlatform generatortarget, LoaderTemplate loadertemplate, string recordsetname, string recordname)
         {
             #region Prepare
             if (loadertemplate == null)
                 PRE = TAB; // insert an extra tab when this recordset is inside a Loader class.
 
-            // Begin: calculate the VenturaSchema
+            // Begin: calculate the VenturaSqlSchema
 
             ColumnArrayBuilder builder = new ColumnArrayBuilder();
 
             builder.Add(_resultsetinfo, _resultsetItem.UpdateableTableName);
 
-            VenturaSchema schema = new VenturaSchema(builder);
+            VenturaSqlSchema schema = new VenturaSqlSchema(builder);
 
-            // End: calculate the VenturaSchema
+            // End: calculate the VenturaSqlSchema
 
             // At this point the following must be guaranteed:
             // The _recordsetItem.UpdateableTableName is either empty or is filled and valid, and _updateableTableInfo is null or assigned accordingly.
@@ -68,7 +68,7 @@ namespace VenturaSQLStudio {
                 updateableTableInfo = _resultsetinfo.Tables.Find(a => a.TableName == _resultsetItem.UpdateableTableName);
 
                 if (updateableTableInfo == null)
-                    throw new VenturaException($"The selected updateable table {_resultsetItem.UpdateableTableName.ScriptTableName} is not referenced in the resultset of the query.");
+                    throw new VenturaSqlException($"The selected updateable table {_resultsetItem.UpdateableTableName.ScriptTableName} is not referenced in the resultset of the query.");
             }
             #endregion
 
@@ -172,9 +172,9 @@ namespace VenturaSQLStudio {
 
             for (int x = 0; x < schema.Count; x++)
             {
-                VenturaColumn column = schema[x];
+                VenturaSqlColumn column = schema[x];
 
-                sb.Append(PRE + TAB + TAB + TAB + $"schema_array.Add(new VenturaColumn(\"{column.ColumnName}\", typeof({column.ShortTypeNameAsCSharpString()}), {column.IsNullable.ToString().ToLower()})" + CRLF);
+                sb.Append(PRE + TAB + TAB + TAB + $"schema_array.Add(new VenturaSqlColumn(\"{column.ColumnName}\", typeof({column.ShortTypeNameAsCSharpString()}), {column.IsNullable.ToString().ToLower()})" + CRLF);
                 sb.Append(PRE + TAB + TAB + TAB + "{" + CRLF);
 
                 List<string> list = new List<string>();
@@ -219,7 +219,7 @@ namespace VenturaSQLStudio {
                 sb.Append(CRLF);
             } // end of columns loop
 
-            sb.Append(PRE + TAB + TAB + TAB + "((IResultsetBase)this).Schema = new VenturaSchema(schema_array);" + CRLF);
+            sb.Append(PRE + TAB + TAB + TAB + "((IResultsetBase)this).Schema = new VenturaSqlSchema(schema_array);" + CRLF);
             // End: Schema definition
 
             if (_resultsetItem.UpdateableTableName != null)
@@ -230,7 +230,7 @@ namespace VenturaSQLStudio {
             // Database columns.
             for (int x = 0; x < schema.Count; x++)
             {
-                VenturaColumn column = schema[x];
+                VenturaSqlColumn column = schema[x];
                 sb.Append(PRE + TAB + TAB + @"/// <summary>" + CRLF);
 
                 foreach (var line in ColumnSummary(column))
@@ -240,27 +240,27 @@ namespace VenturaSQLStudio {
 
                 sb.Append(PRE + TAB + TAB + "public " + column.ShortTypeNameForColumnProperty() + " " + column.PropertyName() + CRLF);
                 sb.Append(PRE + TAB + TAB + "{" + CRLF);
-                sb.Append(PRE + TAB + TAB + TAB + "get { if (CurrentRecord == null) throw new InvalidOperationException(VenturaStrings.CURRENT_RECORD_NOT_SET); return CurrentRecord." + column.PropertyName() + "; }" + CRLF);
-                sb.Append(PRE + TAB + TAB + TAB + "set { if (CurrentRecord == null) throw new InvalidOperationException(VenturaStrings.CURRENT_RECORD_NOT_SET); CurrentRecord." + column.PropertyName() + " = value; }" + CRLF);
+                sb.Append(PRE + TAB + TAB + TAB + "get { if (CurrentRecord == null) throw new InvalidOperationException(VenturaSqlStrings.CURRENT_RECORD_NOT_SET); return CurrentRecord." + column.PropertyName() + "; }" + CRLF);
+                sb.Append(PRE + TAB + TAB + TAB + "set { if (CurrentRecord == null) throw new InvalidOperationException(VenturaSqlStrings.CURRENT_RECORD_NOT_SET); CurrentRecord." + column.PropertyName() + " = value; }" + CRLF);
                 sb.Append(PRE + TAB + TAB + "}" + CRLF + CRLF);
 
             } // end of columns loop
 
             sb.Append(PRE + TAB + TAB + "public void ResetToUnmodified()" + CRLF);
             sb.Append(PRE + TAB + TAB + "{" + CRLF);
-            sb.Append(PRE + TAB + TAB + TAB + "if (CurrentRecord == null) throw new InvalidOperationException(VenturaStrings.CURRENT_RECORD_NOT_SET);" + CRLF);
+            sb.Append(PRE + TAB + TAB + TAB + "if (CurrentRecord == null) throw new InvalidOperationException(VenturaSqlStrings.CURRENT_RECORD_NOT_SET);" + CRLF);
             sb.Append(PRE + TAB + TAB + TAB + "CurrentRecord.ResetToUnmodified();" + CRLF);
             sb.Append(PRE + TAB + TAB + "}" + CRLF + CRLF);
 
             sb.Append(PRE + TAB + TAB + "public void ResetToUnmodifiedExisting()" + CRLF);
             sb.Append(PRE + TAB + TAB + "{" + CRLF);
-            sb.Append(PRE + TAB + TAB + TAB + "if (CurrentRecord == null) throw new InvalidOperationException(VenturaStrings.CURRENT_RECORD_NOT_SET);" + CRLF);
+            sb.Append(PRE + TAB + TAB + TAB + "if (CurrentRecord == null) throw new InvalidOperationException(VenturaSqlStrings.CURRENT_RECORD_NOT_SET);" + CRLF);
             sb.Append(PRE + TAB + TAB + TAB + "CurrentRecord.ResetToUnmodifiedExisting();" + CRLF);
             sb.Append(PRE + TAB + TAB + "}" + CRLF + CRLF);
 
             sb.Append(PRE + TAB + TAB + "public void ResetToExisting()" + CRLF);
             sb.Append(PRE + TAB + TAB + "{" + CRLF);
-            sb.Append(PRE + TAB + TAB + TAB + "if (CurrentRecord == null) throw new InvalidOperationException(VenturaStrings.CURRENT_RECORD_NOT_SET);" + CRLF);
+            sb.Append(PRE + TAB + TAB + TAB + "if (CurrentRecord == null) throw new InvalidOperationException(VenturaSqlStrings.CURRENT_RECORD_NOT_SET);" + CRLF);
             sb.Append(PRE + TAB + TAB + TAB + "CurrentRecord.ResetToExisting();" + CRLF);
             sb.Append(PRE + TAB + TAB + "}" + CRLF + CRLF);
 
@@ -275,8 +275,8 @@ namespace VenturaSQLStudio {
 
                 sb.Append(PRE + TAB + TAB + $"public {udc_column.ShortTypeName} {udc_column.PropertyName}" + CRLF);
                 sb.Append(PRE + TAB + TAB + "{" + CRLF);
-                sb.Append(PRE + TAB + TAB + TAB + $"get {{ if (CurrentRecord == null) throw new InvalidOperationException(VenturaStrings.CURRENT_RECORD_NOT_SET); return CurrentRecord.{udc_column.PropertyName}; }}" + CRLF);
-                sb.Append(PRE + TAB + TAB + TAB + $"set {{ if (CurrentRecord == null) throw new InvalidOperationException(VenturaStrings.CURRENT_RECORD_NOT_SET); CurrentRecord.{udc_column.PropertyName} = value; }}" + CRLF);
+                sb.Append(PRE + TAB + TAB + TAB + $"get {{ if (CurrentRecord == null) throw new InvalidOperationException(VenturaSqlStrings.CURRENT_RECORD_NOT_SET); return CurrentRecord.{udc_column.PropertyName}; }}" + CRLF);
+                sb.Append(PRE + TAB + TAB + TAB + $"set {{ if (CurrentRecord == null) throw new InvalidOperationException(VenturaSqlStrings.CURRENT_RECORD_NOT_SET); CurrentRecord.{udc_column.PropertyName} = value; }}" + CRLF);
                 sb.Append(PRE + TAB + TAB + "}" + CRLF + CRLF);
             }
 
@@ -360,7 +360,7 @@ namespace VenturaSQLStudio {
 
             for (int i = 0; i < schema.Count; i++)
             {
-                VenturaColumn column = schema[i];
+                VenturaSqlColumn column = schema[i];
                 sb.Append(PRE + TAB + TAB + TAB + $"{column.PrivateVariableName_Current()} = ({column.ShortTypeNameForColumnProperty()})columnvalues[{i}];" + CRLF);
             }
 
@@ -383,7 +383,7 @@ namespace VenturaSQLStudio {
             foreach (var column in schema)
                 sb.Append(PRE + TAB + TAB + TAB + $"if (column_name == \"{column.PropertyName()}\") return {column.PrivateVariableName_Modified()};" + CRLF);
 
-            sb.Append(PRE + TAB + TAB + TAB + "throw new ArgumentOutOfRangeException(String.Format(VenturaStrings.UNKNOWN_COLUMN_NAME, column_name));" + CRLF);
+            sb.Append(PRE + TAB + TAB + TAB + "throw new ArgumentOutOfRangeException(String.Format(VenturaSqlStrings.UNKNOWN_COLUMN_NAME, column_name));" + CRLF);
 
             sb.Append(PRE + TAB + TAB + "}" + CRLF + CRLF);
 
@@ -394,7 +394,7 @@ namespace VenturaSQLStudio {
             sb.Append(PRE + TAB + TAB + "{" + CRLF);
             sb.Append(PRE + TAB + TAB + TAB + "int count = 0;" + CRLF);
 
-            foreach (VenturaColumn column in schema)
+            foreach (VenturaSqlColumn column in schema)
                 sb.Append(PRE + TAB + TAB + TAB + $"if ({column.PrivateVariableName_Modified()} == true) count++;" + CRLF);
 
             sb.Append(PRE + TAB + TAB + TAB + "return count;" + CRLF);
@@ -425,7 +425,7 @@ namespace VenturaSQLStudio {
                     sb.Append(PRE + TAB + TAB + TAB + "}" + CRLF);
                 }
 
-                foreach (VenturaColumn column in schema)
+                foreach (VenturaSqlColumn column in schema)
                     if (column.Updateable == true && column.IsKey == false)
                         sb.Append(PRE + TAB + TAB + TAB + $"if ({column.PrivateVariableName_Modified()} == true) count++;" + CRLF);
 
@@ -461,8 +461,8 @@ namespace VenturaSQLStudio {
                 // Added on 15 April 2019
                 sb.Append(PRE + TAB + TAB + TAB + "if (_recordstatus == DataRecordStatus.Existing) return;" + CRLF);
 
-                foreach (VenturaColumn column in validateable_columns)
-                    sb.Append(PRE + TAB + TAB + TAB + $"if ({column.PrivateVariableName_Modified()} == false) throw new Exception(string.Format(VenturaStrings.VALUE_NOT_SET_MSG, record_index_to_display, \"{column.PropertyName()}\"));" + CRLF);
+                foreach (VenturaSqlColumn column in validateable_columns)
+                    sb.Append(PRE + TAB + TAB + TAB + $"if ({column.PrivateVariableName_Modified()} == false) throw new Exception(string.Format(VenturaSqlStrings.VALUE_NOT_SET_MSG, record_index_to_display, \"{column.PropertyName()}\"));" + CRLF);
             }
 
             sb.Append(PRE + TAB + TAB + "}" + CRLF + CRLF);
@@ -480,7 +480,7 @@ namespace VenturaSQLStudio {
 
                 for (int i = 0; i < schema.Count; i++)
                 {
-                    VenturaColumn column = schema[i];
+                    VenturaSqlColumn column = schema[i];
                     if (column.Updateable == true) // a readonly-column can never be written
                     {
                         string if_statement = "";
@@ -638,14 +638,14 @@ namespace VenturaSQLStudio {
 
         #region Generate database Column property & generate User Defined Column property
 
-        private void GenerateDataBaseColumnProperty(StringBuilder sb, VenturaColumn column)
+        private void GenerateDataBaseColumnProperty(StringBuilder sb, VenturaSqlColumn column)
         {
             sb.Append(PRE + TAB + TAB + @"/// <summary>" + CRLF);
 
             foreach (var line in ColumnSummary(column))
                 sb.Append(PRE + TAB + TAB + @"/// " + line + CRLF);
 
-            //if (column.ColumnSource == VenturaColumnSource.SqlServer && column.ProviderType == VenturaSqlDbType.Udt && (generatortarget == VenturaPlatform.UWP || generatortarget == VenturaPlatform.Android || generatortarget == VenturaPlatform.iOS))
+            //if (column.ColumnSource == VenturaSqlColumnSource.SqlServer && column.ProviderType == VenturaSqlDbType.Udt && (generatortarget == VenturaSqlPlatform.UWP || generatortarget == VenturaSqlPlatform.Android || generatortarget == VenturaSqlPlatform.iOS))
             //    sb.Append(PRE + TAB + TAB + $@"/// Since CLR-UDT objects cannot be deserialized on the {generatortarget} platform, this property returns the raw serialization output as a byte array." + CRLF);
 
             sb.Append(PRE + TAB + TAB + @"/// </summary>" + CRLF);
@@ -661,7 +661,7 @@ namespace VenturaSQLStudio {
             sb.Append(PRE + TAB + TAB + TAB + "{" + CRLF);
 
             if (column.ForbidNullValue() == true)
-                sb.Append(PRE + TAB + TAB + TAB + TAB + $"if (value == null) throw new ArgumentNullException(\"{column.PropertyName()}\", VenturaStrings.SET_NULL_MSG);" + CRLF);
+                sb.Append(PRE + TAB + TAB + TAB + TAB + $"if (value == null) throw new ArgumentNullException(\"{column.PropertyName()}\", VenturaSqlStrings.SET_NULL_MSG);" + CRLF);
 
             sb.Append(PRE + TAB + TAB + TAB + TAB + $"if (_started_with_dbvalues == false) {column.PrivateVariableName_Modified()} = true;" + CRLF);
 
@@ -716,7 +716,7 @@ namespace VenturaSQLStudio {
             sb.Append(PRE + TAB + TAB + "}" + CRLF + CRLF);
         }
 
-        private List<string> ColumnSummary(VenturaColumn column)
+        private List<string> ColumnSummary(VenturaSqlColumn column)
         {
             List<string> list = new List<string>();
 

@@ -150,12 +150,12 @@ namespace VenturaSQLStudio {
         /// <summary>
         /// Used by the code-generator
         /// </summary>
-        public VenturaColumn AsVenturaColumn()
+        public VenturaSqlColumn AsVenturaSqlColumn()
         {
             if (_name.Length == 0)
-                throw new VenturaException("Name can not be empty when calling AsVenturaColumn.");
+                throw new VenturaSqlException("Name can not be empty when calling AsVenturaSqlColumn.");
 
-            VenturaColumn column = new VenturaColumn(_name, _fulltypename, true);
+            VenturaSqlColumn column = new VenturaSqlColumn(_name, _fulltypename, true);
             column.DbType = TypeTools.StringToEnum<DbType>(_dbtype_string);
             column.Input = _input;
             column.Output = _output;

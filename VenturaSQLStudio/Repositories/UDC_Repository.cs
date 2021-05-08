@@ -42,33 +42,33 @@ namespace VenturaSQLStudio
 //public Type GetColumnCodeType
 //{
 //    get
-//    {
+//    { 
 //        switch (this.ColumnCode)
 //        {
-//            case VenturaCode.Boolean:
+//            case VenturaSqlCode.Boolean:
 //                //return typeof(System.Boolean);
 //                return Type.GetType("System.Boolean");
-//            case VenturaCode.Byte:
+//            case VenturaSqlCode.Byte:
 //                return Type.GetType("System.Byte");
-//            case VenturaCode.DateTime:
+//            case VenturaSqlCode.DateTime:
 //                return Type.GetType("System.DateTime");
-//            case VenturaCode.Decimal:
+//            case VenturaSqlCode.Decimal:
 //                return Type.GetType("System.Decimal");
-//            case VenturaCode.Single:
+//            case VenturaSqlCode.Single:
 //                return Type.GetType("System.Single");
-//            case VenturaCode.Double:
+//            case VenturaSqlCode.Double:
 //                return Type.GetType("System.Double");
-//            case VenturaCode.Int16:
+//            case VenturaSqlCode.Int16:
 //                return Type.GetType("System.Int16");
-//            case VenturaCode.Int32:
+//            case VenturaSqlCode.Int32:
 //                return Type.GetType("System.Int32");
-//            case VenturaCode.Int64:
+//            case VenturaSqlCode.Int64:
 //                return Type.GetType("System.Int64");
-//            case VenturaCode.String:
+//            case VenturaSqlCode.String:
 //                return Type.GetType("System.String");
-//            case VenturaCode.Guid:
+//            case VenturaSqlCode.Guid:
 //                return Type.GetType("System.Guid");
-//            case VenturaCode.Bytes:
+//            case VenturaSqlCode.Bytes:
 //                return typeof(System.Byte[]);
 //                //return Type.GetType("System.Byte[]");
 //        } // end of switch

@@ -6,7 +6,7 @@ using VenturaSQLStudio.Ado;
 namespace VenturaSQLStudio
 {
     /// <summary>
-    /// Builds a list of VenturaColumn type columns that can be used to initialize a VenturaSchema object.
+    /// Builds a list of VenturaSqlColumn type columns that can be used to initialize a VenturaSqlSchema object.
     /// </summary>
     public static class ColumnArrayBuilderExtensions
     {
@@ -20,10 +20,10 @@ namespace VenturaSQLStudio
         public static void Add(this ColumnArrayBuilder builder, ResultSetInfo resultset, TableName updateableTablename)
         {
             if (resultset.AdoSchemaTable.Columns.IndexOf("IsHidden") != -1) // does the column exist?
-                throw new VenturaException("The QueryInfo.AdoSchemaTable should have the IsHidden rows and column removed.");
+                throw new VenturaSqlException("The QueryInfo.AdoSchemaTable should have the IsHidden rows and column removed.");
 
             if (resultset.AdoSchemaTable.Rows.Count < 1)
-                throw new VenturaException("The QueryInfo.AdoSchemaTable does not contain any rows.");
+                throw new VenturaSqlException("The QueryInfo.AdoSchemaTable does not contain any rows.");
 
             for (int x = 0; x < resultset.AdoSchemaTable.Rows.Count; x++)
             {
@@ -31,7 +31,7 @@ namespace VenturaSQLStudio
 
                 TableName fullyQualifiedTablename = row_info.GetTableName();
 
-                VenturaColumn column = new VenturaColumn(row_info.ColumnName, row_info.DataType, row_info.AllowDBNull);
+                VenturaSqlColumn column = new VenturaSqlColumn(row_info.ColumnName, row_info.DataType, row_info.AllowDBNull);
 
                 // BaseServerName/BaseCatalogName/BaseSchemaName/BaseTableName/BaseColumnName
                 column.BaseServerName = row_info.BaseServerName;

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace VenturaSQL
 {
-    public static class VenturaStrings
+    public static class VenturaSqlStrings
     {
         //public static readonly string GET_VALUE_NOT_INITIALIZED_MSG = "New record's '{0}' column cannot not be read, as it contains no value yet.";
 

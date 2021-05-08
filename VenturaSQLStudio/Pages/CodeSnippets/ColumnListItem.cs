@@ -6,10 +6,10 @@ namespace VenturaSQLStudio.Pages
     {
         private bool _include = true;
         private string _name;
-        private VenturaColumn _schema_column;
+        private VenturaSqlColumn _schema_column;
         private UDCItem _udc_column;
 
-        public ColumnListItem(string name, VenturaColumn schema_column, UDCItem udc_column)
+        public ColumnListItem(string name, VenturaSqlColumn schema_column, UDCItem udc_column)
         {
             _name = name;
             _schema_column = schema_column;
@@ -45,7 +45,7 @@ namespace VenturaSQLStudio.Pages
             }
         }
 
-        public VenturaColumn SchemaColumn
+        public VenturaSqlColumn SchemaColumn
         {
             get { return _schema_column; }
         }

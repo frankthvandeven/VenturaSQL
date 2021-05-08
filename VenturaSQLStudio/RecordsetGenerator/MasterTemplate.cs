@@ -38,7 +38,7 @@ namespace VenturaSQLStudio {
         {
         }
 
-        internal string GenerateCSharp(string namespace_name, bool AdoDirectSwitch, VenturaPlatform generatortarget)
+        internal string GenerateCSharp(string namespace_name, bool AdoDirectSwitch, VenturaSqlPlatform generatortarget)
         {
             StringBuilder sb = new StringBuilder(20000);
 
@@ -47,7 +47,7 @@ namespace VenturaSQLStudio {
             sb.Append(TAB + $"Project file: \"{MainWindow.ViewModel.FileName}\"" + CRLF);
 
             sb.Append(TAB + $"Target platform: {generatortarget}" + CRLF);
-            sb.Append(TAB + $"Generator version: {MainWindow.ViewModel.VenturaVersion.ToString(3)}" + CRLF);
+            sb.Append(TAB + $"Generator version: {MainWindow.ViewModel.VenturaSqlVersion.ToString(3)}" + CRLF);
             sb.Append(TAB + $"Generated on: {_timestamp.ToLongDateString()} at {_timestamp.ToLongTimeString()}" + CRLF);
 
             if (_recordsetItem.ImplementDatabinding == true && _recordsetItem.Resultsets.Count > 0)

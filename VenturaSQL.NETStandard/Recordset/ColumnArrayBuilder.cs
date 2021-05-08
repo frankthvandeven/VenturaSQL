@@ -6,23 +6,23 @@ using System.Data;
 namespace VenturaSQL
 {
     /// <summary>
-    /// First you build a list of VenturaColumn's with ColumnArrayBuilder, and then
-    /// you use this list to initialize the VenturaSchema object.
+    /// First you build a list of VenturaSqlColumn's with ColumnArrayBuilder, and then
+    /// you use this list to initialize the VenturaSqlSchema object.
     /// </summary>
     public partial class ColumnArrayBuilder
     {
-        private List<VenturaColumn> _list = new List<VenturaColumn>();
+        private List<VenturaSqlColumn> _list = new List<VenturaSqlColumn>();
 
-        public VenturaColumn[] ToArray()
+        public VenturaSqlColumn[] ToArray()
         {
             return _list.ToArray();
         }
 
         /// <summary>
-        /// Adds a raw VenturaColumn object to the collection.
+        /// Adds a raw VenturaSqlColumn object to the collection.
         /// </summary>
         /// <param name="column"></param>
-        public void Add(VenturaColumn column)
+        public void Add(VenturaSqlColumn column)
         {
             _list.Add(column);
         }
@@ -32,7 +32,7 @@ namespace VenturaSQL
         // </summary>
         public void AddParameterColumn(string column_name, Type column_type, bool input, bool output, DbType? dbtype, int? columnsize, byte? precision, byte? scale)
         {
-            VenturaColumn tempcolumn = new VenturaColumn(column_name, column_type, true);
+            VenturaSqlColumn tempcolumn = new VenturaSqlColumn(column_name, column_type, true);
             tempcolumn.Input = input;
             tempcolumn.Output = output;
 
@@ -60,7 +60,7 @@ namespace VenturaSQL
 
 //    for (int x = 0; x < FieldCount; x++)
 //    {
-//        VenturaColumn tempcolumn = new VenturaColumn();
+//        VenturaSqlColumn tempcolumn = new VenturaSqlColumn();
 
 //        // ColumnName
 //        bytelen = BitConverter.ToInt16(buffer, offset);
@@ -70,14 +70,14 @@ namespace VenturaSQL
 //        offset += bytelen;
 
 //        // ColumnCode
-//        tempcolumn.ColumnCode = (VenturaCode)buffer[offset];
+//        tempcolumn.ColumnCode = (VenturaSqlCode)buffer[offset];
 //        offset += 1;
 
 //        // ColumnSource
-//        tempcolumn.ColumnSource = (VenturaColumnSource)buffer[offset];
+//        tempcolumn.ColumnSource = (VenturaSqlColumnSource)buffer[offset];
 //        offset += 1;
 
-//        if (tempcolumn.ColumnSource == VenturaColumnSource.SqlServer)
+//        if (tempcolumn.ColumnSource == VenturaSqlColumnSource.SqlServer)
 //        {
 //            // BaseTableName
 //            bytelen = buffer[offset];

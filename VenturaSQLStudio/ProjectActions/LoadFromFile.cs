@@ -302,10 +302,7 @@ namespace VenturaSQLStudio.ProjectActions
                 UDCItem udcitem = new UDCItem(project);
                 udcitem.ColumnName = userdefinedcolumnNode.Attributes["name"].Value;
 
-                if (_writer_version < Version.Parse("2.5.0.0"))
-                    udcitem.FullTypename = convert_TypeCode_To_FrameworkType(userdefinedcolumnNode.Attributes["venturacode"].Value);
-                else
-                    udcitem.FullTypename = userdefinedcolumnNode.Attributes["fulltypename"].Value;
+                udcitem.FullTypename = userdefinedcolumnNode.Attributes["fulltypename"].Value; 
 
                 definitionitem.UserDefinedColumns.Add(udcitem);
             }

@@ -12,7 +12,7 @@ namespace VenturaSQL
         private AdoConnector _connector;
         private DbConnection _connection;
         private DbTransaction _transaction;
-        private VenturaSchema _schema;
+        private VenturaSqlSchema _schema;
         private string _updateableTablename;
 
         private StringBuilder _statement;
@@ -22,7 +22,7 @@ namespace VenturaSQL
 
         private char _parameter_prefix;
 
-        public RowSaver(AdoConnector connector, DbConnection sqlconnection, DbTransaction transaction, VenturaSchema schema, string updateableTablename)
+        public RowSaver(AdoConnector connector, DbConnection sqlconnection, DbTransaction transaction, VenturaSqlSchema schema, string updateableTablename)
         {
             _connector = connector;
             _connection = sqlconnection;
