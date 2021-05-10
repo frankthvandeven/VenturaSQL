@@ -40,7 +40,7 @@ namespace VenturaSQLStudio {
                 {
                     for (int i = this.Count; i < query_resultset_count; i++)
                     {
-                        ResultsetItem item = new ResultsetItem(_owningproject, this.Count + 1, $"Resultset{i + 1}Recordset");
+                        ResultsetItem item = new ResultsetItem(_owningproject, this.Count + 1, $"Resultset{i + 1}");
                         this.Add(item);
                     }
                 }

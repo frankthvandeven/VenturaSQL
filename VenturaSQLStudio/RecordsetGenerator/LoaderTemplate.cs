@@ -390,7 +390,7 @@ namespace VenturaSQLStudio {
                 sb.Append(TAB + TAB + TAB + "set { _has_more_rows = value; }" + CRLF);
                 sb.Append(TAB + TAB + "}" + CRLF + CRLF);
 
-                sb.Append(TAB + TAB + "bool HasMoreRows" + CRLF);
+                sb.Append(TAB + TAB + "public bool HasMoreRows" + CRLF);
                 sb.Append(TAB + TAB + "{" + CRLF);
                 sb.Append(TAB + TAB + TAB + "get { return _has_more_rows; }" + CRLF);
                 sb.Append(TAB + TAB + "}" + CRLF + CRLF);
@@ -630,21 +630,6 @@ namespace VenturaSQLStudio {
                     sb.Append(TAB + TAB + TAB + "Transactional.ExecSqlIncremental(this);" + CRLF);
                 else
                     sb.Append(TAB + TAB + TAB + "await Transactional.ExecSqlIncrementalAsync(this);" + CRLF);
-
-                sb.Append(TAB + TAB + "}" + CRLF + CRLF);
-
-                if (codestyle == CodeStyle.Synchronous)
-                    sb.Append(TAB + TAB + "public void ExecSqlNextPage()");
-                else
-                    sb.Append(TAB + TAB + "public async Task ExecSqlNextPageAsync()");
-
-                sb.Append(CRLF);
-                sb.Append(TAB + TAB + "{" + CRLF);
-
-                if (codestyle == CodeStyle.Synchronous)
-                    sb.Append(TAB + TAB + TAB + "Transactional.ExecSqlNextPage(this);" + CRLF);
-                else
-                    sb.Append(TAB + TAB + TAB + "await Transactional.ExecSqlNextPageAsync(this);" + CRLF);
 
                 sb.Append(TAB + TAB + "}" + CRLF + CRLF);
 

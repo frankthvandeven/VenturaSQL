@@ -36,11 +36,8 @@ namespace VenturaSQL
             set;
         }
 
-        void ExecSqlIncremental();
-        void ExecSqlNextPage();
-
         Task ExecSqlIncrementalAsync();
-        Task ExecSqlNextPageAsync();
+        void ExecSqlIncremental();
 
         int RowLimit
         {

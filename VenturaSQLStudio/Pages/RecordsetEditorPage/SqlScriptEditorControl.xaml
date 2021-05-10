@@ -70,7 +70,7 @@
 
             <Grid Height="auto" DockPanel.Dock="Bottom" Background="#FFDBDEE3">
                 <StackPanel Margin="10,6">
-                    <CheckBox IsChecked="{Binding RowloadIncremental}">Support incremental loading (pagination). Adds the IRecordsetIncremental interface and the ExecSqlIncremental() and ExecSqlNextPage() methods.</CheckBox>
+                    <CheckBox IsChecked="{Binding RowloadIncremental}">Support incremental loading. Adds the IRecordsetIncremental interface and the ExecSqlIncremental() and ExecSqlIncrementalAsync() methods.</CheckBox>
                     <TextBlock Name="tbIncrementalTip" TextWrapping="Wrap" Visibility="Collapsed" Height="auto" Margin="20,5,0,0"></TextBlock>
                     <TextBlock Name="tbAutoCreateFolderTip" Visibility="Collapsed" TextWrapping="Wrap" Height="auto" Margin="0,5,0,0">This recordset is located in the auto create recordsets folder and can not be modified. Copy it to a different folder for editing.</TextBlock>
                 </StackPanel>
