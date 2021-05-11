@@ -3,9 +3,9 @@ The 3-tier SQL framework for C# projects.
 
 Where an ORM binds to columns properties dynamically, VenturaSQL is static and the mapping is already done at compile time. With a runtime DLL of less than 100KB you can use both an ORM and VenturaSQL in the same project. Both approaches have their unique benefits. Use VenturaSQL:
 
-+ For building a **rich browser-based app** with **Blazor WebAssembly**. Use recordsets with advanced modification tracking.
-+ For Raw performance. VenturaSQL uses Web API with optimized binary data transfer and generated static C# code instead of dynamic binding with reflection.
-+ When you want to work with SQL statements or scripts in the VenturaSQL Studio editor.
++ For building **rich browser-based apps** with **Blazor WebAssembly**. Use recordsets with advanced modification tracking.
++ For Raw performance. Data is transferred via Web API in optimized binary format. Data is collected with static C# code instead of dynamic binding with reflection.
++ When you can want to enter SQL statements (or scripts) in the VenturaSQL Studio editor.
 + When you don't want to spend time writing Web API controller code.
 
 Read [Making the case for VenturaSQL](https://sysdev.nl/making-the-case-for-venturasql/) article for a comparison between VenturaSQL and ORM. The article explains the difference between approaches, and what solution to choose depending on the scenario.
