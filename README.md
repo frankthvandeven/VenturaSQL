@@ -95,7 +95,7 @@ The runtime DLL is 95KB, and the middle-tier DLL is 13KB. VenturaSQL is lightwei
 **or**
 
 Download this GitHub repository and open the solution and run the VenturaSQLStudio project. The GitHub repository does not include the template projects.
-You can download the templates from [the Templates-VenturaSQLStudio repository](https://github.com/frankthvandeven/Templates-VenturaSQLStudio).
+You can download the templates from the [Templates-VenturaSQLStudio](https://github.com/frankthvandeven/Templates-VenturaSQLStudio) repository.
 
 ## See it run on your PC in minutes
 The easiest way to get started with VenturaSQL is to run the installer, create a new project with the Blazor WebAssembly template and run it. Open the [Getting started with VenturaSQL](https://sysdev.nl/getting-started-with-venturasql/) article for illustrated instructions.
