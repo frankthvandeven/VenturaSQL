@@ -5,7 +5,7 @@ Where an ORM binds to columns properties dynamically, VenturaSQL is static and t
 
 + For building **rich browser-based apps** with **Blazor WebAssembly**. Use recordsets with advanced modification tracking.
 + For raw Web API performance. Data is transferred in optimized binary format. The data is collected with pre-compiled C# code instead of dynamic binding with reflection.
-+ For enterings SQL statements (or scripts) in the VenturaSQL Studio editor.
++ For defining your data API by entering SQL statements (or scripts) in the VenturaSQL Studio editor
 + When you don't want to spend time writing Web API controller code.
 
 Read [Making the case for VenturaSQL](https://sysdev.nl/making-the-case-for-venturasql/) article for a comparison between VenturaSQL and ORM. The article explains the difference between approaches, and what solution to choose depending on the scenario.
