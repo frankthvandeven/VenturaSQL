@@ -94,7 +94,7 @@ The runtime DLL is 95KB, and the middle-tier DLL is 13KB. VenturaSQL is lightwei
 
 **or**
 
-Download this GitHub repository and open the solution and run the VenturaSQLStudio project. The GitHub repository does not include the template projects.
+Download this GitHub repository and open the solution and run the VenturaSQLStudio project. This GitHub repository does not include the template projects.
 You can download the templates from the [Templates-VenturaSQLStudio](https://github.com/frankthvandeven/Templates-VenturaSQLStudio) repository.
 
 ## See it run on your PC in minutes
