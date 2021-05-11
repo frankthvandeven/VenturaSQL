@@ -1,15 +1,16 @@
 # VenturaSQL
 The 3-tier SQL framework for C# projects.
 
-Where an ORM binds to columns properties dynamically, VenturaSQL is static and the mapping is already done at compile time. With a runtime DLL of less than 100KB you can use both an ORM and VenturaSQL in the same project. Both approaches have their unique benefits. Use VenturaSQL when:
+Where an ORM binds to columns properties dynamically, VenturaSQL is static and the mapping is already done at compile time. With a runtime DLL of less than 100KB you can use both an ORM and VenturaSQL in the same project. Both approaches have their unique benefits. Use VenturaSQL:
 
-+ Raw performance is needed. VenturaSQL uses optimized binary data transfer and static binding instead of reflection. When saving changes, only modified column data is sent to the server.
-+ Entering SQL statements (or complete scripts) in the VenturaSQL Studio editor is an acceptable starting point for implementing your data access API.
-+ You don't want to spend time writing Web API controller code.
++ For building rich browser-based app with *Blazor WebAssembly*. Use recordsets with advanced modification tracking.
++ For Raw performance. VenturaSQL uses optimized binary data transfer and generated static C# code instead of dynamic binding with reflection.
++ When you want to work with SQL statements or scripts in the VenturaSQL Studio editor.
++ When you don't want to spend time writing Web API controller code.
 
 Read [Making the case for VenturaSQL](https://sysdev.nl/making-the-case-for-venturasql/) article for a comparison between VenturaSQL and ORM. The article explains the difference between approaches, and what solution to choose depending on the scenario.
 
-The only requirement for using VenturaSQL is that the client must be able to run C# code. A browser running C# code with Blazor WebAssembly is supported, but a browser only running JavaScript is not supported.
+The only requirement for using VenturaSQL is that the client must be able to run C# code. A browser running only JavaScript is not supported.
 
 VenturaSQL can use any ADO.NET data provider, but currently the only tested providers are:
 + System.Data.SqlClient (Microsoft SQL Server)
@@ -18,9 +19,9 @@ VenturaSQL can use any ADO.NET data provider, but currently the only tested prov
 ## VenturaSQL Studio generates recordsets
 The VenturaSQL Studio WPF app generates recordset classes based on SQL statements. The recordsets are automatically injected into your C# projects.
 
-Each generated recordset has column properties based on the resultset of an SQL statement. Change the SQL statement, and the column properties change too.
+Each generated recordset has column properties based on the resultset(s) of an SQL statement. Change the SQL statement, and the column properties change too.
 
-A recordset retrieves data and updates the database via a single Web API Controller. You only need add controller code once. Data is transmitted in binary format. In desktop and server applications, a recordset can also connect to a database directly.
+A recordset retrieves data and updates the database via a single Web API Controller. You only need add controller code once. Data is transmitted in binary format. A recordset can also connect to a database directly.
 
 ![Image of recordset editor](https://raw.githubusercontent.com/frankthvandeven/VenturaSQL/master/README_IMG1.png)
 
@@ -107,8 +108,8 @@ The easiest way to get started with VenturaSQL is to run the installer, create a
 + A recordset can hold multiple resultsets.
 + Updating multiple tables using multiple recordsets can easily be bundled into a single database transaction (for rollback) using the Transactional.SaveChanges() method.
 + Calculated columns.
-+ Column properties generate data binding events (INotifyPropertyChanged and INotifyCollectionChanged).
-+ VenturaSQL Studio automatically generates basic recordsets with "SELECT <all columns> WHERE <prikey>" statements.
++ Column properties optionally generate data binding events (INotifyPropertyChanged and INotifyCollectionChanged).
++ VenturaSQL Studio automatically creates basic recordsets with "SELECT <all columns> WHERE <prikey>" statements.
 + VenturaSQL Studio has a code snippet generator, for example for filling viewmodels.
 
 ## Upcoming Feature: Data Sentry
