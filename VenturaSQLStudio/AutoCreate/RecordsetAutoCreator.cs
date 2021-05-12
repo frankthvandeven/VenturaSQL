@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
@@ -18,9 +17,14 @@ namespace VenturaSQLStudio.AutoCreate
 
         private Project _project;
 
+        private string ProviderInvariantName;
+
         internal RecordsetAutoCreator(Project project)
         {
             _project = project; // only used for AdoConnector()
+
+            ProviderInvariantName = _project.ProviderInvariantName;
+
         }
 
         private TableList _table_list;
@@ -188,6 +192,15 @@ namespace VenturaSQLStudio.AutoCreate
 
             sb.Append("SELECT ");
 
+
+            string piv = MainWindow.ViewModel.CurrentProject.ProviderInvariantName;
+            char pref = MainWindow.ViewModel.CurrentProject.ParameterPrefix;
+
+            if (piv == "System.Data.SqlClient")
+            {
+                sb.Append($"TOP({pref}RowLimit) ");
+            }
+
             int linewidth = sb.Length;
             int last_one = columnlist.Count - 1;
 
@@ -214,6 +227,24 @@ namespace VenturaSQLStudio.AutoCreate
 
             sb.Append("FROM ");
             sb.Append(tablename.ScriptTableName);
+
+            if (piv == "System.Data.SqlClient")
+            {
+                // Append nothing here.
+            }
+            else if (piv == "Microsoft.Data.Sqlite" || piv == "System.Data.SQLite")
+            {
+                sb.Append($" LIMIT {pref}RowLimit");
+            }
+            else
+            {
+                sb.Append($" LIMIT {pref}RowLimit");
+                sb.Append(CRLF);
+                sb.Append(CRLF);
+                sb.Append($"-- VenturaSQL doesn't know the syntax for limiting the number of rows for provider '{piv}' and used the default LIMIT syntax.");
+                sb.Append(CRLF);
+                sb.Append("-- If the above syntax is wrong, contact Frank and ask for VenturaSQL to be updated and for now disable the automatic creation of 'GetAll' recordsets in [Project Settings]-[Auto Create Recordsets]-[Settings].");
+            }
 
             rs.SqlScript = sb.ToString();
 

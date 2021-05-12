@@ -15,7 +15,6 @@ namespace VenturaSQLStudio.ProviderHelpers
         public string FactoryAsString { get; protected set; }
 
 
-
         public DbProviderFactory Factory { get; protected set; }
 
         private ImageSource _product_image;
@@ -75,10 +74,7 @@ namespace VenturaSQLStudio.ProviderHelpers
                 // The default icons come from:
                 // https://www.flaticon.com/search?word=data
 
-                if (this.IsInstalled)
-                    return GetProductImageFromFilename("default_installed.png");
-
-                return GetProductImageFromFilename("default_not_installed.png");
+                return GetProductImageFromFilename("default_installed.png");
 
             }
             protected set { _product_image = value; }
@@ -96,14 +92,9 @@ namespace VenturaSQLStudio.ProviderHelpers
             }
         }
 
-        public bool IsInstalled
-        {
-            get
-            {
-                return this.Factory != null;
-            }
-        }
-
+        /// <summary>
+        /// This is to support the ListView.
+        /// </summary>
         public bool IsSelectedProvider
         {
             get

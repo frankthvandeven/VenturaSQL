@@ -51,7 +51,6 @@
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding IsMouseOver,RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
-                                <Condition Binding="{Binding IsInstalled}" Value="True" />
                                 <Condition Binding="{Binding IsSelectedProvider}" Value="False" />
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Visibility" TargetName="btnSelect" Value="Visible" />
@@ -60,19 +59,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
 
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="20,20,0,18" Orientation="Horizontal">
-                                <TextBlock FontWeight="Bold" FontSize="20">
-                                       <Run Text="{Binding Name, Mode=OneWay}" /><Run Text=" ("/><Run Text="{Binding ItemCount, Mode=OneWay}"/>)
-                                </TextBlock>
-                            </StackPanel>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ListView.GroupStyle>
         </ListView>
     </DockPanel>
 </UserControl>

@@ -25,6 +25,8 @@ namespace VenturaSQLStudio {
 
         private bool _modified;
 
+        private const string DEFAULT_PROVIDER_VARIANT_NAME = "System.Data.SqlClient";
+
         public Project()
         {
             _folderstructure = new RootItem(this);
@@ -40,8 +42,11 @@ namespace VenturaSQLStudio {
 
             // Note: Collections should be cleared and not reinstantiated. This is necessary for data binding.           
 
-            _provider_invariant_name = "System.Data.SqlClient";
-            _provider_helper = MainWindow.ViewModel.ProviderRepository.FirstOrDefault(z => z.ProviderInvariantName == _provider_invariant_name);
+            _provider_invariant_name = DEFAULT_PROVIDER_VARIANT_NAME;
+            _provider_helper = MainWindow.ViewModel.ProviderRepository.FirstOrDefault(z => z.ProviderInvariantName == DEFAULT_PROVIDER_VARIANT_NAME);
+
+            if (_provider_helper == null)
+                throw new Exception($"ProviderHelper for {DEFAULT_PROVIDER_VARIANT_NAME} not found. Should not happen.");
 
             _connection_string = "Server=(local);Initial Catalog=YourDatabaseNameHere;Integrated Security=SSPI;Max Pool Size=250;Connect Timeout=30;";
 
@@ -124,6 +129,16 @@ namespace VenturaSQLStudio {
                     throw new ArgumentNullException(nameof(ProviderInvariantName));
 
                 _provider_invariant_name = value;
+                _provider_helper = MainWindow.ViewModel.ProviderRepository.FirstOrDefault(z => z.ProviderInvariantName == _provider_invariant_name);
+
+                // If a provider variant name is not in the ProviderRepository, then we cannot use it.
+
+                if( _provider_helper == null )
+                {
+                    // Fall back to default provider.
+                    _provider_invariant_name = DEFAULT_PROVIDER_VARIANT_NAME;
+                    _provider_helper = MainWindow.ViewModel.ProviderRepository.FirstOrDefault(z => z.ProviderInvariantName == DEFAULT_PROVIDER_VARIANT_NAME);
+                }
 
                 NotifyPropertyChanged("ProviderInvariantName");
                 NotifyPropertyChanged("ProviderHelper");

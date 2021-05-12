@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.Common;
 using System.Linq;
 using VenturaSQL;
 
@@ -15,7 +14,6 @@ namespace VenturaSQLStudio
         {
             if (string.IsNullOrEmpty(provider_invariant_name))
                 throw new ArgumentOutOfRangeException("provider_invariant_name", "Empty or null string not allowed.");
-
 
             var providerHelper = MainWindow.ViewModel.ProviderRepository.FirstOrDefault(z => z.ProviderInvariantName == provider_invariant_name);
 

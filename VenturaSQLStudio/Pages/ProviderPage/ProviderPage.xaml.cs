@@ -22,20 +22,18 @@ namespace VenturaSQLStudio.Pages
             
             lvProviders.ItemsSource = MainWindow.ViewModel.ProviderRepository;
             
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvProviders.ItemsSource);
-
-            if (view.GroupDescriptions.Count == 0)
-            {
-                PropertyGroupDescription groupDescription = new PropertyGroupDescription("IsInstalled", new GroupNameConverter());
-                view.GroupDescriptions.Add(groupDescription);
-            }
+            //CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvProviders.ItemsSource);
+            //if (view.GroupDescriptions.Count == 0)
+            //{
+            //    PropertyGroupDescription groupDescription = new PropertyGroupDescription("IsInstalled", new GroupNameConverter());
+            //    view.GroupDescriptions.Add(groupDescription);
+            //}
 
             int vsql_version = Assembly.GetExecutingAssembly().GetName().Version.Major;
 
             textblockInfo.Text = $"VenturaSQL Studio {vsql_version} runs on .NET {Environment.Version.Major}, and this runtime does not support the dynamic " +
                                  "loading of ADO.NET providers. Provider DLLs must be linked into the VenturaSQLStudio executable. " +
-                                 "Contact fvv@sysdev.nl if you need a provider added. The \"Optional providers\" list is just a small " +
-                                 "selection out of all the free and commercial ADO.NET providers available.";
+                                 "Contact fvv@sysdev.nl if you need a provider added.";
 
         }
 
@@ -74,22 +72,18 @@ namespace VenturaSQLStudio.Pages
 
     }
 
-    public class GroupNameConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            bool is_installed = (bool)value;
-
-            if (is_installed)
-                return "Available";
-
-            return "Optional providers";
-
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    //public class GroupNameConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        bool is_installed = (bool)value;
+    //        if (is_installed)
+    //            return "Available";
+    //        return "Optional providers";
+    //    }
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 }
