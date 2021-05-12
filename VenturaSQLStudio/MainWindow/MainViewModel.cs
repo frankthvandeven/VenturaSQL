@@ -33,7 +33,7 @@ namespace VenturaSQLStudio
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private List<ProviderHelperBase> _providerHelpers = new List<ProviderHelperBase>();
+        private List<ProviderHelper> _providerRepository = new List<ProviderHelper>();
         
 
         public MainViewModel()
@@ -54,16 +54,16 @@ namespace VenturaSQLStudio
 
             foreach(var type in types)
             {
-                _providerHelpers.Add((ProviderHelperBase)Activator.CreateInstance(type));
+                _providerRepository.Add((ProviderHelper)Activator.CreateInstance(type));
             }
 
 
 
         }
 
-        public List<ProviderHelperBase> ProviderHelpers
+        public List<ProviderHelper> ProviderRepository
         {
-            get { return _providerHelpers; }
+            get { return _providerRepository; }
         }
 
         public ObservableCollection<Tab> Tabs

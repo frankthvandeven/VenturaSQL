@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 namespace VenturaSQLStudio.ProviderHelpers
 {
     [ProviderInvariantName("MySql.Data.MySqlClient")]
-    class Provider_MySql_Data_MySqlClient : ProviderHelperBase
+    public class Provider_MySql_Data_MySqlClient : ProviderHelper
     {
 
-        Provider_MySql_Data_MySqlClient()
+        public Provider_MySql_Data_MySqlClient()
         {
-            ProviderInvariantName = ""; // Attribute.GetCustomAttribute(this.GetType()).;
             Name = "MySQL Data Provider";
             Description = ".Net Framework Data Provider for MySQL.";
             Company = "Oracle Corporation";

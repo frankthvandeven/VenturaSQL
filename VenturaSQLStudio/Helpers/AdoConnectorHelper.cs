@@ -17,15 +17,15 @@ namespace VenturaSQLStudio
                 throw new ArgumentOutOfRangeException("provider_invariant_name", "Empty or null string not allowed.");
 
 
-            var provider_info = ProviderRepository.List.FirstOrDefault(z => z.ProviderInvariantName == provider_invariant_name);
+            var providerHelper = MainWindow.ViewModel.ProviderRepository.FirstOrDefault(z => z.ProviderInvariantName == provider_invariant_name);
 
-            if (provider_info == null)
+            if (providerHelper == null)
                 throw new ArgumentOutOfRangeException("provider_invariant_name", $"Provider {provider_invariant_name} not found in repository.");
 
-            if( provider_info.Factory == null)
+            if( providerHelper.Factory == null)
                 throw new Exception($"Provider DLLs for {provider_invariant_name} are not installed.");
 
-            return new AdoConnector(provider_info.Factory, connection_string);
+            return new AdoConnector(providerHelper.Factory, connection_string);
         }
 
     }

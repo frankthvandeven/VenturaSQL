@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 namespace VenturaSQLStudio.ProviderHelpers
 {
     [ProviderInvariantName("System.Data.SqlClient")]
-    class Provider_System_Data_SqlClient : ProviderHelperBase
+    public class Provider_System_Data_SqlClient : ProviderHelper
     {
 
-        Provider_System_Data_SqlClient()
+        public Provider_System_Data_SqlClient()
         {
-            ProviderInvariantName = ""; // Attribute.GetCustomAttribute(this.GetType()).;
             Name = "SqlClient Data Provider";
             Description = ".Net Framework Data Provider for SqlServer.";
             Company = "Microsoft";

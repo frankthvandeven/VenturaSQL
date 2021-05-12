@@ -32,12 +32,12 @@
                                 <StackPanel Grid.Column="1">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16"/>
-                                        <TextBlock Margin="5,0,0,0" FontStyle="Italic" FontSize="16" Visibility="{Binding CompanyVisible}" VerticalAlignment="Center">by <Run Text="{Binding Company}"/></TextBlock>
+                                        <TextBlock Margin="5,0,0,0" FontStyle="Italic" FontSize="16" Visibility="{Binding CompanyVisible}" VerticalAlignment="Center">by <Run Text="{Binding Company, Mode=OneWay}"/></TextBlock>
                                     </StackPanel>
                                     <TextBlock Text="{Binding Description}" FontSize="13"/>
                                     <TextBlock Visibility="{Binding LinkVisible}" FontSize="14" TextWrapping="Wrap">
-                                    <Hyperlink NavigateUri="{Binding Link}" RequestNavigate="Hyperlink_RequestNavigate">
-                                        <Run Text="{Binding Link}" />    
+                                    <Hyperlink NavigateUri="{Binding Link, Mode=OneWay}" RequestNavigate="Hyperlink_RequestNavigate">
+                                        <Run Text="{Binding Link, Mode=OneWay}" />    
                                     </Hyperlink>
                                     </TextBlock>
                                 </StackPanel>

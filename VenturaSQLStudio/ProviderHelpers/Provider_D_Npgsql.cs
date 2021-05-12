@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 namespace VenturaSQLStudio.ProviderHelpers
 {
     [ProviderInvariantName("Npgsql")]
-    class Provider_Npgsql : ProviderHelperBase
+    public class Provider_Npgsql : ProviderHelper
     {
 
-        Provider_Npgsql()
+        public Provider_Npgsql()
         {
-            ProviderInvariantName = ""; // Attribute.GetCustomAttribute(this.GetType()).;
             Name = "PostgreSQL Data Provider for .NET";
             Description = ".Net Framework Data Provider for PostgreSQL.";
             Company = "Npgsql Development Team";

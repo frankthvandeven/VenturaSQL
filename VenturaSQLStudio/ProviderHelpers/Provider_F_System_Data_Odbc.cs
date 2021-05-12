@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 namespace VenturaSQLStudio.ProviderHelpers
 {
     [ProviderInvariantName("System.Data.Odbc")]
-    class Provider_System_Data_Odbc : ProviderHelperBase
+    public class Provider_System_Data_Odbc : ProviderHelper
     {
 
-        Provider_System_Data_Odbc()
+        public Provider_System_Data_Odbc()
         {
-            ProviderInvariantName = ""; // Attribute.GetCustomAttribute(this.GetType()).;
             Name = "Odbc Data Provider";
             Description = ".Net Framework Data Provider for Odbc.";
             Company = "Microsoft";

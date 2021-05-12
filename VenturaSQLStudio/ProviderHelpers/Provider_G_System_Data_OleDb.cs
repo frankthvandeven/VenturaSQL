@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 namespace VenturaSQLStudio.ProviderHelpers
 {
     [ProviderInvariantName("System.Data.OleDb")]
-    class Provider_System_Data_OleDb : ProviderHelperBase
+    public class Provider_System_Data_OleDb : ProviderHelper
     {
 
-        Provider_System_Data_OleDb()
+        public Provider_System_Data_OleDb()
         {
-            ProviderInvariantName = ""; // Attribute.GetCustomAttribute(this.GetType()).;
             Name = "OleDb Data Provider";
             Description = ".Net Framework Data Provider for OleDb.";
             Company = "Microsoft";

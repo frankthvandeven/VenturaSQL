@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Navigation;
+using VenturaSQLStudio.ProviderHelpers;
 
 namespace VenturaSQLStudio.Pages
 {
@@ -19,7 +20,7 @@ namespace VenturaSQLStudio.Pages
         {
             InitializeComponent();
             
-            lvProviders.ItemsSource = ProviderRepository.List;
+            lvProviders.ItemsSource = MainWindow.ViewModel.ProviderRepository;
             
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvProviders.ItemsSource);
 
@@ -45,14 +46,14 @@ namespace VenturaSQLStudio.Pages
         {
             Project project = MainWindow.ViewModel.CurrentProject;
 
-            ProviderInfo pi = lvProviders.SelectedItem as ProviderInfo;
+            ProviderHelper ph = lvProviders.SelectedItem as ProviderHelper;
 
-            if (pi == null)
+            if (ph == null)
                 return;
 
             DynamicallySwitchProvider dsp = new DynamicallySwitchProvider();
 
-            bool result = dsp.Exec(pi.ProviderInvariantName);
+            bool result = dsp.Exec(ph.ProviderInvariantName);
 
             if (result == false)
                 return;

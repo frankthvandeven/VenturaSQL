@@ -6,22 +6,41 @@ using System.Windows.Media.Imaging;
 
 namespace VenturaSQLStudio.ProviderHelpers
 {
-    public abstract class ProviderHelperBase
+    public abstract class ProviderHelper
     {
-        public string ProviderInvariantName { get; protected set; }
         public string Name { get; protected set; }
         public string Description { get; protected set; }
         public string Company { get; protected set; }
         public string Link { get; protected set; }
         public string FactoryAsString { get; protected set; }
 
+
+
         public DbProviderFactory Factory { get; protected set; }
 
         private ImageSource _product_image;
+        private string _provider_invariant_name;
 
-
-        public ProviderHelperBase()
+        public ProviderHelper()
         {
+            Type t = this.GetType();
+            object[] attributes = t.GetCustomAttributes(false);
+
+            if (attributes.Length != 1)
+                throw new Exception($"Missing ProviderInvariantName attribute on {t.FullName}");
+
+            ProviderInvariantNameAttribute attrib = attributes[0] as ProviderInvariantNameAttribute;
+
+            if (attrib == null)
+                throw new Exception($"ProviderInvariantName should be the only attribute on {t.FullName}");
+
+            _provider_invariant_name = attrib.ProviderInvariantName;
+
+        }
+
+        public string ProviderInvariantName
+        {
+            get { return _provider_invariant_name; }
         }
 
         public Visibility CompanyVisible

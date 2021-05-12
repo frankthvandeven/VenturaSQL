@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace VenturaSQLStudio.ProviderHelpers
 {
     [ProviderInvariantName("System.Data.SQLite")]
-    class Provider_System_Data_SQLite : ProviderHelperBase 
+    public class Provider_System_Data_SQLite : ProviderHelper 
     {
 
-        Provider_System_Data_SQLite()
+        public Provider_System_Data_SQLite()
         {
             Name = "SQLite Data Provider";
             Description = ".NET Framework Data Provider for SQLite.";

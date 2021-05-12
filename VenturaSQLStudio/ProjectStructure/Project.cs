@@ -7,11 +7,13 @@ using System.Linq;
 using System.Windows.Media;
 using System.IO;
 using VenturaSQL;
+using VenturaSQLStudio.ProviderHelpers;
 
 namespace VenturaSQLStudio {
     public class Project : ViewModelBase
     {
         private string _provider_invariant_name;
+        private ProviderHelper _provider_helper;
         private string _connection_string;
 
         private AdvancedSettings _advanced_settings;
@@ -39,6 +41,8 @@ namespace VenturaSQLStudio {
             // Note: Collections should be cleared and not reinstantiated. This is necessary for data binding.           
 
             _provider_invariant_name = "System.Data.SqlClient";
+            _provider_helper = MainWindow.ViewModel.ProviderRepository.FirstOrDefault(z => z.ProviderInvariantName == _provider_invariant_name);
+
             _connection_string = "Server=(local);Initial Catalog=YourDatabaseNameHere;Integrated Security=SSPI;Max Pool Size=250;Connect Timeout=30;";
 
             _modified = false;
@@ -122,6 +126,7 @@ namespace VenturaSQLStudio {
                 _provider_invariant_name = value;
 
                 NotifyPropertyChanged("ProviderInvariantName");
+                NotifyPropertyChanged("ProviderHelper");
                 NotifyPropertyChanged("ProviderInfoImage");
                 NotifyPropertyChanged("ProviderInfoName");
                 NotifyPropertyChanged("ProviderInfoDescription");
@@ -134,6 +139,12 @@ namespace VenturaSQLStudio {
             }
         }
 
+        public ProviderHelper ProviderHelper
+        {
+            get { return _provider_helper; }
+        }
+
+
         #region Extended provider information (readonly)
 
         public ImageSource ProviderInfoImage
@@ -141,12 +152,10 @@ namespace VenturaSQLStudio {
             get
             {
                 // The information comes from the repository, and NOT from the provider DLL.
-                ProviderInfo provider_info = ProviderRepository.List.FirstOrDefault(z => z.ProviderInvariantName == _provider_invariant_name);
-
-                if (provider_info == null)
-                    return ProviderInfo.GetProductImageFromFilename("default_not_installed.png");
+                if (_provider_helper == null)
+                    return ProviderHelper.GetProductImageFromFilename("default_not_installed.png");
                 else
-                    return provider_info.ProductImage;
+                    return _provider_helper.ProductImage;
             }
         }
 
@@ -154,12 +163,10 @@ namespace VenturaSQLStudio {
         {
             get
             {
-                ProviderInfo provider_info = ProviderRepository.List.FirstOrDefault(z => z.ProviderInvariantName == _provider_invariant_name);
-
-                if (provider_info == null)
+                if (_provider_helper == null)
                     return _provider_invariant_name;
                 else
-                    return provider_info.Name;
+                    return _provider_helper.Name;
             }
         }
 
@@ -167,12 +174,10 @@ namespace VenturaSQLStudio {
         {
             get
             {
-                ProviderInfo provider_info = ProviderRepository.List.FirstOrDefault(z => z.ProviderInvariantName == _provider_invariant_name);
-
-                if (provider_info == null)
+                if (_provider_helper == null)
                     return "The provider is not installed or registered.";
                 else
-                    return provider_info.Description;
+                    return _provider_helper.Description;
             }
         }
 
@@ -204,10 +209,8 @@ namespace VenturaSQLStudio {
 
                 sb.Append("var connector = new AdoConnector(");
 
-                var provider_info = ProviderRepository.List.FirstOrDefault(z => z.ProviderInvariantName == _provider_invariant_name);
-
-                if (provider_info != null && !string.IsNullOrEmpty(provider_info.FactoryAsString))
-                    sb.Append(provider_info.FactoryAsString);
+                if (_provider_helper != null && !string.IsNullOrEmpty(_provider_helper.FactoryAsString))
+                    sb.Append(_provider_helper.FactoryAsString);
                 else
                     sb.Append('?');
 
