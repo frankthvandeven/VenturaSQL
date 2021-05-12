@@ -1,0 +1,69 @@
+﻿
+
+            list.Add(new ProviderInfo("System.Data.OracleClient")
+            {
+                Name = "OracleClient Data Provider",
+                Description = ".Net Framework Data Provider for Oracle.",
+                Company = "Microsoft",
+                ProductImage = ProviderInfo.GetProductImageFromFilename("oracle.png")
+
+            });
+
+            list.Add(new ProviderInfo("IBM.Data.DB2.dll")
+            {
+                Name = "IBM DB2 Data Provider for .NET",
+                Description = ".Net Framework Data Provider for DB2.",
+                Company = "IBM Corporation",
+                ProductImage = ProviderInfo.GetProductImageFromFilename("db2.png"),
+                Link = "https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.1.0/com.ibm.swg.im.dbclient.adonet.doc/doc/c0010960.html"
+
+            });
+
+            list.Add(new ProviderInfo("MariaDB546426") // This provider will never be found. As intended.
+            {
+                Name = "MariaDB uses the 'MySQL Data Provider'",
+                Description = "Install the 'MySQL Data Provider' for connecting to MariaDB.",
+                ProductImage = ProviderInfo.GetProductImageFromFilename("mariadb.png"),
+                Link = "https://mariadb.com/kb/en/library/adonet/"
+
+            });
+
+            list.Add(new ProviderInfo("Devart.Data.SQLite")
+            {
+                Name = "dotConnect for SQLite",
+                Description = "Devart dotConnect for SQLite.",
+                Company = "Devart",
+                ProductImage = ProviderInfo.GetProductImageFromFilename("sqlite.png"),
+                Link = "https://www.devart.com/dotconnect/sqlite/download.html"
+
+            });
+
+            list.Add(new ProviderInfo("System.Data.CData.Exchange")
+            {
+                Name = "CData ADO.NET Provider for Exchange",
+                Description = "CData ADO.NET Provider for Exchange.",
+                Company = "CData Software",
+                ProductImage = ProviderInfo.GetProductImageFromFilename("exchange.png"),
+                Link = "https://www.cdata.com/ado/"
+
+            });
+
+            list.Add(new ProviderInfo("System.Data.CData.Facebook")
+            {
+                Name = "CData ADO.NET Provider for Facebook",
+                Description = "CData ADO.NET Provider for Facebook.",
+                Company = "CData Software",
+                ProductImage = ProviderInfo.GetProductImageFromFilename("facebook.png"),
+                Link = "https://www.cdata.com/ado/"
+
+            });
+
+            list.Add(new ProviderInfo("System.Data.CData.Twitter")
+            {
+                Name = "CData ADO.NET Provider for Twitter",
+                Description = "CData ADO.NET Provider for Twitter.",
+                Company = "CData Software",
+                ProductImage = ProviderInfo.GetProductImageFromFilename("twitter.png"),
+                Link = "https://www.cdata.com/ado/"
+
+            });

@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using VenturaSQLStudio.ProviderHelpers;
 
 namespace VenturaSQLStudio
 {
@@ -30,6 +33,9 @@ namespace VenturaSQLStudio
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private List<ProviderHelperBase> _providerHelpers = new List<ProviderHelperBase>();
+        
+
         public MainViewModel()
         {
             _tabs = new ObservableCollection<Tab>();
@@ -38,6 +44,26 @@ namespace VenturaSQLStudio
             _most_recently_used_list = new MostRecentlyUsedList(30);
 
             _default_projects_folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "VenturaSQLProjects"); // SpecialFolder.UserProfile or MyDocuments
+
+
+            // Build the list of providerhelpers
+
+            IEnumerable<Type> types = from type in Assembly.GetExecutingAssembly().GetTypes()
+                                      where type.IsDefined(typeof(ProviderInvariantNameAttribute), false)
+                                      select type;
+
+            foreach(var type in types)
+            {
+                _providerHelpers.Add((ProviderHelperBase)Activator.CreateInstance(type));
+            }
+
+
+
+        }
+
+        public List<ProviderHelperBase> ProviderHelpers
+        {
+            get { return _providerHelpers; }
         }
 
         public ObservableCollection<Tab> Tabs
