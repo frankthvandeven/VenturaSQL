@@ -103,7 +103,7 @@
                                 , the
                                 <local:DocLink PageName="client_api">Client API (NetStandard)</local:DocLink>
                                 and the
-                                <local:DocLink PageName="server_api">Server API (AspNet/AspNetCore)</local:DocLink>
+                                <local:DocLink PageName="server_api">Server API (AspNetCore)</local:DocLink>
                                 online.
                             </local:GettingStartedControl>
                         </StackPanel>

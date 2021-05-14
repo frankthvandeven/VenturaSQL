@@ -141,7 +141,7 @@
                     </TextBlock>
                 </StackPanel>
                 <TextBlock Margin="0,12,0,2">
-                    Select the tables to<Run FontWeight="Bold">exclude</Run>
+                    Select the tables to <Run FontWeight="Bold">exclude</Run>
                     from recordset creation:</TextBlock>
             </StackPanel>
 

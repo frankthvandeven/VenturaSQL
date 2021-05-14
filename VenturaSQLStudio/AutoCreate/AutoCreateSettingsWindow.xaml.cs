@@ -4,6 +4,9 @@ using System.Windows.Input;
 using System.IO;
 using System.Collections.ObjectModel;
 using VenturaSQLStudio.Ado;
+using VenturaSQLStudio.Progress;
+using System.Windows.Threading;
+using System;
 
 namespace VenturaSQLStudio.Pages
 {
@@ -27,17 +30,30 @@ namespace VenturaSQLStudio.Pages
             this.MinWidth = 800;
             this.MinHeight = 600;
 
-            this.Loaded += AutoCreateWindow_Loaded;
+            this.ContentRendered += Window_ContentRendered;
         }
 
-        private void AutoCreateWindow_Loaded(object sender, RoutedEventArgs e)
+        private void Window_ContentRendered(object sender, EventArgs e)
         {
+            this.ContentRendered -= Window_ContentRendered;
+
             ViewModel.Enabled = _project.AutoCreateSettings.Enabled;
             ViewModel.Folder = _project.AutoCreateSettings.Folder;
             ViewModel.CreateGetAll = _project.AutoCreateSettings.CreateGetAll;
             ViewModel.CreateIncremental = _project.AutoCreateSettings.CreateIncremental;
 
-            ViewModel.List.CollectListOfTables(_project); // The data binding to lvTables is not there. Why?
+            ProgressDialogResult result = ProgressDialog.Execute(this, "Retrieving List of Tables...", (bw, we) =>
+            {
+                ViewModel.List.CollectListOfTables(_project);
+                //Application.Current.Dispatcher.Invoke(() => ViewModel.List.CollectListOfTables(_project));
+            });
+
+            if (result.Error != null)
+            {
+                MessageBox.Show("Connecting to database and retrieving list of all tables failed.\n\n" + result.Error.Message, "VenturaSQL Studio", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
+                return;
+            }
 
             lvTables.ItemsSource = ViewModel.List; // This fixes the binding problem.
 

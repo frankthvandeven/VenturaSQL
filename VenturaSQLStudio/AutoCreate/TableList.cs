@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
-using System.IO;
 using System.Linq;
 using System.Text;
 using VenturaSQL;
@@ -19,7 +18,7 @@ namespace VenturaSQLStudio
         {
             AdoConnector connector = AdoConnectorHelper.Create(project.ProviderInvariantName, project.MacroConnectionString);
 
-            DataTable data_table;
+            DataTable data_table = null;
 
             using (DbConnection connection = connector.OpenConnection())
             {
@@ -86,7 +85,7 @@ namespace VenturaSQLStudio
 
 
             // Set the Selected (excluded) property.
-            foreach(TableName excluded in project.AutoCreateSettings.ExcludedTablenames)
+            foreach (TableName excluded in project.AutoCreateSettings.ExcludedTablenames)
             {
                 TableListItem found = this.FirstOrDefault(a => a.PreliminaryTableName == excluded);
 

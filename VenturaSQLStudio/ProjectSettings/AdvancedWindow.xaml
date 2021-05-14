@@ -129,7 +129,7 @@
                             FontSize="14"
                             Foreground="#FF0173C7"
                             TextWrapping="Wrap">
-                            SELECT * FROM<Run FontWeight="Bold" Text="{Binding ViewModel.SampleFullyQualifiedTableName, Mode=OneWay}" />
+                            SELECT * FROM <Run FontWeight="Bold" Text="{Binding ViewModel.SampleFullyQualifiedTableName, Mode=OneWay}" />
                         </TextBlock>
 
                     </StackPanel>

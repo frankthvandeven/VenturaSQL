@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using VenturaSQLStudio.Progress;
 using VenturaSQL;
+using System;
 
 namespace VenturaSQLStudio.Pages
 {
@@ -66,7 +67,7 @@ namespace VenturaSQLStudio.Pages
                 MarkButtonAsSelected(btnTableList);
             }
 
-            this.Loaded += Window_Loaded;
+            this.ContentRendered += Window_ContentRendered;
             this.Closed += AdvancedWindow_Closed;
         }
 
@@ -75,17 +76,20 @@ namespace VenturaSQLStudio.Pages
             _advanced_settings_modified = true;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Window_ContentRendered(object sender, System.EventArgs e)
         {
-            ProgressDialogResult result = ProgressDialog.Execute(Application.Current.MainWindow, "Retrieving List of Tables...", (bw, we) =>
+            this.ContentRendered -= Window_ContentRendered; // just in case the event repeats
+
+            ProgressDialogResult result = ProgressDialog.Execute(this, "Retrieving List of Tables...", (bw, we) =>
             {
-                Application.Current.Dispatcher.Invoke(() => CollectListOfTables());
+                CollectListOfTables();
             });
 
             if (result.Error != null)
             {
                 MessageBox.Show("Connecting to database and retrieving list of all tables failed.\n\n" + result.Error.Message, "VenturaSQL Studio", MessageBoxButton.OK, MessageBoxImage.Error);
                 this.Close();
+                return;
             }
 
         }
@@ -160,31 +164,38 @@ namespace VenturaSQLStudio.Pages
                 data_table = connection.GetSchemaExtension("Tables");
             }
 
-            using (MemoryStream ms = new MemoryStream())
+            //using (MemoryStream ms = new MemoryStream())
+            //{
+            //    data_table.WriteXml(ms);
+            //    //ms.Position = 0;
+            //    string readable = Encoding.ASCII.GetString(ms.ToArray());
+            //}
+
+            Action action = () =>
             {
-                data_table.WriteXml(ms);
-                //ms.Position = 0;
-                string readable = Encoding.ASCII.GetString(ms.ToArray());
-            }
 
-            lvTables.ItemsSource = data_table.DefaultView;
+                lvTables.ItemsSource = data_table.DefaultView;
 
-            _column_list.Clear();
+                _column_list.Clear();
 
-            ListItem li = new ListItem();
-            li.Display = "(map automatically)";
-            li.Data = "";
-            _column_list.Add(li);
-
-            for (int i = 0; i < data_table.Columns.Count; i++)
-            {
-                li = new ListItem();
-                li.Display = data_table.Columns[i].ColumnName;
-                li.Data = data_table.Columns[i].ColumnName;
+                ListItem li = new ListItem();
+                li.Display = "(map automatically)";
+                li.Data = "";
                 _column_list.Add(li);
-            }
 
-            NotifyPropertyChanged("ColumnList");
+                for (int i = 0; i < data_table.Columns.Count; i++)
+                {
+                    li = new ListItem();
+                    li.Display = data_table.Columns[i].ColumnName;
+                    li.Data = data_table.Columns[i].ColumnName;
+                    _column_list.Add(li);
+                }
+
+                NotifyPropertyChanged("ColumnList");
+            };
+
+            Application.Current.Dispatcher.Invoke(action);
+
         }
 
         private void lvTables_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
