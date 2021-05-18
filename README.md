@@ -42,14 +42,13 @@ A single static Web API controller with a POST method needs to be added to the A
     {
         [Route("api/venturasql")]
         [HttpPost]
-        public async Task<IActionResult> Index(byte[] requestData)
+        public Task Index(byte[] requestData)
         {
             var processor = new VenturaSqlServerEngine();
             processor.CallBacks.LookupAdoConnector = LookupAdoConnector;
-            await processor.ExecAsync(requestData);
+            processor.Exec(requestData);
             Response.ContentType = "application/octet-stream";
-            await Response.Body.WriteAsync(processor.ResponseBuffer, 0, processor.ResponseLength);
-            return Ok();
+            return Response.Body.WriteAsync(processor.ResponseBuffer, 0, processor.ResponseLength);
         }
 
         private AdoConnector LookupAdoConnector(string requestedName)
