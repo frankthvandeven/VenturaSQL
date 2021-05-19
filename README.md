@@ -45,9 +45,9 @@ A single static Web API controller with a POST method needs to be added to the A
         public Task Index(byte[] requestData)
         {
             var processor = new VenturaSqlServerEngine();
+            processor.RequestData = requestData;
             processor.CallBacks.LookupAdoConnector = LookupAdoConnector;
-            processor.Exec(requestData);
-            Response.ContentType = "application/octet-stream";
+            processor.Exec();
             return Response.Body.WriteAsync(processor.ResponseBuffer, 0, processor.ResponseLength);
         }
 
