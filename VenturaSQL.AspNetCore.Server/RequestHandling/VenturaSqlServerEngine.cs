@@ -1,12 +1,16 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace VenturaSQL.AspNetCore.Server.RequestHandling
 {
     public class VenturaSqlServerEngine
     {
         public FrameReaderCallbacks CallBacks { get; } = new FrameReaderCallbacks();
+
+        /// <summary>
+        /// The request data.
+        /// </summary>
+        public byte[] RequestData { get; set; } = null;
 
         /// <summary>
         /// The buffer is likely larger than the actual length of the response data.
@@ -38,10 +42,10 @@ namespace VenturaSQL.AspNetCore.Server.RequestHandling
         {
         }
 
-        public Task ExecAsync(byte[] requestData)
+        public void Exec()
         {
-            if (requestData is null)
-                throw new ArgumentNullException("requestData");
+            if (this.RequestData is null)
+                throw new InvalidOperationException("RequestData is null");
 
             ResponseLength = 0;
             ResponseBuffer = null;
@@ -57,7 +61,7 @@ namespace VenturaSQL.AspNetCore.Server.RequestHandling
             {
                 var frameReader = new ServerFrameReader(CallBacks, frameWriter);
 
-                frameReader.Exec(requestData);
+                frameReader.Exec(this.RequestData);
 
             }
             catch (Exception ex)
@@ -77,7 +81,6 @@ namespace VenturaSQL.AspNetCore.Server.RequestHandling
             ResponseBuffer = responseMemoryStream.GetBuffer();
             ResponseLength = (int)responseMemoryStream.Length;
 
-            return Task.CompletedTask;
         }
     }
 }
