@@ -241,9 +241,14 @@ namespace VenturaSQLStudio
                 context_menu = new ContextMenu();
 
                 menu_item = new MenuItem();
-                menu_item.Header = "This tab remains open.";
-                menu_item.IsEnabled = false;
+                menu_item.Header = "Close All But This";
+                menu_item.Click += delegate { CloseAllButThis(new_tab); };
                 context_menu.Items.Add(menu_item);
+
+                //menu_item = new MenuItem();
+                //menu_item.Header = "This tab remains open.";
+                //menu_item.IsEnabled = false;
+                //context_menu.Items.Add(menu_item);
             }
 
             new_tab.ContextMenu = context_menu;

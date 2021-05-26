@@ -17,41 +17,29 @@ namespace VenturaSQLStudio.Ado
         #region Static methods (class factory)
         internal static QueryInfo CreateInstance(RecordsetItem recordsetitem)
         {
+            Project project = MainWindow.ViewModel.CurrentProject;
+            AdoConnector connector = AdoConnectorHelper.Create(project.ProviderInvariantName, project.MacroConnectionString);
+
             char parameter_prefix = MainWindow.ViewModel.CurrentProject.ParameterPrefix;
 
             string sql_script = recordsetitem.SqlScript;
-            List<QueryInfoParameter> parameters = new List<QueryInfoParameter>();
 
-            // Start with the system parameters parameters.
+            List<DbParameter> parameters = new List<DbParameter>();
 
-            QueryInfoParameter qip = new QueryInfoParameter();
-            qip.Name = parameter_prefix + "DesignMode";
-            qip.Value = true;
-            parameters.Add(qip);
+            // Start with the automatic parameters.
 
-            qip = new QueryInfoParameter();
-            qip.Name = parameter_prefix + "RowOffset";
-            qip.Value = 0;
-            parameters.Add(qip);
+            DbParameter db_parameter = connector.CreateParameter(connector.ParameterPrefix + "DesignMode", true);
+            parameters.Add(db_parameter);
 
-            qip = new QueryInfoParameter();
-            qip.Name = parameter_prefix + "RowLimit";
-            qip.Value = 500;
-            parameters.Add(qip);
+            db_parameter = connector.CreateParameter(connector.ParameterPrefix + "RowOffset", 0);
+            parameters.Add(db_parameter);
+
+            db_parameter = connector.CreateParameter(connector.ParameterPrefix + "RowLimit", 500);
+            parameters.Add(db_parameter);
 
             foreach (ParameterItem recordset_parameter in recordsetitem.Parameters)
             {
-                qip = new QueryInfoParameter();
-                qip.Name = recordset_parameter.Name;
-
-                string designvalue = recordset_parameter.DesignValue.Trim();
-
-                if (designvalue == "" || designvalue == "null")
-                    qip.Value = DBNull.Value;
-                else
-                    qip.Value = recordset_parameter.DesignValue;
-
-                parameters.Add(qip);
+                parameters.Add(recordset_parameter.CreateDesignValueDbParameter(connector));
             }
 
             return CreateInstance(sql_script, parameters);
@@ -60,23 +48,19 @@ namespace VenturaSQLStudio.Ado
         /// <summary>
         /// Create and execute.
         /// </summary>
-        public static QueryInfo CreateInstance(string sql_script, List<QueryInfoParameter> parameters = null)
+        public static QueryInfo CreateInstance(string sql_script, List<DbParameter> parameters = null)
         {
-            Project project = MainWindow.ViewModel.CurrentProject;
-
-            AdoConnector connector = AdoConnectorHelper.Create(project.ProviderInvariantName, project.MacroConnectionString);
-
-            QueryInfo q = new QueryInfo(connector, sql_script, parameters);
+            QueryInfo q = new QueryInfo(sql_script, parameters);
 
             q.ExecuteSqlScriptAndCollectData();
-
+            
             return q;
         }
         #endregion
 
         private AdoConnector _ado_connector;
         private string _sql_script;
-        private List<QueryInfoParameter> _parameters;
+        private List<DbParameter> _parameters;
         private List<ResultSetInfo> _resultsets;
 
         /// <summary>
@@ -85,12 +69,11 @@ namespace VenturaSQLStudio.Ado
         /// b) Use the Parameterlist of the RecordsetItem to set SqlParameters so the SQL script can be run without
         /// ADO.NET reporting missing parameters.
         /// </summary>
-        private QueryInfo(AdoConnector ado_connector, string sql_script, List<QueryInfoParameter> parameters)
+        private QueryInfo(string sql_script, List<DbParameter> parameters)
         {
-            if (ado_connector == null)
-                throw new ArgumentNullException("ado_connector");
+            Project project = MainWindow.ViewModel.CurrentProject;
 
-            _ado_connector = ado_connector;
+            _ado_connector = AdoConnectorHelper.Create(project.ProviderInvariantName, project.MacroConnectionString);
             _sql_script = sql_script;
             _parameters = parameters;
 
@@ -133,10 +116,9 @@ namespace VenturaSQLStudio.Ado
 
                 if (_parameters != null)
                 {
-                    foreach (QueryInfoParameter parameter_item in _parameters)
+                    foreach (var db_parameter in _parameters)
                     {
-                        DbParameter parameter = _ado_connector.CreateParameter(parameter_item.Name, parameter_item.Value);
-                        command.Parameters.Add(parameter);
+                        command.Parameters.Add(db_parameter);
                     }
                 }
 
@@ -273,10 +255,10 @@ namespace VenturaSQLStudio.Ado
 
     } // end of class
 
-    public class QueryInfoParameter
-    {
-        public string Name { get; set; }
-        public object Value { get; set; }
-    }
+    //public class QueryInfoParameter
+    //{
+    //    public string Name { get; set; }
+    //    public object Value { get; set; }
+    //}
 
 } // end of namespace

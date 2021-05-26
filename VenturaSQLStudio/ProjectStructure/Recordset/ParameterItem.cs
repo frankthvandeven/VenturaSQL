@@ -209,14 +209,17 @@ namespace VenturaSQLStudio
         public DbParameter CreateDesignValueDbParameter(AdoConnector connector)
         {
             DbParameter db_parameter = connector.CreateParameter(_name);
-
             Type type = TypeTools.GetType(_fulltypename);
-
             string dv = _designvalue.Trim();
 
-            //db_parameter.DbType = TypeTools.StringToEnum<DbType>(_dbtype_string);
-
             /*
+             *   Setup the DbParameter.
+             * 
+             *   Did not set db_parameter.Direction. I assume it is always direction input by default.
+             */
+
+            db_parameter.DbType = TypeTools.StringToEnum<DbType>(_dbtype_string);
+
             if (_set_length == true)
                 db_parameter.Size = _length;
 
@@ -225,7 +228,10 @@ namespace VenturaSQLStudio
 
             if (_set_scale == true)
                 db_parameter.Scale = _scale;
-            */
+
+            /*
+             *   Set the Value by parsing the DesignValue string
+             */
 
             if (dv == "" || dv == "null")
             {
@@ -234,7 +240,14 @@ namespace VenturaSQLStudio
             }
 
             if (type == typeof(Boolean))
-                db_parameter.Value = Boolean.Parse(dv);  // Convert.ChangeType(_designvalue, type);
+            {
+                if (dv == "1")
+                    db_parameter.Value = (bool)true;
+                else if (dv == "0")
+                    db_parameter.Value = (bool)false;
+                else
+                    db_parameter.Value = Boolean.Parse(dv);  // Convert.ChangeType(_designvalue, type);
+            }
             else if (type == typeof(Byte))
                 db_parameter.Value = Byte.Parse(dv);
             else if (type == typeof(DateTime))
@@ -264,7 +277,7 @@ namespace VenturaSQLStudio
             else if (type == typeof(DateTimeOffset))
                 db_parameter.Value = DateTimeOffset.Parse(dv);
             else
-                throw new InvalidOperationException($"VenturaSqlSchema doesn't know how to binarize {type.FullName} yet. Please contact support.");
+                throw new InvalidOperationException($"CreateDesignValueDbParameter doesn't know how to convert string to {type.FullName}. Please contact support.");
 
             return db_parameter;
         }
