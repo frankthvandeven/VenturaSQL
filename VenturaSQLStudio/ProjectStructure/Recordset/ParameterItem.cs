@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Data;
+using System.Data.Common;
 using System.Text;
 using VenturaSQL;
 
-namespace VenturaSQLStudio {
+namespace VenturaSQLStudio
+{
     public class ParameterItem : ViewModelBase
     {
         private string _name = "";
@@ -202,6 +204,69 @@ namespace VenturaSQLStudio {
 
                 _owningproject?.SetModified();
             }
+        }
+
+        public DbParameter CreateDesignValueDbParameter(AdoConnector connector)
+        {
+            DbParameter db_parameter = connector.CreateParameter(_name);
+
+            Type type = TypeTools.GetType(_fulltypename);
+
+            string dv = _designvalue.Trim();
+
+            //db_parameter.DbType = TypeTools.StringToEnum<DbType>(_dbtype_string);
+
+            /*
+            if (_set_length == true)
+                db_parameter.Size = _length;
+
+            if (_set_precision == true)
+                db_parameter.Precision = _precision;
+
+            if (_set_scale == true)
+                db_parameter.Scale = _scale;
+            */
+
+            if (dv == "" || dv == "null")
+            {
+                db_parameter.Value = DBNull.Value;
+                return db_parameter;
+            }
+
+            if (type == typeof(Boolean))
+                db_parameter.Value = Boolean.Parse(dv);  // Convert.ChangeType(_designvalue, type);
+            else if (type == typeof(Byte))
+                db_parameter.Value = Byte.Parse(dv);
+            else if (type == typeof(DateTime))
+                db_parameter.Value = DateTime.Parse(dv);
+            else if (type == typeof(Decimal))
+                db_parameter.Value = Decimal.Parse(dv);
+            else if (type == typeof(Single))
+                db_parameter.Value = Single.Parse(dv);
+            else if (type == typeof(Double))
+                db_parameter.Value = Double.Parse(dv);
+            else if (type == typeof(Int16))
+                db_parameter.Value = Int16.Parse(dv);
+            else if (type == typeof(Int32))
+                db_parameter.Value = Int32.Parse(dv);
+            else if (type == typeof(Int64))
+                db_parameter.Value = Int64.Parse(dv);
+            else if (type == typeof(String))
+                db_parameter.Value = dv;
+            else if (type == typeof(Guid))
+                db_parameter.Value = Guid.Parse(dv);
+            else if (type == typeof(byte[]))
+                db_parameter.Value = DBNull.Value;
+            else if (type == typeof(Object))
+                db_parameter.Value = DBNull.Value;
+            else if (type == typeof(TimeSpan))
+                db_parameter.Value = TimeSpan.Parse(dv);
+            else if (type == typeof(DateTimeOffset))
+                db_parameter.Value = DateTimeOffset.Parse(dv);
+            else
+                throw new InvalidOperationException($"VenturaSqlSchema doesn't know how to binarize {type.FullName} yet. Please contact support.");
+
+            return db_parameter;
         }
 
         public bool SetDbType

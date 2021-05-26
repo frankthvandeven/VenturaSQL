@@ -1,14 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace VenturaSQLStudio.Helpers
 {
     public static class StringTools
     {
+        static readonly IDictionary<string, string> m_replaceDict = new Dictionary<string, string>();
+
+        const string ms_regexEscapes = @"[\a\b\f\n\r\t\v\\""]";
+
+        static StringTools()
+        {
+            m_replaceDict.Add("\a", @"\a");
+            m_replaceDict.Add("\b", @"\b");
+            m_replaceDict.Add("\f", @"\f");
+            m_replaceDict.Add("\n", @"\n");
+            m_replaceDict.Add("\r", @"\r");
+            m_replaceDict.Add("\t", @"\t");
+            m_replaceDict.Add("\v", @"\v");
+
+            m_replaceDict.Add("\\", @"\\");
+            m_replaceDict.Add("\0", @"\0");
+
+            //The parser gets fooled by the verbatim version of the string to replace - @"\"""
+            m_replaceDict.Add("\"", "\\\"");
+        }
+
         // Word wrappers:
         // https://stackoverflow.com/questions/3961278/word-wrap-a-string-in-multiple-lines
 
@@ -89,7 +108,26 @@ namespace VenturaSQLStudio.Helpers
             return text.Trim();
         }
 
+        public static string EscapedCSharpStringLiteral(string input)
+        {
+            return Regex.Replace(input, ms_regexEscapes, match);
+        }
 
+        //public static string CharLiteral(char c)
+        //{
+        //    return c == '\'' ? @"'\''" : string.Format("'{0}'", c);
+        //}
+
+        private static string match(Match m)
+        {
+            string match = m.ToString();
+            if (m_replaceDict.ContainsKey(match))
+            {
+                return m_replaceDict[match];
+            }
+
+            throw new NotSupportedException();
+        }
 
     }
 }

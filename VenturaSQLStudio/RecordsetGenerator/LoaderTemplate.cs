@@ -5,9 +5,10 @@ using System.Security.Cryptography;
 using System.Text;
 using VenturaSQL;
 using VenturaSQLStudio.Ado;
-using VenturaSQLStudio.Helpers; 
+using VenturaSQLStudio.Helpers;
 
-namespace VenturaSQLStudio {
+namespace VenturaSQLStudio
+{
     internal class LoaderTemplate
     {
         private const string CRLF = "\r\n";
@@ -228,10 +229,16 @@ namespace VenturaSQLStudio {
                 {
                     string line = lines[x];
 
+                    // ORIGINAL STYLE. Changed to escaped characters on 20 May 2021 for PostgreSQL
+                    //if (x == 0)
+                    //    sb.Append(TAB + TAB + TAB + "_sqlscript = @\"" + line + "\"");
+                    //else
+                    //    sb.Append(TAB + TAB + TAB + "             @\"" + line + "\"");
+
                     if (x == 0)
-                        sb.Append(TAB + TAB + TAB + "_sqlscript = @\"" + line + "\"");
+                        sb.Append(TAB + TAB + TAB + "_sqlscript = \"" + StringTools.EscapedCSharpStringLiteral(line) + "\"");
                     else
-                        sb.Append(TAB + TAB + TAB + "             @\"" + line + "\"");
+                        sb.Append(TAB + TAB + TAB + "             \"" + StringTools.EscapedCSharpStringLiteral(line) + "\"");
 
                     if (x < (lines.Count - 1))
                         sb.Append(" + CRLF +" + CRLF);

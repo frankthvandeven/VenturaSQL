@@ -129,19 +129,8 @@ namespace VenturaSQLStudio.Pages
 
             foreach (ParameterItem parameter_item in _parameters)
             {
-                string designvalue = parameter_item.DesignValue.Trim();
-                if (designvalue == "" || designvalue == "null")
-                {
-                    parameter = connector.CreateParameter(parameter_item.Name, DBNull.Value);
-                    command.Parameters.Add(parameter);
-                }
-                else
-                {
-                    parameter = connector.CreateParameter(parameter_item.Name, parameter_item.DesignValue);
-                    command.Parameters.Add(parameter);
-                }
+                parameter = parameter_item.CreateDesignValueDbParameter(connector);
             }
-
 
             CommandBehavior behavior = CommandBehavior.KeyInfo; // We need both the schema and datarows, so omit the 'CommandBehavior.SchemaOnly' flag!
 

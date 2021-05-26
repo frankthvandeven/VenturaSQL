@@ -107,6 +107,17 @@ namespace VenturaSQLStudio.Ado
             }
         }
 
+        public string CSharpTableName
+        {
+            get
+            {
+                return ScriptTableName.Replace("\"", "\\\"");
+            }
+        }
+
+
+
+
         public static bool operator ==(TableName left, TableName right)
         {
             return EqualHelper(left, right);

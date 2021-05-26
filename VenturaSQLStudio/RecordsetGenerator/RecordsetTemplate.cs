@@ -223,7 +223,7 @@ namespace VenturaSQLStudio {
             // End: Schema definition
 
             if (_resultsetItem.UpdateableTableName != null)
-                sb.Append(PRE + TAB + TAB + TAB + $"((IResultsetBase)this).UpdateableTablename = \"{_resultsetItem.UpdateableTableName.ScriptTableName}\";" + CRLF);
+                sb.Append(PRE + TAB + TAB + TAB + $"((IResultsetBase)this).UpdateableTablename = \"{_resultsetItem.UpdateableTableName.CSharpTableName}\";" + CRLF);
 
             sb.Append(PRE + TAB + TAB + "}" + CRLF + CRLF); // end of constructor
 

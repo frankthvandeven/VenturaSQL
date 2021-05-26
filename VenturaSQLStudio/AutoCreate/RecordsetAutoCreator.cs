@@ -40,7 +40,7 @@ namespace VenturaSQLStudio.AutoCreate
 
             CalcGrouping();
 
-            List<AutoCreateRecordset> recordsets = new List<AutoCreateRecordset>(); 
+            List<AutoCreateRecordset> recordsets = new List<AutoCreateRecordset>();
 
             _connector = AdoConnectorHelper.Create(_project.ProviderInvariantName, _project.MacroConnectionString);
 
@@ -132,7 +132,7 @@ namespace VenturaSQLStudio.AutoCreate
 
                 sb.Append(column);
 
-                if (i < last_one) 
+                if (i < last_one)
                     sb.Append(",");
 
                 linewidth += column.Length;
@@ -232,7 +232,7 @@ namespace VenturaSQLStudio.AutoCreate
             {
                 // Append nothing here.
             }
-            else if (piv == "Microsoft.Data.Sqlite" || piv == "System.Data.SQLite")
+            else if (piv == "Microsoft.Data.Sqlite" || piv == "System.Data.SQLite" || piv == "Npgsql")
             {
                 sb.Append($" LIMIT {pref}RowLimit");
             }
@@ -312,11 +312,11 @@ namespace VenturaSQLStudio.AutoCreate
             string piv = MainWindow.ViewModel.CurrentProject.ProviderInvariantName;
             char pref = MainWindow.ViewModel.CurrentProject.ParameterPrefix;
 
-            if ( piv == "System.Data.SqlClient" )
+            if (piv == "System.Data.SqlClient")
             {
                 sb.Append($"OFFSET {pref}RowOffset ROWS FETCH NEXT {pref}RowLimit ROWS ONLY");
             }
-            else if(piv == "Microsoft.Data.Sqlite" || piv == "System.Data.SQLite")
+            else if (piv == "Microsoft.Data.Sqlite" || piv == "System.Data.SQLite" || piv == "Npgsql")
             {
                 sb.Append($"LIMIT {pref}RowLimit OFFSET {pref}RowOffset");
             }
