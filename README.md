@@ -1,11 +1,11 @@
 # VenturaSQL
 The 3-tier SQL framework for C# projects.
 
-VenturaSQL is an integrated system that uses web API with binary data transfer to get database data to any client running C# code. Recordsetsets with modification tracking and a client API provide a **rich data-access experience**.
+VenturaSQL is an integrated system that uses web API with binary data transfer to get database data to any client running C# code. Recordsets with modification tracking and a client API provide a **rich data-access experience**.
 
 The VenturaSQL system is highly recommended for rapidly building **rich browser-based apps** with **Blazor WebAssembly**.
 
-As a programmer, I want to focus on the business process, and not programming technicalities. I developed VenturaSQL to help me with that focus, data access simplified to the core.
+As a programmer, I want to focus on the business process, and not programming technicalities. I originally developed VenturaSQL to help me with that focus.
 
 - Easy to set up.
 - Really, really fast.
@@ -86,8 +86,6 @@ rs.CountryCodeID = "us";
 rs.Name = "United States";
 rs.SaveChanges();
 ```
-The Transactional static class bundles operations for multiple recordsets into a single database transaction.
-
 Multiple recordsets can be bundled into a single HTTP round-trip and database transaction (commit and rollback) with the Transactional class.
 
 ```csharp
@@ -108,15 +106,16 @@ The easiest way to get started with VenturaSQL is to run the installer, create a
 
 ## Resources
 + Online documentation: https://docs.sysdev.nl
-+ Add VenturaSQL to existing client and server projects: https://docs.sysdev.nl/add-to-existing.html
++ How to add VenturaSQL to existing projects: https://docs.sysdev.nl/add-to-existing.html
 + Frank's blog: https://sysdev.nl
 + VenturaSQL home page: https://sysdev.nl/info-venturasql/
 + Download the latest version: https://dotnet.sysdev.nl/venturasql
 
 ## Advanced Features
-+ In desktop apps, a recordset can also connect to a database directly.
++ In desktop apps, a recordset can also connect to a database server directly.
 + A recordset can hold multiple resultsets.
 + Updating multiple tables using multiple recordsets can easily be bundled into a single database transaction (for rollback) using the Transactional.SaveChanges() method.
++ SQL input and output parameters.
 + Calculated columns.
 + Column properties (optionally) generate the data binding events INotifyPropertyChanged and INotifyCollectionChanged.
-+ VenturaSQL Studio has a code snippet generator, for example for filling viewmodels.
++ VenturaSQL Studio has a code snippet generator, for example for creating viewmodels.
