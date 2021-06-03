@@ -5,7 +5,7 @@ VenturaSQL is an integrated system that uses web API with binary data transfer t
 
 The VenturaSQL system is highly recommended for rapidly building **rich browser-based apps** with **Blazor WebAssembly**.
 
-As a programmer, I want to focus on the business process, and not programming technicalities. I developed VenturaSQL to help me with that focus.
+As a programmer, I want to focus on the business process, and not programming technicalities. I developed VenturaSQL to help me with that focus, data access simplified to the core.
 
 - Easy to set up.
 - Really, really fast.
