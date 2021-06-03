@@ -9,6 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VenturaSQL.NETStandard", "V
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3DDA93E2-343C-496D-A50D-44B1907A5BC4}"
 	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
 		VenturaSQLReadMe.txt = VenturaSQLReadMe.txt
 	EndProjectSection
 EndProject
