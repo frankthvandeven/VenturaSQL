@@ -165,9 +165,17 @@ namespace VenturaSQLStudio.AutoCreate
 
                 AutoCreateKeyColumn ps = key_columns[i];
 
-                sb.Append(_connector.QuotePrefix);
-                sb.Append(ps.ColumnName);
-                sb.Append(_connector.QuoteSuffix);
+                if (ps.ColumnName.Contains(' '))
+                {
+                    sb.Append(_connector.QuotePrefix);
+                    sb.Append(ps.ColumnName);
+                    sb.Append(_connector.QuoteSuffix);
+                }
+                else
+                {
+                    sb.Append(ps.ColumnName);
+                }
+
                 sb.Append(" = ");
                 sb.Append(_connector.ParameterPrefix);
                 sb.Append(ps.ColumnName);
@@ -302,9 +310,17 @@ namespace VenturaSQLStudio.AutoCreate
                     sb.Append(",");
 
                 AutoCreateKeyColumn ps = key_columns[i];
-                sb.Append(_connector.QuotePrefix);
-                sb.Append(ps.ColumnName);
-                sb.Append(_connector.QuoteSuffix);
+
+                if (ps.ColumnName.Contains(' '))
+                {
+                    sb.Append(_connector.QuotePrefix);
+                    sb.Append(ps.ColumnName);
+                    sb.Append(_connector.QuoteSuffix);
+                }
+                else
+                {
+                    sb.Append(ps.ColumnName);
+                }
             }
 
             sb.Append(CRLF);
@@ -409,7 +425,14 @@ namespace VenturaSQLStudio.AutoCreate
             {
                 SchemaRowInfo row_info = new SchemaRowInfo(rows[i]);
 
-                list.Add(_connector.QuotePrefix + row_info.BaseColumnName + _connector.QuoteSuffix);
+                if (row_info.BaseColumnName.Contains(' '))
+                {
+                    list.Add(_connector.QuotePrefix + row_info.BaseColumnName + _connector.QuoteSuffix);
+                }
+                else
+                {
+                    list.Add(row_info.BaseColumnName);
+                }
             }
 
             return list;

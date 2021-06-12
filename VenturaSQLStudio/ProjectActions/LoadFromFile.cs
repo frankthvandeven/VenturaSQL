@@ -220,37 +220,25 @@ namespace VenturaSQLStudio.ProjectActions
 
             foreach (XmlNode paramNode in parametersNode)
             {
-                if (_writer_version < Version.Parse("2.5.0.0"))
-                {
-                    // Quite a complicated conversion SqlDbtype is replaced by DbType
-                    ParameterItem parameteritem = convert_Old_SqlDbStyle_Parameter(project, paramNode);
+                ParameterItem parameteritem = new ParameterItem(project);
+                parameteritem.Name = paramNode.Attributes["name"].Value;
+                parameteritem.DbTypeString = paramNode.Attributes["dbtypestring"].Value;
+                parameteritem.FullTypename = paramNode.Attributes["fulltypename"].Value;
+                parameteritem.Input = paramNode.Attributes["input"].Value == "yes";
+                parameteritem.Output = paramNode.Attributes["output"].Value == "yes";
+                parameteritem.DesignValue = paramNode.Attributes["designvalue"].Value;
 
-                    if (parameteritem != null)
-                        definitionitem.Parameters.Add(parameteritem);
-                }
-                else
-                {
-                    // regular parameter loading
-                    ParameterItem parameteritem = new ParameterItem(project);
-                    parameteritem.Name = paramNode.Attributes["name"].Value;
-                    parameteritem.DbTypeString = paramNode.Attributes["dbtypestring"].Value;
-                    parameteritem.FullTypename = paramNode.Attributes["fulltypename"].Value;
-                    parameteritem.Input = paramNode.Attributes["input"].Value == "yes";
-                    parameteritem.Output = paramNode.Attributes["output"].Value == "yes";
-                    parameteritem.DesignValue = paramNode.Attributes["designvalue"].Value;
+                // setdbtype was added during 2.5 development.
+                XmlAttribute attr_dbtype = paramNode.Attributes["setdbtype"];
+                parameteritem.SetDbType = attr_dbtype == null ? false : attr_dbtype.Value == "yes";
 
-                    // setdbtype was added during 2.5 development.
-                    XmlAttribute attr_dbtype = paramNode.Attributes["setdbtype"];
-                    parameteritem.SetDbType = attr_dbtype == null ? false : attr_dbtype.Value == "yes";
-
-                    parameteritem.SetLength = paramNode.Attributes["setlength"].Value == "yes";
-                    parameteritem.SetPrecision = paramNode.Attributes["setprecision"].Value == "yes";
-                    parameteritem.SetScale = paramNode.Attributes["setscale"].Value == "yes";
-                    parameteritem.Length = int.Parse(paramNode.Attributes["length"].Value);
-                    parameteritem.Precision = byte.Parse(paramNode.Attributes["precision"].Value);
-                    parameteritem.Scale = byte.Parse(paramNode.Attributes["scale"].Value);
-                    definitionitem.Parameters.Add(parameteritem);
-                }
+                parameteritem.SetLength = paramNode.Attributes["setlength"].Value == "yes";
+                parameteritem.SetPrecision = paramNode.Attributes["setprecision"].Value == "yes";
+                parameteritem.SetScale = paramNode.Attributes["setscale"].Value == "yes";
+                parameteritem.Length = int.Parse(paramNode.Attributes["length"].Value);
+                parameteritem.Precision = byte.Parse(paramNode.Attributes["precision"].Value);
+                parameteritem.Scale = byte.Parse(paramNode.Attributes["scale"].Value);
+                definitionitem.Parameters.Add(parameteritem);
 
             }
 
@@ -273,13 +261,6 @@ namespace VenturaSQLStudio.ProjectActions
                     if (tablenameNode == null)
                     {
                         resultsetitem.UpdateableTableName = null;
-
-                        // Begin: Old style updateable tablename as a string.
-                        XmlAttribute utn_attribute = resultsetNode.Attributes["updateabletablename"];
-
-                        if (utn_attribute != null)
-                            resultsetitem.UpdateableTableName = TableNameStringToObject(utn_attribute.Value);
-                        // End: Old style updateable tablename as a string.
                     }
                     else
                     {
@@ -302,7 +283,7 @@ namespace VenturaSQLStudio.ProjectActions
                 UDCItem udcitem = new UDCItem(project);
                 udcitem.ColumnName = userdefinedcolumnNode.Attributes["name"].Value;
 
-                udcitem.FullTypename = userdefinedcolumnNode.Attributes["fulltypename"].Value; 
+                udcitem.FullTypename = userdefinedcolumnNode.Attributes["fulltypename"].Value;
 
                 definitionitem.UserDefinedColumns.Add(udcitem);
             }
@@ -310,29 +291,6 @@ namespace VenturaSQLStudio.ProjectActions
             project.FolderStructure.AddRecordsetItem(outputfolder, definitionitem);
 
         }
-
-        private TableName TableNameStringToObject(string input)
-        {
-            input = input.Trim();
-
-            if (input.Length == 0)
-                return null;
-
-            string[] arr = input.Split('.');
-
-            for (int i = 0; i < arr.Length; i++)
-            {
-                arr[i] = arr[i].Replace("[", "").Replace("]", "");
-            }
-
-            List<string> list = new List<string>(arr);
-
-            while (list.Count < 4)
-                list.Insert(0, "");
-
-            return new TableName(list[0], list[1], list[2], list[3]);
-        }
-
 
         private string convert_TypeCode_To_FrameworkType(string typecode_string)
         {

@@ -10,7 +10,8 @@ namespace VenturaSQL
     public enum ProviderCodes
     {
         Unspecified = 0,
-        SqlServer = 1
+        SqlServer = 1,
+        Npgsql = 2
     }
 
     public class AdoConnector : Connector
@@ -41,6 +42,8 @@ namespace VenturaSQL
 
             if (_provider_invariant_name == "System.Data.SqlClient")
                 _provider_code = ProviderCodes.SqlServer;
+            else if (_provider_invariant_name == "Npgsql") // PostgreSQL
+                _provider_code = ProviderCodes.Npgsql;
 
             set_prefix_suffix();
         }

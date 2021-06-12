@@ -74,34 +74,62 @@ namespace VenturaSQLStudio.Ado
 
                 if (_base_servername != "" && advanced.IncludeServerName)
                 {
-                    sb.Append(prefix);
-                    sb.Append(_base_servername);
-                    sb.Append(suffix);
+                    if (_base_servername.Contains(' '))
+                    {
+                        sb.Append(prefix);
+                        sb.Append(_base_servername);
+                        sb.Append(suffix);
+                    }
+                    else
+                    {
+                        sb.Append(_base_servername);
+                    }
 
                     sb.Append(".");
                 }
 
                 if (_base_catalogname != "" && advanced.IncludeCatalogName)
                 {
-                    sb.Append(prefix);
-                    sb.Append(_base_catalogname);
-                    sb.Append(suffix);
+                    if (_base_catalogname.Contains(' '))
+                    {
+                        sb.Append(prefix);
+                        sb.Append(_base_catalogname);
+                        sb.Append(suffix);
+                    }
+                    else
+                    {
+                        sb.Append(_base_catalogname);
+                    }
 
                     sb.Append(".");
                 }
 
                 if (_base_schemaname != "" && advanced.IncludeSchemaName)
                 {
-                    sb.Append(prefix);
-                    sb.Append(_base_schemaname);
-                    sb.Append(suffix);
+                    if (_base_schemaname.Contains(' '))
+                    {
+                        sb.Append(prefix);
+                        sb.Append(_base_schemaname);
+                        sb.Append(suffix);
+                    }
+                    else
+                    {
+                        sb.Append(_base_schemaname);
+                    }
 
                     sb.Append(".");
                 }
 
-                sb.Append(prefix);
-                sb.Append(_base_tablename);
-                sb.Append(suffix);
+                if (_base_tablename.Contains(' '))
+                {
+                    sb.Append(prefix);
+                    sb.Append(_base_tablename);
+                    sb.Append(suffix);
+                }
+                else
+                {
+                    sb.Append(_base_tablename);
+                }
 
                 return sb.ToString();
             }

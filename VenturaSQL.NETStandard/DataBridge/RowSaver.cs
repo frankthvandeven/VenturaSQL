@@ -22,6 +22,10 @@ namespace VenturaSQL
 
         private char _parameter_prefix;
 
+        private string _quotePrefix;
+        private string _quoteSuffix;
+
+
         public RowSaver(AdoConnector connector, DbConnection sqlconnection, DbTransaction transaction, VenturaSqlSchema schema, string updateableTablename)
         {
             _connector = connector;
@@ -30,6 +34,10 @@ namespace VenturaSQL
             _schema = schema;
 
             _parameter_prefix = _connector.ParameterPrefix;
+            _quotePrefix = _connector.QuotePrefix;
+            _quoteSuffix = _connector.QuoteSuffix;
+
+            //_connector.QuotePrefix
 
             _updateableTablename = updateableTablename;
 
@@ -70,9 +78,9 @@ namespace VenturaSQL
                 if (x > 0)
                     _statement.Append(",");
 
-                _statement.Append("[");
+                _statement.Append(_quotePrefix);
                 _statement.Append(_schema[ordinal].BaseColumnName);
-                _statement.Append("]");
+                _statement.Append(_quoteSuffix);
                 _statement.Append($"={_parameter_prefix}L{x}");
 
                 object value = trackarray.DataValues[x];
@@ -94,9 +102,9 @@ namespace VenturaSQL
                 if (x > 0)
                     _statement.Append(" AND ");
 
-                _statement.Append("[");
+                _statement.Append(_quotePrefix);
                 _statement.Append(_schema[ordinal].BaseColumnName);
-                _statement.Append("]");
+                _statement.Append(_quoteSuffix);
                 _statement.Append($"={_parameter_prefix}R{x}");
 
                 object value = trackarray.PrikeyValues[x];
@@ -128,9 +136,9 @@ namespace VenturaSQL
                 if (x > 0)
                     _statement.Append(",");
 
-                _statement.Append("[");
+                _statement.Append(_quotePrefix);
                 _statement.Append(_schema[ordinal].BaseColumnName);
-                _statement.Append("]");
+                _statement.Append(_quoteSuffix);
             }
 
             _statement.Append(") VALUES (");
@@ -154,12 +162,13 @@ namespace VenturaSQL
 
             _statement.Append(")");
 
-            if ( _connector.ProviderCode == ProviderCodes.Unspecified || _schema.IdentityColumn == null) // No identity column.
+
+            if (_connector.ProviderCode == ProviderCodes.Unspecified || _schema.IdentityColumn == null) // No identity column.
             {
                 command.CommandText = _statement.ToString();
                 command.ExecuteNonQuery();
             }
-            else
+            else if (_connector.ProviderCode == ProviderCodes.SqlServer)
             {
                 // Currently only Sql Server is supported for sending identity column values back to the server.
 
@@ -179,6 +188,23 @@ namespace VenturaSQL
                     _identity_value = null;
 
                 _has_identity_value = true;
+            }
+            else if (_connector.ProviderCode == ProviderCodes.Npgsql)
+            {
+                _statement.Append(" RETURNING \"{_schema.IdentityColumn.BaseColumnName}\"");
+
+                command.CommandText = _statement.ToString();
+
+                _identity_value = command.ExecuteScalar();
+
+                if (_identity_value == DBNull.Value)
+                    _identity_value = null;
+
+                _has_identity_value = true;
+            }
+            else
+            {
+                throw new InvalidOperationException("Don't know how to INSERT. Should never happen");
             }
 
             //System.Windows.Forms.MessageBox.Show(statement.ToString());
@@ -206,9 +232,9 @@ namespace VenturaSQL
                 if (x > 0)
                     _statement.Append(" AND ");
 
-                _statement.Append("[");
+                _statement.Append(_quotePrefix);
                 _statement.Append(_schema[ordinal].BaseColumnName);
-                _statement.Append("]");
+                _statement.Append(_quoteSuffix);
                 _statement.Append($"={_parameter_prefix}R{x}");
 
                 object value = trackarray.PrikeyValues[x];
