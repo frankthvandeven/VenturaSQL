@@ -27,9 +27,5 @@
     <None Include="Util\BuilderExtensions.cs" />
     <None Include="Util\ServiceExtensions.cs" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\VenturaSQL.NETStandard\VenturaSQL.NETStandard.csproj" />
-  </ItemGroup>
 
 </Project>

@@ -191,7 +191,7 @@ namespace VenturaSQL
             }
             else if (_connector.ProviderCode == ProviderCodes.Npgsql)
             {
-                _statement.Append(" RETURNING \"{_schema.IdentityColumn.BaseColumnName}\"");
+                _statement.Append($" RETURNING \"{_schema.IdentityColumn.BaseColumnName}\"");
 
                 command.CommandText = _statement.ToString();
 

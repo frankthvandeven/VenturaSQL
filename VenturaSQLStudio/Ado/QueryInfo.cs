@@ -53,7 +53,7 @@ namespace VenturaSQLStudio.Ado
             QueryInfo q = new QueryInfo(sql_script, parameters);
 
             q.ExecuteSqlScriptAndCollectData();
-            
+
             return q;
         }
         #endregion
@@ -125,10 +125,13 @@ namespace VenturaSQLStudio.Ado
                 try
                 {
                     if (command is Microsoft.Data.Sqlite.SqliteCommand)
+                    {
                         datareader = command.ExecuteReader();
+                    }
                     else
+                    {
                         datareader = command.ExecuteReader(CommandBehavior.KeyInfo | CommandBehavior.SchemaOnly);
-
+                    }
 
                 }
                 catch (Exception ex)
@@ -170,8 +173,13 @@ namespace VenturaSQLStudio.Ado
 
         }
 
+
+        private bool _found_npgsql_indentity_column;
+
         private void FixSqlScriptSchema(DataTable script_schema)
         {
+            _found_npgsql_indentity_column = false;
+
             // Find the column in the sql-script schema
             foreach (DataRow script_schema_row in script_schema.Rows)
             {
@@ -227,6 +235,19 @@ namespace VenturaSQLStudio.Ado
                 if (script_schema_row.ColumnExists("BaseServerName") == true)
                     script_schema_row.SetField("BaseServerName", DBNull.Value);
 
+            }
+
+            // Npgsql
+            if (_ado_connector.ProviderInvariantName == "Npgsql" && _found_npgsql_indentity_column == false)
+            {
+                // An IsIdentity column in SQL Server is a single autoincrement column. There is only one per table.
+                // Npgsql does not know the concept of a single identity column. Postgres even allows multiple AutoIncrement columns.
+                // We mark the first column we find with both Iskey and IsAutoIncrement to true as IsIdentity.
+                if (script_schema_row.RowValue<bool>("IsKey") == true && script_schema_row.RowValue<bool>("IsAutoIncrement") == true)
+                {
+                    script_schema_row.SetField("IsIdentity", true);
+                    _found_npgsql_indentity_column = true;
+                }
             }
 
         }

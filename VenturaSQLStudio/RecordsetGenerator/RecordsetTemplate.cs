@@ -361,6 +361,15 @@ namespace VenturaSQLStudio {
             for (int i = 0; i < schema.Count; i++)
             {
                 VenturaSqlColumn column = schema[i];
+                if (column.IsNullable == false)
+                {
+                    sb.Append(PRE + TAB + TAB + TAB + $"if (columnvalues[{i}] == null) throw new InvalidOperationException(string.Format(VenturaSqlStrings.UNEXPECTED_NULL, \"{column.ColumnName}\"));" + CRLF);
+                }
+            }
+
+            for (int i = 0; i < schema.Count; i++)
+            {
+                VenturaSqlColumn column = schema[i];
                 sb.Append(PRE + TAB + TAB + TAB + $"{column.PrivateVariableName_Current()} = ({column.ShortTypeNameForColumnProperty()})columnvalues[{i}];" + CRLF);
             }
 

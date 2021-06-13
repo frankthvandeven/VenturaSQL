@@ -236,17 +236,41 @@ namespace VenturaSQLStudio.AutoCreate
             sb.Append("FROM ");
             sb.Append(tablename.ScriptTableName);
 
+            sb.Append(CRLF);
+            sb.Append("ORDER BY ");
+
+            for (int i = 0; i < key_columns.Count; i++)
+            {
+                if (i > 0)
+                    sb.Append(",");
+
+                AutoCreateKeyColumn ps = key_columns[i];
+
+                if (ps.ColumnName.Contains(' '))
+                {
+                    sb.Append(_connector.QuotePrefix);
+                    sb.Append(ps.ColumnName);
+                    sb.Append(_connector.QuoteSuffix);
+                }
+                else
+                {
+                    sb.Append(ps.ColumnName);
+                }
+            }
+
+            sb.Append(CRLF);
+
             if (piv == "System.Data.SqlClient")
             {
                 // Append nothing here.
             }
             else if (piv == "Microsoft.Data.Sqlite" || piv == "System.Data.SQLite" || piv == "Npgsql")
             {
-                sb.Append($" LIMIT {pref}RowLimit");
+                sb.Append($"LIMIT {pref}RowLimit");
             }
             else
             {
-                sb.Append($" LIMIT {pref}RowLimit");
+                sb.Append($"LIMIT {pref}RowLimit");
                 sb.Append(CRLF);
                 sb.Append(CRLF);
                 sb.Append($"-- VenturaSQL doesn't know the syntax for limiting the number of rows for provider '{piv}' and used the default LIMIT syntax.");

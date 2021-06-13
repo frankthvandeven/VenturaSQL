@@ -16,5 +16,7 @@ namespace VenturaSQL
 
         public static readonly string UNKNOWN_COLUMN_NAME = "Unknown column name {0}";
 
+        public static readonly string UNEXPECTED_NULL = "When generating the recordset source code, the data provider reported that column {0} does not allow nulls (AllowDBNull). But at runtime the provider did return a null as the column value. Run the recordset's query in VenturaSQL Studio and find out why {0} is null.";
+
     }
 }

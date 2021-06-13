@@ -26,6 +26,7 @@ namespace VenturaSQL
             for (short i = 0; i < _list.Length; i++)
                 _list[i].ColumnOrdinal = i;
 
+
             // Set the indentity column info.
             for (short i = 0; i < _list.Length; i++)
             {
