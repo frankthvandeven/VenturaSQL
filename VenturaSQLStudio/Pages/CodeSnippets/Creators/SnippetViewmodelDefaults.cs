@@ -23,15 +23,13 @@ namespace VenturaSQLStudio.Pages
 
             foreach (var column in this.Selected_UDC_Columns)
             {
-                Type type = Type.GetType(column.FullTypename);
-
                 sb.AppendLine($"{ViewmodelVariable}.{column.PropertyName} = null;");
             }
 
             return sb.ToString();
         }
 
-        public string DefaultCode(Type column_type, bool isnullable)
+        public static string DefaultCode(Type column_type, bool isnullable)
         {
             if (isnullable == true)
                 return "null;";
