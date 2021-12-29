@@ -3,7 +3,7 @@ The 3-tier SQL framework for C# projects.
 
 VenturaSQL is an integrated system that uses web API with binary data transfer to get database data to any client running C# code. Recordsets with modification tracking and a client API provide a **rich data-access experience**.
 
-The VenturaSQL system is highly recommended for rapidly building **rich browser-based apps** with **Blazor WebAssembly**.
+The VenturaSQL system is highly recommended for rapidly building **rich browser-based apps** with **Blazor WebAssembly** and stand-alone Windows/Android/ios apps with **Blazor Desktop and/or .NET MAUI**
 
 As a programmer, I want to focus on the business process, and not programming technicalities. I originally developed VenturaSQL to help me with that focus.
 
