@@ -141,51 +141,25 @@ namespace VenturaSQL
 
         private static void IterateAllAssemblies()
         {
-#if SKIP_FOREVER
-
-            // List of Assemblies to exclude from deep scanning
-            Dictionary<string, CompareMode> dictionary = new Dictionary<string, CompareMode>();
-            dictionary.Add("mscorlib.dll", CompareMode.Exact);
-            dictionary.Add("System.dll", CompareMode.Exact);
-            dictionary.Add("System.", CompareMode.BeginsWith);
-            dictionary.Add("Microsoft.", CompareMode.BeginsWith);
-#endif
 
             Assembly[] all_assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
             foreach (Assembly assembly in all_assemblies)
             {
-#if SKIP_FOREVER
-                string modulename = assembly.ManifestModule.Name; // a filename like System.dll
-
-                bool doScan = true;
-
-                foreach (KeyValuePair<string, CompareMode> pair in dictionary)
-                {
-                    if (pair.Value == CompareMode.Exact && modulename == pair.Key)
-                    {
-                        doScan = false;
-                        break;
-                    }
-                    else if (pair.Value == CompareMode.BeginsWith && modulename.StartsWith(pair.Key))
-                    {
-                        doScan = false;
-                        break;
-                    }
-                }
-
-                if (doScan == true)
-#endif
-
                 ScanInsideAssembly(assembly);
-
                 _stats_assemblies_scanned++;
             }
         }
 
         private static void ScanInsideAssembly(Assembly assembly)
         {
-            // Get the types..
+
+            // Skip this assembly due to "SqlGuidCaster" problem
+            if (assembly.ManifestModule.Name == "Microsoft.Data.SqlClient.dll")
+            {
+                return;
+            }
+
             Type[] types = assembly.GetTypes();
 
             // Determine which classes implement Ventura.IRecordsetBase
